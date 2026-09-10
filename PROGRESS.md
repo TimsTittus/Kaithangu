@@ -1,5 +1,95 @@
 # PROGRESS
 
+## Phase 3 — packages/core domain logic (2026-09-10)
+
+Status: **done locally**. Acceptance Gate passed on this machine (CI not run, per
+the user; nothing committed).
+
+### Built
+
+- `packages/core/src` (pure TS, no DB/network/framework imports; each module has
+  a header comment pointing to its AGENTS.md section):
+  - `money.ts`: branded `Paise` (safe integer), `addPaise`/`subPaise` (BigInt,
+    overflow-checked), `percentToBasisPoints` (exact; accepts `5.25` or Postgres
+    `"5.25"`), `mulPct` (half-up, BigInt), `formatINR(paise, locale)` via
+    `Intl.NumberFormat` `<locale>-IN`, fed an exact decimal string.
+  - `phone.ts`: `normalizeIndianPhone` (Indian mobiles only → `+91…`, else
+    `AppError('INVALID_PHONE')`), `maskPhone`.
+  - `errors.ts`: `AppError(code, httpStatus?, messageKey?, details?)`; status and
+    `error.<CODE>` key default per code. `context.ts`: `RequestContext`,
+    `systemContext(reason)`.
+  - `authz.ts`: typed `Action` union (22 actions), `POLICY` matrix, `can`,
+    `assertCan` (→ `FORBIDDEN`). Fail closed on missing scope ids.
+  - `pricing.ts`: `quote()` exactly per 6.2; `breakdownKeys` = i18n keys of the
+    lines that apply. `matching/score.ts`: `scoreCandidate`, `rankCandidates`,
+    `fairnessBoost` exactly per 6.3, with breakdown + "why" key/params.
+  - `fairness.ts`: `median`, `gini` (exact integer maths), `zeroJobShare`.
+  - `booking/stateMachine.ts`: 6.5 table, `assertTransition`, `allowedNext`,
+    `canTransition`. `otp.ts`: `generateOtp` (`crypto.randomInt`), `hashOtp`
+    (HMAC-SHA-256 keyed with the pepper), `verifyOtp` (constant time).
+  - `ledger.ts`: `buildEntriesForUpi`/`buildEntriesForCash`, `canonicalJson`,
+    `computeHash`, `sealEntries`, `verifyChain` → `{ ok, brokenAtId? }`.
+  - `geo.ts`: added `haversineKm(a, b)`; existing functions unchanged.
+- Tests: 403 in core (Vitest + fast-check): hand-computed pricing tables and
+  properties (sum = total, parts ≥ 0, emergency ≥ normal, monotonic in minutes),
+  score edges and tie-breaks, gini properties, full 11×11 state matrix, 100-entry
+  ledger chains with per-field tamper detection, full role × action authz matrix
+  (in-scope, out-of-scope, missing-scope), and an i18n check that every key core
+  emits exists in all four locales with its placeholders.
+- `packages/core/vitest.config.ts`: coverage threshold `lines: 90`
+  (currently 100 % lines, 98.2 % branches).
+- i18n: `error.*`, `pricing.*`, `matching.why.*` in en/ml/hi/ta.
+- `packages/db`: `bun run db:seed` now upserts reference data (states, trades,
+  state_config, state_trade_rates) from `data/seed/*_rates.yaml` in one
+  transaction (`src/scripts/seed.ts`, rows built in `src/seed/stateRows.ts`);
+  `-- --dry-run` prints the exact SQL without connecting. `loadPricingInputs()`
+  query and `createDb` exported from `@kaithangu/db`. Seeded into the Supabase DB
+  with the user's approval.
+- `scripts/sim/quote-example.ts` (`bun run sim:quote-example`): loads KL plumber
+  rates from the DB and prints normal vs emergency breakdowns
+  (50 min → ₹165.00 / ₹206.26 with the placeholder rates).
+
+### Decisions
+
+1. Cash ledger path is literal 6.7: credit worker wage + one `cash_offset` debit
+   for welfare + fee + gst; welfare/platform accounts are not credited at cash
+   time. Zero-amount entries are omitted (DB requires `amount_paise > 0`).
+2. Ledger hash input uses the DB column names (`id, account, booking_id,
+   amount_paise, direction, kind, created_at, prev_hash`) so stored rows can be
+   re-verified. Writers must assign `id` (nextval) and `created_at` (ms
+   precision ISO string) before hashing, under the `ledger_head` lock.
+3. Emergency surcharge is computed on the pre-surcharge wage; welfare/fee on the
+   surcharged wage. Returned `wage` includes `surcharge`.
+4. Authz matrix as approved in the Phase 3 plan; system actor may do anything.
+5. Self-transitions (e.g. offered → offered) are illegal; sequential re-offers
+   keep status `offered` without a transition.
+6. `mulPct`/`gini` reject negative inputs (half-up is undefined for negatives).
+7. "Why" key = the factor with the largest weighted contribution
+   (`matching.why.proximity|skill|rating|fairness`); ties in that order.
+8. Scores compare exactly (no rounding) before the tie-breaks.
+9. `money.ts` names are `addPaise`/`subPaise` (spec said add/sub) to avoid
+   generic exports from the package root.
+10. New dependency: `fast-check` (allowed list), core dev only. Workspace deps
+    added: core → i18n; scripts → core, db, zod.
+
+### TODO_VERIFY
+
+- All seeded `state_config` and `state_trade_rates` values for KL and TN (22
+  rows, `is_placeholder = true`), as listed by `bun run db:seed`.
+- ml/hi/ta translations of the new `error.*`, `pricing.*`, `matching.why.*`
+  messages need review by native speakers.
+
+### Known gaps
+
+- `loadPricingInputs` and the live seed transaction have no automated DB test
+  (exercised by the gate run only); the seed SQL is unit-tested via `toSQL()`.
+- `db:seed` seeds reference data only; demo societies/workers and `db:reset`
+  are still not wired (README "Demo data (not yet seeded)" still applies).
+- `index.ts` exports `node:crypto` users (otp, ledger, context); importing
+  `@kaithangu/core` from a client component will need subpath exports.
+- `README.md` and `.claude/settings.local.json` fail `prettier --check`
+  (pre-existing, not touched in this phase).
+
 ## Phase 1 — Monorepo scaffold, tooling, local infra, CI (2026-09-10)
 
 Status: **done locally**. Acceptance Gate passed on this machine; the GitHub

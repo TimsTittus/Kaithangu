@@ -1,3 +1,9 @@
+/**
+ * Spherical geometry helpers (AGENTS.md 5). Authoritative distances for matching
+ * are computed in PostGIS (ST_DWithin / ST_Distance on geography); these helpers
+ * are for display, sanity checks and generating fictional demo locations.
+ */
+
 /** A WGS84 coordinate in degrees (PostGIS order: x = lng, y = lat). */
 export interface LngLat {
   lng: number;
@@ -81,4 +87,9 @@ export function randomPointWithin(origin: LngLat, radiusM: number, random: () =>
   const distance = radiusM * Math.sqrt(random());
   const bearing = 360 * random();
   return destinationPoint(origin, bearing, distance);
+}
+
+/** Great-circle distance in kilometres (display and sanity checks only). */
+export function haversineKm(a: LngLat, b: LngLat): number {
+  return haversineDistanceM(a, b) / 1000;
 }

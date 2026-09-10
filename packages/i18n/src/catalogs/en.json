@@ -27,5 +27,32 @@
     "thiruvonam": "Thiruvonam",
     "chingam_wedding_season": "Chingam Wedding Season",
     "christmas": "Christmas"
+  },
+  "error": {
+    "VALIDATION_FAILED": "Some details are missing or incorrect. Please check and try again.",
+    "UNAUTHENTICATED": "Please sign in to continue.",
+    "FORBIDDEN": "You do not have permission to do this.",
+    "NOT_FOUND": "We could not find what you were looking for.",
+    "CONFLICT": "This was changed by someone else. Please refresh and try again.",
+    "INVALID_PHONE": "Please enter a valid 10-digit mobile number.",
+    "INVALID_TRANSITION": "This booking cannot be moved to that step now.",
+    "OTP_INVALID": "That code is not correct. Please try again.",
+    "OTP_LOCKED": "Too many wrong codes. Your society has been informed and will help you.",
+    "INTERNAL": "Something went wrong. Please try again later."
+  },
+  "pricing": {
+    "wage": "Worker's wage",
+    "emergency_surcharge": "Emergency charge (goes to the worker)",
+    "welfare": "Worker welfare contribution",
+    "platform_fee": "Platform fee",
+    "gst": "GST on platform fee"
+  },
+  "matching": {
+    "why": {
+      "proximity": "Nearest available worker ({distanceKm} km away)",
+      "skill": "Skill level {skillLevel} of 3 for this job",
+      "rating": "Well rated by customers ({rating} of 5)",
+      "fairness": "Has had fewer jobs recently, so gets a fair chance"
+    }
   }
 }

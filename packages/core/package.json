@@ -12,11 +12,13 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@kaithangu/i18n": "workspace:*",
     "pino": "^10.3.1",
     "zod": "^4.6.1"
   },
   "devDependencies": {
     "@kaithangu/config": "workspace:*",
-    "eslint": "^9.39.5"
+    "eslint": "^9.39.5",
+    "fast-check": "^4.9.0"
   }
 }

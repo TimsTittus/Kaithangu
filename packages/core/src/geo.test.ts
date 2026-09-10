@@ -3,6 +3,7 @@ import {
   destinationPoint,
   EARTH_MEAN_RADIUS_M,
   haversineDistanceM,
+  haversineKm,
   randomPointWithin,
   type LngLat,
 } from './geo';
@@ -107,5 +108,14 @@ describe('randomPointWithin', () => {
 
   it('rejects a negative radius', () => {
     expect(() => randomPointWithin(MID, -1, lcg(1))).toThrow(RangeError);
+  });
+});
+
+describe('haversineKm', () => {
+  it('is the haversine distance in kilometres', () => {
+    const b = destinationPoint(MID, 45, 12_500);
+    expect(haversineKm(MID, b)).toBeCloseTo(haversineDistanceM(MID, b) / 1000, 12);
+    expect(haversineKm(MID, b)).toBeCloseTo(12.5, 6);
+    expect(haversineKm(EQUATOR, EQUATOR)).toBe(0);
   });
 });

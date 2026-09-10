@@ -6,13 +6,17 @@
   "scripts": {
     "smoke:datastores": "tsx --env-file-if-exists=../.env smoke/datastores.ts",
     "smoke:supabase": "tsx --env-file-if-exists=../.env smoke/supabase.ts",
+    "sim:quote-example": "tsx --env-file-if-exists=../.env sim/quote-example.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@kaithangu/core": "workspace:*",
+    "@kaithangu/db": "workspace:*",
     "amqplib": "^2.0.1",
     "ioredis": "^6.0.0",
-    "postgres": "^3.4.9"
+    "postgres": "^3.4.9",
+    "zod": "^4.6.1"
   },
   "devDependencies": {
     "@kaithangu/config": "workspace:*",
