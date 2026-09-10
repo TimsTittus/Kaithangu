@@ -115,3 +115,5 @@ export const callPurpose = pgEnum('call_purpose', [
 ]);
 
 export const reliefRateMode = pgEnum('relief_rate_mode', ['normal', 'no_surcharge']);
+
+export const notificationChannel = pgEnum('notification_channel', ['app', 'sms', 'ivr']);

@@ -1,5 +1,57 @@
 # PROGRESS
 
+## Phase 6 — Matching & dispatch engine, worker job progression, background worker consumers, LCS admin assignment (2026-09-10)
+
+Status: **built locally**. All 8 test suites pass (`bun run test`), typecheck (`bun run typecheck`), lint (`bun run lint`), and code formatting (`bun run format:check`) are green. Database migration `0003_icy_taskmaster.sql` applied. Core maintains >97% line coverage (>90% threshold).
+
+### Built
+
+- **Dispatch & Matching (`packages/core/src/services/dispatch.ts`)**:
+  - Sequential matching for normal bookings up to 5 candidates with 45-second timeout; parallel matching for emergency bookings to top 3 candidates (first accept wins via atomic Postgres CAS; losers notified as superseded).
+  - Channel selection: smartphone workers receive in-app notification + SMS; non-smartphone workers receive IVR call.
+  - Candidate exhaustion or failure to match transitions booking to `unassigned` and notifies LCS admins via app + SMS.
+  - Job OTP generation on accept: derives 4-digit `startOtp` and `completeOtp`, hashes them with server pepper, updates booking, and delivers OTPs to the customer via SMS.
+  - `manualAssign`: allows LCS/state/national admins to manually assign an unassigned booking to a verified worker.
+- **Worker Job Progression (`packages/core/src/services/workerJobs.ts`)**:
+  - `setAvailable`: worker availability toggle.
+  - `currentOffer`: active offer retrieval.
+  - `activeJob`: currently assigned job (`accepted`, `en_route`, `in_progress`).
+  - `markEnRoute`: advances status from `accepted` to `en_route`.
+  - `startJob`: validates 4-digit start OTP against stored hash, advances to `in_progress`. Atomically increments attempts counter; locks job (`otpLockedAt`) after 5 failed attempts and alerts LCS admin.
+  - `completeJob`: validates 4-digit complete OTP against stored hash, advances to `completed`, records `last_job_completed_at`, and enqueues post-completion tasks.
+  - `earnings`: 30-day earnings summary for worker.
+- **Admin Service (`packages/core/src/services/admin.ts`)**:
+  - `listUnassigned`: lists unassigned bookings scoped to the LCS admin's society.
+  - `candidatesFor`: loads match context and computes candidate rankings with scoring breakdown for manual assignment.
+  - `verifyWorker` / `suspendWorker`: updates worker verification status.
+- **Notification Delivery (`packages/core/src/services/notifyDelivery.ts`)**:
+  - Delivers notifications across App (`notifications` table), SMS (`SmsAdapter`), and Telephony (`TelephonyAdapter`).
+- **Queue Topology (`packages/core/src/queueTopology.ts`)**:
+  - Queue definitions: `match`, `offer-timeout`, `offer-timeout-delay`, `notify`, `notify-retry`, `scheduled-match`.
+  - Configures retry backoffs (5s, 15s) and scheduled match 60-minute lead time.
+- **Database Layer (`packages/db`)**:
+  - Added `notifications` table (`packages/db/src/schema/notifications.ts`) and `notification_channel` enum. Migration `0003_icy_taskmaster.sql`.
+  - Candidate query (`sql/candidates.ts`): PostGIS hard filters (verified, available, trade match, no active booking, distance within service radius, bayesian rating floor, certification check).
+  - Repos: `createDispatchRepo`, `createWorkerJobRepo`, `createAdminRepo`, `createNotificationRepo`, `findDueScheduledBookings`.
+- **Adapters (`packages/adapters`)**:
+  - `telephony`: `createTelephonyAdapter` (mock pushes `[call] ...` to Redis `dev:inbox`, real throws `NotConfiguredError`), with tests.
+  - `sms`: template keys `job_offer`, `job_otps`, `booking_unassigned`, with tests.
+- **Background Worker (`apps/jobs`)**:
+  - Durable RabbitMQ queues with dead-letter delay queues (`offer-timeout-delay` -> `offer-timeout`, `notify-retry` -> `notify`).
+  - Consumers for `match`, `offerTimeout`, `notify`, `scheduledMatch` (scanner for scheduled bookings 60 min ahead), and durable `heartbeat`.
+- **i18n (`packages/i18n`)**:
+  - Added error code `OFFER_UNAVAILABLE`.
+  - Added `sms.job_offer`, `sms.job_otps`, `sms.booking_unassigned`.
+  - Added `notification.job_offer`, `notification.booking_unassigned`, `notification.offer_taken`, `notification.otp_locked`.
+  - Translated across all 4 locales (en, ml, hi, ta) and verified with `i18n:check`.
+
+### Decisions
+
+1. Delays in RabbitMQ use per-message `expiration` with dead-letter target queues rather than RabbitMQ delayed message exchange plugin, keeping infrastructure purely standard.
+2. Scheduled bookings are matched via periodic 60-second database poll scanner rather than dynamic delay queues due to arbitrary scheduling intervals.
+3. Accept is atomic via SQL compare-and-set (`UPDATE bookings SET worker_id = $w, status = 'accepted' WHERE id = $b AND status = 'offered'`).
+4. Job OTPs are derived using HMAC-SHA-256 with server pepper and verified in constant time. Only hashes are stored in the database.
+
 ## Phase 5 — Customer booking experience in apps/web (/app) (2026-09-10)
 
 Status: **built locally**. typecheck, lint, format:check, unit + integration tests and the

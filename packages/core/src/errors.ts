@@ -26,6 +26,7 @@ export const ERROR_CODES = [
   'PRICE_CHANGED',
   'PAYLOAD_TOO_LARGE',
   'UNSUPPORTED_MEDIA',
+  'OFFER_UNAVAILABLE',
   'INTERNAL',
 ] as const;
 
@@ -51,6 +52,7 @@ export const DEFAULT_HTTP_STATUS: Readonly<Record<ErrorCode, number>> = {
   PRICE_CHANGED: 409,
   PAYLOAD_TOO_LARGE: 413,
   UNSUPPORTED_MEDIA: 415,
+  OFFER_UNAVAILABLE: 409,
   INTERNAL: 500,
 };
 

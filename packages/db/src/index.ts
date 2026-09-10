@@ -1,4 +1,5 @@
 export { createDb, type CreateDbOptions, type Database, type SqlClient } from './client';
+export { createAdminRepo } from './queries/admin';
 export { bookingScopeCondition, createBookingRepo } from './queries/bookings';
 export { createBookingPricingRepo } from './queries/bookingPricing';
 export {
@@ -10,10 +11,14 @@ export {
   type CreateCallSessionInput,
 } from './queries/callSessions';
 export { createConsentRepo } from './queries/consents';
+export { createDispatchRepo } from './queries/dispatch';
+export { createNotificationRepo } from './queries/notifications';
 export { createPlaceRepo } from './queries/places';
+export { findDueScheduledBookings, type DueScheduledBooking } from './queries/scheduledMatch';
 export { loadStateDefaultLocale } from './queries/stateConfig';
 export { createUserRepo } from './queries/users';
 export { createWorkerRepo, workerScopeCondition } from './queries/workers';
+export { createWorkerJobRepo } from './queries/workerJobs';
 export {
   loadPricingInputs,
   type PricingInputs,
