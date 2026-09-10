@@ -7,7 +7,12 @@ import { formatMessage, type Locale, type MessageParams } from '@kaithangu/i18n'
 
 export { isNotConfiguredError, NotConfiguredError } from '../notConfigured';
 
-export const SMS_TEMPLATE_KEYS = ['login_otp'] as const;
+export const SMS_TEMPLATE_KEYS = [
+  'login_otp',
+  'job_offer',
+  'job_otps',
+  'booking_unassigned',
+] as const;
 export type SmsTemplateKey = (typeof SMS_TEMPLATE_KEYS)[number];
 
 export interface SmsMessage {

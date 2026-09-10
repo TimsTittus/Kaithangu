@@ -116,6 +116,66 @@ export {
   type WorkerSummary,
 } from './services/workers';
 export {
+  createAdminService,
+  type AdminDeps,
+  type AdminRepo,
+  type AdminService,
+  type UnassignedBookingSummary,
+} from './services/admin';
+export {
+  createDispatchService,
+  MAX_EMERGENCY_OFFERS,
+  MAX_NORMAL_OFFERS,
+  type CreateOfferRecord,
+  type DispatchActor,
+  type DispatchBooking,
+  type DispatchDeps,
+  type DispatchOffer,
+  type DispatchRepo,
+  type DispatchService,
+  type DispatchTransitionInput,
+  type LcsAdminContact,
+  type Notifier,
+  type NotifyInput,
+  type OfferChannel,
+  type OfferResponseValue,
+  type OfferScheduler,
+  type WorkerContact,
+} from './services/dispatch';
+export {
+  createNotifyDeliveryService,
+  type DeliverySmsAdapter,
+  type DeliveryTelephonyAdapter,
+  type NotificationRepo,
+  type NotifyDeliveryDeps,
+  type NotifyDeliveryService,
+} from './services/notifyDelivery';
+export {
+  createWorkerJobService,
+  type PostCompletionQueue,
+  type WorkerAlertNotifier,
+  type WorkerEarningRow,
+  type WorkerJobDeps,
+  type WorkerJobRepo,
+  type WorkerJobService,
+  type WorkerJobRow,
+  type WorkerJobSnapshot,
+  type WorkerJobTransitionInput,
+  type WorkerOfferSnapshot,
+} from './services/workerJobs';
+export {
+  MATCH_QUEUE,
+  NOTIFY_MAX_ATTEMPTS,
+  NOTIFY_QUEUE,
+  NOTIFY_RETRY_DELAYS_MS,
+  NOTIFY_RETRY_QUEUE,
+  OFFER_TIMEOUT_DELAY_QUEUE,
+  OFFER_TIMEOUT_QUEUE,
+  SCHEDULED_MATCH_LEAD_MINUTES,
+  SCHEDULED_MATCH_POLL_MS,
+  SCHEDULED_MATCH_QUEUE,
+} from './queueTopology';
+export {
   MIN_SESSION_SECRET_LENGTH,
   SESSION_COOKIE,
   SESSION_TTL_SECONDS,

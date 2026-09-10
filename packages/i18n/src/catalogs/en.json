@@ -48,7 +48,8 @@
     "NOT_SERVICEABLE": "Sorry, booking is not available for this area or service yet.",
     "PRICE_CHANGED": "The price has changed. Please check the new price and confirm again.",
     "PAYLOAD_TOO_LARGE": "The recording is too long. Please speak for less than 30 seconds.",
-    "UNSUPPORTED_MEDIA": "This recording format is not supported. Please type instead."
+    "UNSUPPORTED_MEDIA": "This recording format is not supported. Please type instead.",
+    "OFFER_UNAVAILABLE": "This offer has expired or has already been accepted."
   },
   "pricing": {
     "wage": "Worker's wage",
@@ -136,7 +137,16 @@
     "empty": "No messages yet."
   },
   "sms": {
-    "login_otp": "{code} is your Kaithangu sign-in code. It is valid for 5 minutes. Do not share it with anyone."
+    "login_otp": "{code} is your Kaithangu sign-in code. It is valid for 5 minutes. Do not share it with anyone.",
+    "job_offer": "New job offer: {trade}. Open the Kaithangu app to accept.",
+    "job_otps": "Your Kaithangu job codes: Start OTP is {startOtp}, Completion OTP is {completeOtp}. Share them with your worker when they arrive and when the work is finished.",
+    "booking_unassigned": "A {trade} booking could not be assigned automatically. Please check the Kaithangu admin portal."
+  },
+  "notification": {
+    "job_offer": "New job offer: {trade}",
+    "booking_unassigned": "Unassigned booking: {trade}",
+    "offer_taken": "The {trade} job was accepted by another worker.",
+    "otp_locked": "OTP attempts exceeded for a {trade} job. Society assistance required."
   },
   "trades": {
     "chips": {

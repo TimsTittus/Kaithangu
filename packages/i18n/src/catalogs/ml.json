@@ -48,7 +48,8 @@
     "NOT_SERVICEABLE": "[ml] Sorry, booking is not available for this area or service yet.",
     "PRICE_CHANGED": "[ml] The price has changed. Please check the new price and confirm again.",
     "PAYLOAD_TOO_LARGE": "[ml] The recording is too long. Please speak for less than 30 seconds.",
-    "UNSUPPORTED_MEDIA": "[ml] This recording format is not supported. Please type instead."
+    "UNSUPPORTED_MEDIA": "[ml] This recording format is not supported. Please type instead.",
+    "OFFER_UNAVAILABLE": "[ml] This offer has expired or has already been accepted."
   },
   "pricing": {
     "wage": "തൊഴിലാളിയുടെ കൂലി",
@@ -136,7 +137,16 @@
     "empty": "ഇതുവരെ സന്ദേശങ്ങളൊന്നുമില്ല."
   },
   "sms": {
-    "login_otp": "{code} ആണ് നിങ്ങളുടെ കൈത്താങ്ങ് സൈൻ-ഇൻ കോഡ്. ഇത് 5 മിനിറ്റ് സാധുവാണ്. ആരുമായും പങ്കിടരുത്."
+    "login_otp": "{code} ആണ് നിങ്ങളുടെ കൈത്താങ്ങ് സൈൻ-ഇൻ കോഡ്. ഇത് 5 മിനിറ്റ് സാധുവാണ്. ആരുമായും പങ്കിടരുത്.",
+    "job_offer": "[ml] New job offer: {trade}. Open the Kaithangu app to accept.",
+    "job_otps": "[ml] Your Kaithangu job codes: Start OTP is {startOtp}, Completion OTP is {completeOtp}. Share them with your worker when they arrive and when the work is finished.",
+    "booking_unassigned": "[ml] A {trade} booking could not be assigned automatically. Please check the Kaithangu admin portal."
+  },
+  "notification": {
+    "job_offer": "[ml] New job offer: {trade}",
+    "booking_unassigned": "[ml] Unassigned booking: {trade}",
+    "offer_taken": "[ml] The {trade} job was accepted by another worker.",
+    "otp_locked": "[ml] OTP attempts exceeded for a {trade} job. Society assistance required."
   },
   "trades": {
     "chips": {

@@ -6,6 +6,7 @@ export * from './users';
 export * from './workers';
 export * from './planning';
 export * from './bookings';
+export * from './notifications';
 export * from './finance';
 export * from './welfare';
 export * from './voice';

@@ -12,6 +12,7 @@ import {
   SMS_TEMPLATE_KEYS,
   type DevInboxRedis,
   type SmsMessage,
+  type SmsTemplateKey,
 } from './index';
 import { SUPPORTED_LOCALES } from '@kaithangu/i18n';
 
@@ -47,13 +48,28 @@ const message: SmsMessage = {
   locale: 'en',
 };
 
+const SAMPLE_PARAMS: Record<SmsTemplateKey, Record<string, string>> = {
+  login_otp: { code: '123456' },
+  job_offer: { trade: 'plumber' },
+  job_otps: { startOtp: '1234', completeOtp: '5678' },
+  booking_unassigned: { trade: 'electrician' },
+};
+
 describe('renderSms', () => {
   it('renders every template in every locale with its parameters', () => {
     for (const templateKey of SMS_TEMPLATE_KEYS) {
+      const params = SAMPLE_PARAMS[templateKey];
       for (const locale of SUPPORTED_LOCALES) {
-        const text = renderSms({ ...message, templateKey, locale });
-        expect(text, `${locale}:${templateKey}`).toContain('123456');
+        const text = renderSms({
+          to: message.to,
+          templateKey,
+          params,
+          locale,
+        });
         expect(text).not.toMatch(/\{\w+\}/);
+        for (const value of Object.values(params)) {
+          expect(text, `${locale}:${templateKey}`).toContain(value);
+        }
       }
     }
   });
