@@ -1,0 +1,136 @@
+# data/seed/kerala_rates.yaml
+# Seeded into states / state_config / state_trade_rates by packages/db/src/seed/rates.ts.
+#
+# TODO_VERIFY: every value below with is_placeholder: true is an OBVIOUS ROUND
+# PLACEHOLDER, not an official rate. Replace it with a verified figure and set
+# is_placeholder: false. Money is integer paise (10000 paise = Rs 100).
+state:
+  code: KL
+  name_key: state.KL
+  active: true
+  pincode_state_name: KERALA # exact `statename` in data/raw/pincodes.csv
+
+state_config:
+  welfare_pct: 5.00 # TODO_VERIFY placeholder
+  platform_fee_pct: 5.00 # TODO_VERIFY placeholder
+  gst_pct_on_platform_fee: 18.00 # TODO_VERIFY placeholder
+  default_locale: ml
+  locales: [ml, en, hi, ta]
+  timezone: Asia/Kolkata
+  is_placeholder: true
+
+# Per-trade pricing inputs (AGENTS.md 6.2). All TODO_VERIFY placeholders: the
+# same round numbers for every trade until verified rates are supplied.
+state_trade_rates:
+  plumber: &placeholder_rate
+    wage_floor_per_hour_paise: 10000 # TODO_VERIFY placeholder (Rs 100/h)
+    min_billable_minutes: 60 # TODO_VERIFY placeholder
+    visit_charge_paise: 5000 # TODO_VERIFY placeholder (Rs 50)
+    emergency_surcharge_pct: 25.00 # TODO_VERIFY placeholder
+    is_placeholder: true
+  electrician: *placeholder_rate
+  carpenter: *placeholder_rate
+  painter: *placeholder_rate
+  domestic_help: *placeholder_rate
+  caregiver: *placeholder_rate
+  driver: *placeholder_rate
+  gardener: *placeholder_rate
+  cleaner: *placeholder_rate
+  technician: *placeholder_rate
+
+# Reference only (not seeded): Kerala minimum-wage notifications supplied by the
+# project team. Amounts are rupees as given; none maps directly to the trades above.
+reference_minimum_wages:
+  shops_and_commercial_establishments:
+    # Basic pay is uniform across districts; DA varies by district (CPI-linked)
+    special_grade:
+      basic_monthly: 9330
+      special_allowance_monthly: 200
+      da_monthly: 'TODO_VERIFY'
+    grade_a:
+      basic_monthly: 9120
+      special_allowance_monthly: 200
+      da_monthly: 'TODO_VERIFY'
+    grade_b:
+      basic_monthly: 8910
+      special_allowance_monthly: 200
+      da_monthly: 'TODO_VERIFY'
+    grade_c:
+      basic_monthly: 8700
+      special_allowance_monthly: 200
+      da_monthly: 'TODO_VERIFY'
+    grade_d:
+      basic_monthly: 8490
+      special_allowance_monthly: 200
+      da_monthly: 'TODO_VERIFY'
+    grade_e:
+      basic_monthly: 8280
+      special_allowance_monthly: 200
+      da_monthly: 'TODO_VERIFY'
+
+  it_sector_software:
+    grade_f_senior:
+      basic_monthly: 15570
+      da_monthly: 'TODO_VERIFY'
+    grade_g:
+      basic_monthly: 15120
+      da_monthly: 'TODO_VERIFY'
+    grade_h:
+      basic_monthly: 13470
+      da_monthly: 'TODO_VERIFY'
+    grade_i_entry_level:
+      basic_monthly: 13110
+      da_monthly: 'TODO_VERIFY'
+
+  dairy_farm:
+    manager_supervisor:
+      monthly: 17920
+      da_monthly: 'TODO_VERIFY'
+    milking_worker_twice_daily:
+      daily: 850
+      da_daily: 'TODO_VERIFY'
+    general_worker:
+      daily: 810
+      da_daily: 'TODO_VERIFY'
+
+  nurseries:
+    manager_supervisor:
+      monthly: 17920
+      da_monthly: 'TODO_VERIFY'
+    clerk_cashier:
+      monthly: 17140
+      da_monthly: 'TODO_VERIFY'
+    general_worker:
+      daily: 730
+      da_daily: 'TODO_VERIFY'
+
+  cashew_plantations:
+    clear_felling_ploughing:
+      daily: 710
+      da_daily: 'TODO_VERIFY'
+    collecting_nuts_from_tree:
+      piece_rate_per_kg: 20
+    collecting_nuts_from_ground:
+      piece_rate_per_kg: 10
+
+  agricultural_operations:
+    weed_removal_planting:
+      daily: 710
+      da_daily: 'TODO_VERIFY'
+    mechanised_ploughing_tractor:
+      daily: 'TODO_VERIFY'
+      da_daily: 'TODO_VERIFY'
+
+  construction:
+    skilled:
+      daily: 'TODO_VERIFY'
+    unskilled:
+      daily: 'TODO_VERIFY'
+    semi_skilled:
+      daily: 'TODO_VERIFY'
+
+  private_hospitals:
+    nurses:
+      monthly: 'TODO_VERIFY'
+    cleaning_staff:
+      monthly: 'TODO_VERIFY'

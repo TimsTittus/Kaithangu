@@ -1,0 +1,103 @@
+# data/seed/festivals.yaml
+festivals:
+  - id: 1
+    name: "Eid al-Fitr"
+    malayalamName: "ചെറിയ പെരുന്നാൾ"
+    startDate: "2026-03-20"
+    endDate: "2026-03-20"
+    malayalamDate: "Meenam 6, 1201"
+    isMajor: true
+    location:
+      district: "Statewide"
+      place: "Kerala"
+      coordinates:
+        latitude: 10.8505
+        longitude: 76.2711
+    description: "Festival of breaking the fast, marking the end of Ramadan."
+    images: []
+    tags: ["Islamic Festival", "Eid"]
+
+  - id: 2
+    name: "Vishu"
+    malayalamName: "വിഷു"
+    startDate: "2026-04-15"
+    endDate: "2026-04-15"
+    malayalamDate: "Medam 1, 1201"
+    isMajor: true
+    location:
+      district: "Statewide"
+      place: "Kerala"
+      coordinates:
+        latitude: 10.8505
+        longitude: 76.2711
+    description: "Traditional spring festival marking the Malayalam New Year."
+    images: []
+    tags: ["Hindu Festival", "New Year", "Spring"]
+
+  - id: 3
+    name: "Eid al-Adha"
+    malayalamName: "ബലി പെരുന്നാൾ"
+    startDate: "2026-05-27"
+    endDate: "2026-05-27"
+    malayalamDate: "Edavam 13, 1201"
+    isMajor: true
+    location:
+      district: "Statewide"
+      place: "Kerala"
+      coordinates:
+        latitude: 10.8505
+        longitude: 76.2711
+    description: "Feast of the Sacrifice honoring Ibrahim's willingness to sacrifice his son."
+    images: []
+    tags: ["Islamic Festival", "Eid"]
+
+  - id: 4
+    name: "Thiruvonam"
+    malayalamName: "തിരുവോണം"
+    startDate: "2026-08-26"
+    endDate: "2026-08-26"
+    malayalamDate: "Chingam 10, 1202"
+    isMajor: true
+    location:
+      district: "Statewide"
+      place: "Kerala"
+      coordinates:
+        latitude: 10.8505
+        longitude: 76.2711
+    description: "Main day of the harvest festival, celebrating the return of King Mahabali."
+    images: []
+    tags: ["Harvest Festival", "Onam", "Cultural"]
+
+  - id: 5
+    name: "Chingam Wedding Season"
+    malayalamName: "ചിങ്ങം വിവാഹ സീസൺ"
+    startDate: "2026-08-17"
+    endDate: "2026-09-16"
+    malayalamDate: "Chingam 1 - 31, 1202"
+    isMajor: true
+    location:
+      district: "Statewide"
+      place: "Kerala"
+      coordinates:
+        latitude: 10.8505
+        longitude: 76.2711
+    description: "Auspicious Malayalam month considered the peak season for weddings in Kerala."
+    images: []
+    tags: ["Wedding Season", "Cultural"]
+
+  - id: 6
+    name: "Christmas"
+    malayalamName: "ക്രിസ്തുമസ്"
+    startDate: "2026-12-25"
+    endDate: "2026-12-25"
+    malayalamDate: "Dhanu 10, 1202"
+    isMajor: true
+    location:
+      district: "Statewide"
+      place: "Kerala"
+      coordinates:
+        latitude: 10.8505
+        longitude: 76.2711
+    description: "Celebration of the birth of Jesus Christ."
+    images: []
+    tags: ["Christian Festival", "Winter"]

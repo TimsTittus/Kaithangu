@@ -1,0 +1,31 @@
+{
+  "trade": {
+    "plumber": "Plumber",
+    "electrician": "Electrician",
+    "carpenter": "Carpenter",
+    "painter": "Painter",
+    "domestic_help": "Domestic help",
+    "caregiver": "Caregiver",
+    "driver": "Driver",
+    "gardener": "Gardener",
+    "cleaner": "Cleaner",
+    "technician": "Technician"
+  },
+  "state": {
+    "KL": "Kerala",
+    "TN": "Tamil Nadu"
+  },
+  "welfare": {
+    "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+    "society_welfare_fund": "Society welfare fund"
+  },
+  "festival": {
+    "eid_al_fitr": "Eid al-Fitr",
+    "vishu": "Vishu",
+    "eid_al_adha": "Eid al-Adha",
+    "thiruvonam": "Thiruvonam",
+    "chingam_wedding_season": "Chingam Wedding Season",
+    "christmas": "Christmas"
+  }
+}

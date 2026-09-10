@@ -1,0 +1,31 @@
+{
+  "trade": {
+    "plumber": "പ്ലംബർ",
+    "electrician": "ഇലക്ട്രീഷ്യൻ",
+    "carpenter": "ആശാരി",
+    "painter": "പെയിന്റർ",
+    "domestic_help": "വീട്ടുജോലി സഹായി",
+    "caregiver": "പരിചരണ സഹായി",
+    "driver": "ഡ്രൈവർ",
+    "gardener": "തോട്ടക്കാരൻ",
+    "cleaner": "ശുചീകരണ തൊഴിലാളി",
+    "technician": "ടെക്നീഷ്യൻ"
+  },
+  "state": {
+    "KL": "കേരളം",
+    "TN": "തമിഴ്നാട്"
+  },
+  "welfare": {
+    "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+    "society_welfare_fund": "സൊസൈറ്റി ക്ഷേമനിധി"
+  },
+  "festival": {
+    "eid_al_fitr": "ചെറിയ പെരുന്നാൾ",
+    "vishu": "വിഷു",
+    "eid_al_adha": "ബലി പെരുന്നാൾ",
+    "thiruvonam": "തിരുവോണം",
+    "chingam_wedding_season": "ചിങ്ങം വിവാഹ സീസൺ",
+    "christmas": "ക്രിസ്തുമസ്"
+  }
+}

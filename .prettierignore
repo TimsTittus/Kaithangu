@@ -6,6 +6,7 @@ coverage
 playwright-report
 bun.lock
 next-env.d.ts
+packages/db/drizzle/meta
 apps/ml
 data
 AGENTS.md

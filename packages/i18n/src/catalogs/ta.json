@@ -1,0 +1,31 @@
+{
+  "trade": {
+    "plumber": "பிளம்பர்",
+    "electrician": "எலக்ட்ரீஷியன்",
+    "carpenter": "தச்சர்",
+    "painter": "பெயிண்டர்",
+    "domestic_help": "வீட்டு உதவியாளர்",
+    "caregiver": "பராமரிப்பாளர்",
+    "driver": "ஓட்டுநர்",
+    "gardener": "தோட்டக்காரர்",
+    "cleaner": "துப்புரவு பணியாளர்",
+    "technician": "தொழில்நுட்ப வல்லுநர்"
+  },
+  "state": {
+    "KL": "கேரளா",
+    "TN": "தமிழ்நாடு"
+  },
+  "welfare": {
+    "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+    "society_welfare_fund": "சங்க நலநிதி"
+  },
+  "festival": {
+    "eid_al_fitr": "Eid al-Fitr",
+    "vishu": "Vishu",
+    "eid_al_adha": "Eid al-Adha",
+    "thiruvonam": "Thiruvonam",
+    "chingam_wedding_season": "Chingam Wedding Season",
+    "christmas": "Christmas"
+  }
+}

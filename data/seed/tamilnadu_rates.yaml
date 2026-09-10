@@ -1,0 +1,37 @@
+# data/seed/tamilnadu_rates.yaml
+# Tamil Nadu is seeded INACTIVE (not part of the Kerala pilot).
+#
+# TODO_VERIFY: no Tamil Nadu values have been supplied. Every number below is an
+# OBVIOUS ROUND PLACEHOLDER (is_placeholder: true), not an official rate.
+# Money is integer paise (10000 paise = Rs 100).
+state:
+  code: TN
+  name_key: state.TN
+  active: false
+  pincode_state_name: TAMIL NADU # exact `statename` in data/raw/pincodes.csv
+
+state_config:
+  welfare_pct: 5.00 # TODO_VERIFY placeholder
+  platform_fee_pct: 5.00 # TODO_VERIFY placeholder
+  gst_pct_on_platform_fee: 18.00 # TODO_VERIFY placeholder
+  default_locale: ta
+  locales: [ta, en]
+  timezone: Asia/Kolkata
+  is_placeholder: true
+
+state_trade_rates:
+  plumber: &placeholder_rate
+    wage_floor_per_hour_paise: 10000 # TODO_VERIFY placeholder (Rs 100/h)
+    min_billable_minutes: 60 # TODO_VERIFY placeholder
+    visit_charge_paise: 5000 # TODO_VERIFY placeholder (Rs 50)
+    emergency_surcharge_pct: 25.00 # TODO_VERIFY placeholder
+    is_placeholder: true
+  electrician: *placeholder_rate
+  carpenter: *placeholder_rate
+  painter: *placeholder_rate
+  domestic_help: *placeholder_rate
+  caregiver: *placeholder_rate
+  driver: *placeholder_rate
+  gardener: *placeholder_rate
+  cleaner: *placeholder_rate
+  technician: *placeholder_rate

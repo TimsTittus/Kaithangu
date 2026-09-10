@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "smoke:datastores": "tsx --env-file-if-exists=../.env smoke/datastores.ts",
+    "smoke:supabase": "tsx --env-file-if-exists=../.env smoke/supabase.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint ."
   },

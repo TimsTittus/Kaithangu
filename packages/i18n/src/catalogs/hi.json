@@ -1,0 +1,31 @@
+{
+  "trade": {
+    "plumber": "प्लंबर",
+    "electrician": "इलेक्ट्रीशियन",
+    "carpenter": "बढ़ई",
+    "painter": "पेंटर",
+    "domestic_help": "घरेलू सहायक",
+    "caregiver": "देखभालकर्ता",
+    "driver": "ड्राइवर",
+    "gardener": "माली",
+    "cleaner": "सफ़ाईकर्मी",
+    "technician": "तकनीशियन"
+  },
+  "state": {
+    "KL": "केरल",
+    "TN": "तमिलनाडु"
+  },
+  "welfare": {
+    "pmsby": "प्रधानमंत्री सुरक्षा बीमा योजना (PMSBY)",
+    "pmjjby": "प्रधानमंत्री जीवन ज्योति बीमा योजना (PMJJBY)",
+    "society_welfare_fund": "सोसाइटी कल्याण निधि"
+  },
+  "festival": {
+    "eid_al_fitr": "Eid al-Fitr",
+    "vishu": "Vishu",
+    "eid_al_adha": "Eid al-Adha",
+    "thiruvonam": "Thiruvonam",
+    "chingam_wedding_season": "Chingam Wedding Season",
+    "christmas": "Christmas"
+  }
+}

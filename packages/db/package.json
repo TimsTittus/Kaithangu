@@ -9,10 +9,27 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx --env-file-if-exists=../../.env src/scripts/migrate.ts",
+    "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
     "@kaithangu/config": "workspace:*",
-    "eslint": "^9.39.5"
+    "@types/papaparse": "^5.5.2",
+    "drizzle-kit": "0.31.10",
+    "eslint": "^9.39.5",
+    "tsx": "^4.23",
+    "vitest": "^5.0.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "@kaithangu/core": "workspace:*",
+    "@kaithangu/i18n": "workspace:*",
+    "drizzle-orm": "0.45.2",
+    "papaparse": "^5.7.0",
+    "postgres": "^3.4.9",
+    "yaml": "^2.9.0",
+    "zod": "^4.6.1"
   }
 }
