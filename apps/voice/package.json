@@ -12,8 +12,10 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@fastify/formbody": "^8.0.2",
     "@kaithangu/adapters": "workspace:*",
     "@kaithangu/core": "workspace:*",
+    "@kaithangu/db": "workspace:*",
     "@kaithangu/i18n": "workspace:*",
     "fastify": "^5.12.3",
     "pino": "^10.3.1",

@@ -1,0 +1,26 @@
+flow: customer_booking
+locale: en
+turns:
+  # consent
+  - input: "#1"
+    expectPromptKeys: ["voice.problem.ask"]
+    expectActionTypes: ["recordConsent"]
+  # problem description -> keyword match on "plumber"
+  - input: "my kitchen tap is leaking, plumber please"
+    expectPromptKeys: ["voice.pincode.ask"]
+  # pincode
+  - input: "#695001"
+    expectPromptKeys: ["voice.pincode.confirm"]
+  # confirm pincode
+  - input: "#1"
+    expectPromptKeys: ["voice.landmark.ask"]
+  # landmark
+  - input: "near the temple"
+    expectPromptKeys: ["voice.time.ask"]
+  # time: now
+  - input: "#1"
+    expectPromptKeys: ["voice.quote.total"]
+  # confirm quote
+  - input: "#1"
+    expectPromptKeys: ["voice.booking.confirmed"]
+    expectActionTypes: ["createBooking"]

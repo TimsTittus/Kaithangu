@@ -1,0 +1,12 @@
+{
+  "plumber": ["plumber", "plumbing", "leak", "tap leaking", "pipe burst", "drainage blocked", "toilet clogged", "water leakage"],
+  "electrician": ["electrician", "electrical", "wiring", "short circuit", "fuse", "power socket not working", "switch not working", "fan not working"],
+  "carpenter": ["carpenter", "furniture repair", "door repair", "wood work", "cupboard", "almirah", "hinge broken", "window repair"],
+  "painter": ["painter", "painting", "wall paint", "whitewash", "house painting", "paint peeling"],
+  "domestic_help": ["maid", "house cleaning help", "domestic help", "cooking help", "housekeeping"],
+  "caregiver": ["caregiver", "elderly care", "patient care", "nurse", "attendant", "baby care"],
+  "driver": ["driver", "car driver", "need a driver", "chauffeur"],
+  "gardener": ["gardener", "gardening", "lawn mowing", "plant care", "landscaping"],
+  "cleaner": ["cleaner", "deep cleaning", "cleaning service", "sofa cleaning", "bathroom cleaning"],
+  "technician": ["technician", "ac repair", "refrigerator repair", "washing machine repair", "appliance repair", "tv repair"]
+}

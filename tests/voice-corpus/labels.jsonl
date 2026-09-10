@@ -1,0 +1,10 @@
+{"id": "en-01", "locale": "en", "text": "My kitchen tap has been leaking since morning.", "expected": {"tradeCode": "plumber", "urgency": "normal", "outOfScope": false}}
+{"id": "en-02", "locale": "en", "text": "There's a burning smell from the fuse box and I see sparks.", "expected": {"tradeCode": "electrician", "urgency": "emergency", "outOfScope": false}}
+{"id": "en-03", "locale": "en", "text": "I smell gas in my kitchen.", "expected": {"tradeCode": null, "urgency": "emergency", "outOfScope": false}}
+{"id": "en-04", "locale": "en", "text": "Can someone come clean my house tomorrow, deep cleaning please.", "expected": {"tradeCode": "cleaner", "urgency": "normal", "outOfScope": false}}
+{"id": "en-05", "locale": "en", "text": "My washing machine stopped working, it just won't turn on.", "expected": {"tradeCode": "technician", "urgency": "normal", "outOfScope": false}}
+{"id": "en-06", "locale": "en", "text": "I want to order a pizza.", "expected": {"tradeCode": null, "urgency": null, "outOfScope": true}}
+{"id": "en-07", "locale": "en", "text": "My bathroom is flooding, water everywhere, please send someone right now.", "expected": {"tradeCode": "plumber", "urgency": "emergency", "outOfScope": false}}
+{"id": "en-08", "locale": "en", "text": "The garden needs mowing and the plants need watering, whenever is convenient.", "expected": {"tradeCode": "gardener", "urgency": "normal", "outOfScope": false}}
+{"id": "en-09", "locale": "en", "text": "One of the door hinges at home is broken and won't close properly.", "expected": {"tradeCode": "carpenter", "urgency": "normal", "outOfScope": false}}
+{"id": "en-10", "locale": "en", "text": "The living room wall paint is peeling badly, want it repainted.", "expected": {"tradeCode": "painter", "urgency": "normal", "outOfScope": false}}

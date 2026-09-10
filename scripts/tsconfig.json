@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": ["smoke", "sim", "demo", "i18n", "audio", "icons", "bundle"]
+  "include": ["smoke", "sim", "demo", "i18n", "audio", "icons", "bundle", "voice"]
 }

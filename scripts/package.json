@@ -12,6 +12,8 @@
     "audio:build": "tsx --env-file-if-exists=../.env audio/build.ts",
     "icons:build": "tsx icons/build.ts",
     "bundle:check": "tsx bundle/check.ts",
+    "voice:sim": "tsx --env-file-if-exists=../.env voice/sim.ts",
+    "voice:eval": "tsx --env-file-if-exists=../.env voice/eval.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . && tsx i18n/check.ts"
   },
@@ -23,6 +25,7 @@
     "amqplib": "^2.0.1",
     "ioredis": "^6.0.0",
     "postgres": "^3.4.9",
+    "yaml": "^2.9.0",
     "zod": "^4.6.1"
   },
   "devDependencies": {

@@ -35,8 +35,8 @@
     "bundle:check": "bun run --filter scripts bundle:check",
     "lhci": "bun run --filter web lhci",
     "db:reset": "echo 'db:reset is implemented in Phase 2'",
-    "voice:sim": "echo 'voice:sim is implemented in the voice phase'",
-    "voice:eval": "echo 'voice:eval is implemented in the voice phase'",
+    "voice:sim": "bun run --filter scripts voice:sim --",
+    "voice:eval": "bun run --filter scripts voice:eval",
     "demo:reset": "echo 'demo:reset is implemented in the demo phase'"
   },
   "trustedDependencies": [

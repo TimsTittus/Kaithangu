@@ -135,6 +135,7 @@ export {
 } from './booking/stateMachine';
 export {
   isSystemActor,
+  requestContext,
   ROLES,
   systemContext,
   type Actor,
@@ -225,6 +226,32 @@ export {
   type Urgency,
 } from './pricing';
 export { isCertifiedRequired, isTradeCode, TRADE_CODES, type TradeCode } from './trades';
+export { extractProblem, type ExtractInput } from './voice/extract';
+export {
+  voiceActionSchema,
+  voiceEventSchema,
+  type ActiveJob,
+  type ExtractResult,
+  type Flow,
+  type FlowContext,
+  type FlowDeps,
+  type JobOffer,
+  type PincodeInfo,
+  type VoiceAction,
+  type VoiceEvent,
+  type VoiceExpect,
+  type VoiceInputMode,
+  type VoicePrompt,
+  type VoiceTurn,
+} from './voice/types';
+export { customerBookingFlow, type CustomerBookingState } from './voice/flows/customer_booking';
+export { statusUpdateFlow, type StatusUpdateState } from './voice/flows/status_update';
+export { workerOfferFlow, type WorkerOfferState } from './voice/flows/worker_offer';
+export {
+  workerAvailabilityFlow,
+  type WorkerAvailabilityState,
+} from './voice/flows/worker_availability';
+export { workerJobFlow, type WorkerJobState } from './voice/flows/worker_job';
 
 /** Clamp `value` into the inclusive range [min, max]. */
 export function clamp(value: number, min: number, max: number): number {

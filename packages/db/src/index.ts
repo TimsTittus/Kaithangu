@@ -1,6 +1,14 @@
 export { createDb, type CreateDbOptions, type Database, type SqlClient } from './client';
 export { bookingScopeCondition, createBookingRepo } from './queries/bookings';
 export { createBookingPricingRepo } from './queries/bookingPricing';
+export {
+  createCallSessionRepo,
+  type CallDirection,
+  type CallPurpose,
+  type CallSessionRepo,
+  type CallSessionRow,
+  type CreateCallSessionInput,
+} from './queries/callSessions';
 export { createConsentRepo } from './queries/consents';
 export { createPlaceRepo } from './queries/places';
 export { loadStateDefaultLocale } from './queries/stateConfig';

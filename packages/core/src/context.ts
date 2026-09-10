@@ -59,3 +59,16 @@ export function systemContext(reason: string, options: SystemContextOptions = {}
     locale: options.locale ?? 'en',
   };
 }
+
+/** Context for a signed-in actor acting outside the web session flow (e.g. a voice call). */
+export function requestContext(
+  actor: UserActor,
+  locale: Locale,
+  options: SystemContextOptions = {},
+): RequestContext {
+  return {
+    actor,
+    requestId: options.requestId ?? randomUUID(),
+    locale: options.locale ?? locale,
+  };
+}

@@ -1,13 +1,16 @@
 import { buildLoggerOptions, EnvValidationError } from '@kaithangu/core';
 import packageJson from '../package.json' with { type: 'json' };
+import { buildVoiceDeps } from './deps';
 import { loadEnv } from './env';
 import { buildServer } from './server';
 
 async function main(): Promise<void> {
   const env = loadEnv();
+  const deps = buildVoiceDeps(env);
   const app = buildServer({
     logger: buildLoggerOptions({ pretty: env.NODE_ENV === 'development' }),
     version: packageJson.version,
+    voice: { env, deps },
   });
 
   let closing = false;
