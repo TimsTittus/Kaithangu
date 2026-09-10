@@ -124,7 +124,26 @@
     "admin_title": "Administration",
     "admin_body": "Workers, bookings and reports for your area will appear here.",
     "org_title": "Institution",
-    "org_body": "Bookings and invoices for your institution will appear here."
+    "org_body": "Bookings and invoices for your institution will appear here.",
+    "digital_services": "Digital Cooperative Services",
+    "total_balance": "Total Balance",
+    "currency_inr": "INR",
+    "quick_overview": "Quick Overview",
+    "this_month": "This Month",
+    "services_count": "Services",
+    "expenses_count": "Expenses",
+    "active_count": "Active",
+    "welfare_saved": "Welfare",
+    "spending_analysis": "Spending Analysis",
+    "action_book": "Book",
+    "action_emergency": "Emergency",
+    "action_history": "Bookings",
+    "action_voice": "Voice",
+    "action_more": "More",
+    "greeting_morning": "Good Morning",
+    "greeting_afternoon": "Good Afternoon",
+    "greeting_evening": "Good Evening",
+    "coop_card": "Cooperative Card"
   },
   "forbidden": {
     "title": "Not allowed",
@@ -293,7 +312,15 @@
     "list_title": "My bookings",
     "list_empty": "You have no bookings yet.",
     "book_first": "Book a worker",
-    "home": "Home"
+    "home": "Home",
+    "account_overview": "Account Overview",
+    "current_account": "Cooperative Services Account",
+    "available_balance": "Available Balance",
+    "total_services": "Total Services",
+    "transaction_history": "Transaction History",
+    "see_all": "See All",
+    "add_service": "New Booking",
+    "invoices": "Invoices"
   },
   "status": {
     "requested": "Booking received",
@@ -311,5 +338,19 @@
   "voice": {
     "welcome": "Welcome to Kaithangu.",
     "confirm_booking": "Press 1 to confirm your booking. Press 2 to go back."
+  },
+  "nav": {
+    "home": "Home",
+    "bookings": "Bookings",
+    "emergency": "Emergency",
+    "analytics": "Analytics",
+    "profile": "Profile"
+  },
+  "analytics": {
+    "title": "Spending Analytics",
+    "total_expenses": "Total Expenses",
+    "vs_last_month": "vs Last Month",
+    "top_categories": "Top Categories",
+    "see_all": "See All"
   }
 }

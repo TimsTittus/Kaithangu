@@ -119,26 +119,29 @@ export function BookingTracker({ initial, tradeLabel, strings, errors }: Props) 
 
   return (
     <main className={pageClass}>
-      <header className="flex flex-col gap-1">
+      <header className="flex flex-col gap-2 rounded-3xl border border-emerald-950/10 bg-white p-5 shadow-xs dark:border-white/10 dark:bg-[#101e18]">
         <div className="flex items-center justify-between gap-3">
-          <h1 className="text-2xl font-semibold">{title}</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">{title}</h1>
           <AudioLabel k="booking.tracking_title" text={title} />
         </div>
-        <p className="text-lg">
-          {tradeLabel}
+        <div className="flex items-center gap-2">
+          <span className="text-lg font-bold text-neutral-800 dark:text-neutral-100">{tradeLabel}</span>
           {view.urgency === 'emergency' && (
-            <span className="ms-2 rounded-md bg-red-700 px-2 py-0.5 text-base font-semibold text-white">
+            <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold text-red-700 dark:bg-red-950 dark:text-red-300">
               {s('booking.emergency_badge')}
             </span>
           )}
-        </p>
-        <p
-          className="text-xl font-semibold text-emerald-800 dark:text-emerald-300"
-          data-testid="booking-status"
-          data-status={view.status}
-        >
-          {statusLabel}
-        </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="inline-block size-2.5 rounded-full bg-emerald-500 animate-pulse" />
+          <p
+            className="text-lg font-bold text-emerald-700 dark:text-emerald-400"
+            data-testid="booking-status"
+            data-status={view.status}
+          >
+            {statusLabel}
+          </p>
+        </div>
         {!TERMINAL.has(view.status) && <p className={mutedTextClass}>{s('booking.live_hint')}</p>}
       </header>
 

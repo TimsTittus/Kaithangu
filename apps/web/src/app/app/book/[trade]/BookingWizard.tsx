@@ -229,15 +229,27 @@ export function BookingWizard(props: Props) {
 
   return (
     <main className={pageClass}>
-      <header className="flex flex-col gap-1">
+      <header className="flex flex-col gap-2">
+        {/* Modern Segmented Progress Bar */}
+        <div className="flex w-full items-center gap-1.5 py-1">
+          {STEPS.map((_, i) => (
+            <div
+              key={i}
+              className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
+                i <= step ? 'bg-emerald-600 dark:bg-emerald-400' : 'bg-neutral-200 dark:bg-neutral-800'
+              }`}
+            />
+          ))}
+        </div>
+
         <p className={mutedTextClass}>{fill(s('booking.title'), { trade: tradeLabel })}</p>
         <div className="flex items-center justify-between gap-3">
-          <h1 className="text-2xl font-semibold" data-testid="step-title">
+          <h1 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white" data-testid="step-title">
             {stepTitle}
           </h1>
           <AudioLabel k={STEP_TITLE_KEYS[step] ?? 'booking.problem_title'} text={stepTitle} />
         </div>
-        <p className={mutedTextClass}>
+        <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
           {fill(s('booking.step'), { n: step + 1, total: STEPS.length })}
         </p>
       </header>

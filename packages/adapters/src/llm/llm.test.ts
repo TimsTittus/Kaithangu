@@ -40,11 +40,17 @@ describe('real (Gemini) llm adapter', () => {
     await expect(llm.complete({ system: 'be terse', prompt: 'hello' })).resolves.toBe(
       '{"ok":true}',
     );
-    const [url, init] = fetch.mock.calls[0] ?? [];
-    expect(String(url)).toContain('generativelanguage.googleapis.com');
-    expect(String(url)).toContain('key=k');
-    const body = JSON.parse(init?.body as string);
-    expect(body.systemInstruction).toEqual({ parts: [{ text: 'be terse' }] });
-    expect(body.contents).toEqual([{ role: 'user', parts: [{ text: 'hello' }] }]);
+    const [rawUrl, init] = fetch.mock.calls[0] ?? [];
+    const urlStr =
+      typeof rawUrl === 'string'
+        ? rawUrl
+        : rawUrl instanceof URL
+          ? rawUrl.toString()
+          : '';
+    expect(urlStr).toContain('generativelanguage.googleapis.com');
+    expect(urlStr).toContain('key=k');
+    const body = JSON.parse(init?.body as string) as Record<string, unknown>;
+    expect(body['systemInstruction']).toEqual({ parts: [{ text: 'be terse' }] });
+    expect(body['contents']).toEqual([{ role: 'user', parts: [{ text: 'hello' }] }]);
   });
 });

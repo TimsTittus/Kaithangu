@@ -124,7 +124,26 @@
     "admin_title": "प्रशासन",
     "admin_body": "आपके क्षेत्र के कामगार, बुकिंग और रिपोर्ट यहाँ दिखेंगे।",
     "org_title": "संस्थान",
-    "org_body": "आपके संस्थान की बुकिंग और चालान यहाँ दिखेंगे।"
+    "org_body": "आपके संस्थान की बुकिंग और चालान यहाँ दिखेंगे।",
+    "digital_services": "[hi] Digital Cooperative Services",
+    "total_balance": "[hi] Total Balance",
+    "currency_inr": "[hi] INR",
+    "quick_overview": "[hi] Quick Overview",
+    "this_month": "[hi] This Month",
+    "services_count": "[hi] Services",
+    "expenses_count": "[hi] Expenses",
+    "active_count": "[hi] Active",
+    "welfare_saved": "[hi] Welfare",
+    "spending_analysis": "[hi] Spending Analysis",
+    "action_book": "[hi] Book",
+    "action_emergency": "[hi] Emergency",
+    "action_history": "[hi] Bookings",
+    "action_voice": "[hi] Voice",
+    "action_more": "[hi] More",
+    "greeting_morning": "[hi] Good Morning",
+    "greeting_afternoon": "[hi] Good Afternoon",
+    "greeting_evening": "[hi] Good Evening",
+    "coop_card": "[hi] Cooperative Card"
   },
   "forbidden": {
     "title": "अनुमति नहीं है",
@@ -293,7 +312,15 @@
     "list_title": "[hi] My bookings",
     "list_empty": "[hi] You have no bookings yet.",
     "book_first": "[hi] Book a worker",
-    "home": "[hi] Home"
+    "home": "[hi] Home",
+    "account_overview": "[hi] Account Overview",
+    "current_account": "[hi] Cooperative Services Account",
+    "available_balance": "[hi] Available Balance",
+    "total_services": "[hi] Total Services",
+    "transaction_history": "[hi] Transaction History",
+    "see_all": "[hi] See All",
+    "add_service": "[hi] New Booking",
+    "invoices": "[hi] Invoices"
   },
   "status": {
     "requested": "[hi] Booking received",
@@ -311,5 +338,19 @@
   "voice": {
     "welcome": "[hi] Welcome to Kaithangu.",
     "confirm_booking": "[hi] Press 1 to confirm your booking. Press 2 to go back."
+  },
+  "nav": {
+    "home": "[hi] Home",
+    "bookings": "[hi] Bookings",
+    "emergency": "[hi] Emergency",
+    "analytics": "[hi] Analytics",
+    "profile": "[hi] Profile"
+  },
+  "analytics": {
+    "title": "[hi] Spending Analytics",
+    "total_expenses": "[hi] Total Expenses",
+    "vs_last_month": "[hi] vs Last Month",
+    "top_categories": "[hi] Top Categories",
+    "see_all": "[hi] See All"
   }
 }

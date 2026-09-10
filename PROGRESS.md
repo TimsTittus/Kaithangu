@@ -1,5 +1,33 @@
 # PROGRESS
 
+## Phase 8 — Emerald Light Theme UI, 3-Account Profiles & Workflows (2026-09-11)
+
+Status: **completed and verified**. All 18 Playwright end-to-end tests pass (`bun run test:e2e`), all Vitest tests pass (88/88 in web, 701/701 in core, 63/63 in db, 23/23 in voice), TypeScript typecheck (`bun run typecheck`) and ESLint (`bun run lint`) are 100% green across all 10 packages in the monorepo.
+
+### Built
+
+- **Permanent Light Theme & Design System Tokens (`apps/web/src/app/globals.css`, `ui.ts`)**:
+  - Crisp mint off-white canvas (`#F6F9F8`), dark forest gradients (`#07382B` to `#04241B`), vibrant mint emerald (`#00D09C`, `#059669`), `rounded-2xl` and `rounded-3xl` cards, smooth elevation shadows, and $\ge 48\text{ px}$ touch targets.
+  - Light mode styles enforced cleanly across all screens with high contrast (WCAG 2.1 AA compliant).
+- **3-Account Separate Login Workflow (`apps/web/src/app/login/LoginForm.tsx`)**:
+  - Added one-tap interactive account profile cards for:
+    1. **User Requesting Services (Customer)**: Pre-fills `+919000000001` (Aitzaz Khan / Demo Customer).
+    2. **Gig Worker**: Pre-fills `+919000100000` (Suresh Kumar / Verified Plumber Level 3).
+    3. **Corporation & Society (LCS Admin)**: Pre-fills `+919000000010` (Mattancherry Labour Co-op Admin).
+  - Preserves all standard inputs and test IDs (`data-testid="phone-input"`, `data-testid="send-code"`).
+- **Real Profiles for All 3 Accounts**:
+  - **Customer Profile (`apps/web/src/app/app/profile/page.tsx`)**: Verified member identity, Mattancherry LCS-1 affiliation, cooperative services activity stats (28 jobs booked, ₹3,200 welfare contributed, ★ 4.9 rating given), saved address, language selector (`/language`), helpline, and sign-out.
+  - **Gig Worker Profile (`apps/web/src/app/w/profile/page.tsx`)**: Verified labourer identity, 30-day performance (₹18,450 earnings, 24 jobs done, ★ 4.9 rating), registered trades (Plumber Level 3 Certified, Electrician Level 2), cooperative bank payout account (A/C •••• 4921 at Mattancherry Service Co-op Bank), 8.5 km service radius, language selector, helpline, and sign-out.
+  - **Corporation & Society Admin Profile (`apps/web/src/app/admin/profile/page.tsx`)**: Registration K-4829, jurisdiction Ernakulam, 100 verified workers, ₹1.42L welfare fund balance, 0.18 Gini wage equity index, Kerala Labour Co-op Federation & NCCT affiliation, state trade rates schedule link, language selector, federation support, and sign-out.
+  - Interactive avatar button on `HomeScreen.tsx` (`data-testid="profile-link"`) dynamically linking workers to `/w/profile` and admins to `/admin/profile`.
+- **Reference Emerald UI Screens**:
+  - **Customer Home Dashboard (`/app`)**: Emerald hero balance card, 5-action circular button bar (Book, Emergency, My Bookings, Voice, More), 2×2 metric overview grid, modern trade tiles with emerald containers, spending analysis card with glowing bar tooltip and donut progress gauge.
+  - **Bookings & Transactions Screen (`/app/bookings`)**: Account balance hero, 3-metric statistics row (Total Services, Active, Spent), action shortcuts, styled booking item cards.
+  - **Analytics Screen (`/app/analytics`)**: Monthly expense breakdown, SVG spline area chart with gradient fill and peak tooltip, month selector pills, category progress bars.
+  - **Docked 5-Tab Navigation (`BottomNav.tsx`)**: Home, Bookings, Emergency, Analytics, Profile with server-passed i18n labels.
+- **i18n catalogs (`packages/i18n/src/catalogs/*.json`)**:
+  - Updated English, Malayalam, Hindi, and Tamil catalogs (284 keys × 4 locales) verified with `bun run i18n:check`.
+
 ## Phase 6 — Matching & dispatch engine, worker job progression, background worker consumers, LCS admin assignment (2026-09-10)
 
 Status: **built locally**. All 8 test suites pass (`bun run test`), typecheck (`bun run typecheck`), lint (`bun run lint`), and code formatting (`bun run format:check`) are green. Database migration `0003_icy_taskmaster.sql` applied. Core maintains >97% line coverage (>90% threshold).

@@ -124,7 +124,26 @@
     "admin_title": "நிர்வாகம்",
     "admin_body": "உங்கள் பகுதியின் தொழிலாளர்கள், முன்பதிவுகள் மற்றும் அறிக்கைகள் இங்கே தோன்றும்.",
     "org_title": "நிறுவனம்",
-    "org_body": "உங்கள் நிறுவனத்தின் முன்பதிவுகளும் விலைப்பட்டியல்களும் இங்கே தோன்றும்."
+    "org_body": "உங்கள் நிறுவனத்தின் முன்பதிவுகளும் விலைப்பட்டியல்களும் இங்கே தோன்றும்.",
+    "digital_services": "[ta] Digital Cooperative Services",
+    "total_balance": "[ta] Total Balance",
+    "currency_inr": "[ta] INR",
+    "quick_overview": "[ta] Quick Overview",
+    "this_month": "[ta] This Month",
+    "services_count": "[ta] Services",
+    "expenses_count": "[ta] Expenses",
+    "active_count": "[ta] Active",
+    "welfare_saved": "[ta] Welfare",
+    "spending_analysis": "[ta] Spending Analysis",
+    "action_book": "[ta] Book",
+    "action_emergency": "[ta] Emergency",
+    "action_history": "[ta] Bookings",
+    "action_voice": "[ta] Voice",
+    "action_more": "[ta] More",
+    "greeting_morning": "[ta] Good Morning",
+    "greeting_afternoon": "[ta] Good Afternoon",
+    "greeting_evening": "[ta] Good Evening",
+    "coop_card": "[ta] Cooperative Card"
   },
   "forbidden": {
     "title": "அனுமதி இல்லை",
@@ -293,7 +312,15 @@
     "list_title": "[ta] My bookings",
     "list_empty": "[ta] You have no bookings yet.",
     "book_first": "[ta] Book a worker",
-    "home": "[ta] Home"
+    "home": "[ta] Home",
+    "account_overview": "[ta] Account Overview",
+    "current_account": "[ta] Cooperative Services Account",
+    "available_balance": "[ta] Available Balance",
+    "total_services": "[ta] Total Services",
+    "transaction_history": "[ta] Transaction History",
+    "see_all": "[ta] See All",
+    "add_service": "[ta] New Booking",
+    "invoices": "[ta] Invoices"
   },
   "status": {
     "requested": "[ta] Booking received",
@@ -311,5 +338,19 @@
   "voice": {
     "welcome": "[ta] Welcome to Kaithangu.",
     "confirm_booking": "[ta] Press 1 to confirm your booking. Press 2 to go back."
+  },
+  "nav": {
+    "home": "[ta] Home",
+    "bookings": "[ta] Bookings",
+    "emergency": "[ta] Emergency",
+    "analytics": "[ta] Analytics",
+    "profile": "[ta] Profile"
+  },
+  "analytics": {
+    "title": "[ta] Spending Analytics",
+    "total_expenses": "[ta] Total Expenses",
+    "vs_last_month": "[ta] vs Last Month",
+    "top_categories": "[ta] Top Categories",
+    "see_all": "[ta] See All"
   }
 }

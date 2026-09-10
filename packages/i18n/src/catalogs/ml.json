@@ -77,9 +77,9 @@
     "empty": "ഇവിടെ ഇതുവരെ ഒന്നുമില്ല.",
     "not_found": "പേജ് കണ്ടെത്താനായില്ല.",
     "go_start": "ആരംഭ പേജിലേക്ക് പോകുക",
-    "back": "[ml] Back",
-    "next": "[ml] Next",
-    "close": "[ml] Close"
+    "back": "തിരികെ",
+    "next": "അടുത്തത്",
+    "close": "അടയ്ക്കുക"
   },
   "language": {
     "title": "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക",
@@ -124,7 +124,26 @@
     "admin_title": "ഭരണം",
     "admin_body": "നിങ്ങളുടെ പ്രദേശത്തെ തൊഴിലാളികൾ, ബുക്കിംഗുകൾ, റിപ്പോർട്ടുകൾ എന്നിവ ഇവിടെ കാണാം.",
     "org_title": "സ്ഥാപനം",
-    "org_body": "നിങ്ങളുടെ സ്ഥാപനത്തിന്റെ ബുക്കിംഗുകളും ഇൻവോയ്സുകളും ഇവിടെ കാണാം."
+    "org_body": "നിങ്ങളുടെ സ്ഥാപനത്തിന്റെ ബുക്കിംഗുകളും ഇൻവോയ്സുകളും ഇവിടെ കാണാം.",
+    "digital_services": "ഡിജിറ്റൽ സഹകരണ സേവനങ്ങൾ",
+    "total_balance": "ആകെ ബാലൻസ്",
+    "currency_inr": "രൂപ",
+    "quick_overview": "ദ്രുത അവലോകനം",
+    "this_month": "ഈ മാസം",
+    "services_count": "സേവനങ്ങൾ",
+    "expenses_count": "ചെലവുകൾ",
+    "active_count": "സജീവം",
+    "welfare_saved": "ക്ഷേമനിധി",
+    "spending_analysis": "ചെലവ് വിശകലനം",
+    "action_book": "ബുക്ക്",
+    "action_emergency": "അടിയന്തരം",
+    "action_history": "ബുക്കിംഗുകൾ",
+    "action_voice": "ശബ്ദം",
+    "action_more": "കൂടുതൽ",
+    "greeting_morning": "സുപ്രഭാതം",
+    "greeting_afternoon": "ശുഭ ഉച്ചതിരിഞ്ഞ്",
+    "greeting_evening": "ശുഭസായാഹ്നം",
+    "coop_card": "സഹകരണ കാർഡ്"
   },
   "forbidden": {
     "title": "അനുവാദമില്ല",
@@ -213,11 +232,11 @@
     }
   },
   "booking": {
-    "choose_trade": "[ml] What help do you need?",
-    "emergency": "[ml] Emergency",
-    "emergency_title": "[ml] Emergency: choose the help you need",
-    "emergency_hint": "[ml] The nearest available worker is asked first.",
-    "my_bookings": "[ml] My bookings",
+    "choose_trade": "എന്ത് സഹായമാണ് വേണ്ടത്?",
+    "emergency": "അടിയന്തരം",
+    "emergency_title": "അടിയന്തരം: സഹായം തിരഞ്ഞെടുക്കുക",
+    "emergency_hint": "ഏറ്റവും അടുത്തുള്ള ലഭ്യമായ തൊഴിലാളിയോട് ആദ്യം ചോദിക്കും.",
+    "my_bookings": "എന്റെ ബുക്കിംഗുകൾ",
     "title": "[ml] Book: {trade}",
     "step": "[ml] Step {n} of {total}",
     "problem_title": "[ml] What is the problem?",
@@ -289,11 +308,19 @@
     "when": "[ml] When",
     "asap": "[ml] As soon as possible",
     "total": "[ml] Total",
-    "emergency_badge": "[ml] Emergency",
-    "list_title": "[ml] My bookings",
-    "list_empty": "[ml] You have no bookings yet.",
-    "book_first": "[ml] Book a worker",
-    "home": "[ml] Home"
+    "emergency_badge": "അടിയന്തരം",
+    "list_title": "എന്റെ ബുക്കിംഗുകൾ",
+    "list_empty": "നിങ്ങൾക്ക് ഇതുവരെ ബുക്കിംഗുകളൊന്നുമില്ല.",
+    "book_first": "തൊഴിലാളിയെ ബുക്ക് ചെയ്യുക",
+    "home": "ഹോം",
+    "account_overview": "അക്കൗണ്ട് അവലോകനം",
+    "current_account": "സഹകരണ സേവന അക്കൗണ്ട്",
+    "available_balance": "ലഭ്യമായ ബാലൻസ്",
+    "total_services": "ആകെ സേവനങ്ങൾ",
+    "transaction_history": "ഇടപാട് ചരിത്രം",
+    "see_all": "എല്ലാം കാണുക",
+    "add_service": "പുതിയ ബുക്കിംഗ്",
+    "invoices": "ഇൻവോയ്സുകൾ"
   },
   "status": {
     "requested": "[ml] Booking received",
@@ -311,5 +338,19 @@
   "voice": {
     "welcome": "[ml] Welcome to Kaithangu.",
     "confirm_booking": "[ml] Press 1 to confirm your booking. Press 2 to go back."
+  },
+  "nav": {
+    "home": "ഹോം",
+    "bookings": "ബുക്കിംഗുകൾ",
+    "emergency": "അടിയന്തരം",
+    "analytics": "അനലിറ്റിക്സ്",
+    "profile": "പ്രൊഫൈൽ"
+  },
+  "analytics": {
+    "title": "ചെലവ് അനലിറ്റിക്സ്",
+    "total_expenses": "ആകെ ചെലവുകൾ",
+    "vs_last_month": "കഴിഞ്ഞ മാസവുമായി താരതമ്യം",
+    "top_categories": "പ്രധാന വിഭാഗങ്ങൾ",
+    "see_all": "എല്ലാം കാണുക"
   }
 }
