@@ -1,0 +1,41 @@
+{
+  "name": "kaithangu",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "scripts"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "smoke:datastores": "bun run --filter scripts smoke:datastores",
+    "db:migrate": "echo 'db:migrate is implemented in Phase 2'",
+    "db:seed": "echo 'db:seed is implemented in Phase 2'",
+    "db:reset": "echo 'db:reset is implemented in Phase 2'",
+    "voice:sim": "echo 'voice:sim is implemented in the voice phase'",
+    "voice:eval": "echo 'voice:eval is implemented in the voice phase'",
+    "demo:reset": "echo 'demo:reset is implemented in the demo phase'"
+  },
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "devDependencies": {
+    "@types/node": "22",
+    "@vitest/coverage-v8": "^5.0.0",
+    "prettier": "^3.9.6",
+    "turbo": "^2.10.12",
+    "typescript": "6.0.3",
+    "vitest": "^5.0.0"
+  }
+}

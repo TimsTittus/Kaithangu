@@ -1,0 +1,22 @@
+{
+  "name": "scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke:datastores": "tsx --env-file-if-exists=../.env smoke/datastores.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "amqplib": "^2.0.1",
+    "ioredis": "^6.0.0",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "@kaithangu/config": "workspace:*",
+    "@types/node": "^22.20.2",
+    "eslint": "^9.39.5",
+    "tsx": "^4.23.13"
+  }
+}

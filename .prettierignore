@@ -1,0 +1,13 @@
+node_modules
+.next
+dist
+.turbo
+coverage
+playwright-report
+bun.lock
+next-env.d.ts
+apps/ml
+data
+AGENTS.md
+CLAUDE.md
+PROGRESS.md

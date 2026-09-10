@@ -1,0 +1,4 @@
+{
+  "extends": "@kaithangu/config/tsconfig.base.json",
+  "include": ["src"]
+}
