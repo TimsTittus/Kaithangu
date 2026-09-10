@@ -38,7 +38,12 @@
     "INVALID_TRANSITION": "This booking cannot be moved to that step now.",
     "OTP_INVALID": "That code is not correct. Please try again.",
     "OTP_LOCKED": "Too many wrong codes. Your society has been informed and will help you.",
-    "INTERNAL": "Something went wrong. Please try again later."
+    "INTERNAL": "Something went wrong. Please try again later.",
+    "RATE_LIMITED": "Too many requests. Please wait a few minutes and try again.",
+    "OTP_EXPIRED": "This code has expired. Please ask for a new code.",
+    "OTP_ATTEMPTS_EXCEEDED": "Too many wrong codes. Please ask for a new code.",
+    "CONSENT_REQUIRED": "Please read and accept the terms before you continue.",
+    "NOT_CONFIGURED": "This service is not available right now. Please try again later."
   },
   "pricing": {
     "wage": "Worker's wage",
@@ -54,5 +59,75 @@
       "rating": "Well rated by customers ({rating} of 5)",
       "fairness": "Has had fewer jobs recently, so gets a fair chance"
     }
+  },
+  "common": {
+    "app_name": "Kaithangu",
+    "loading": "Loading…",
+    "offline": "You are offline. Please check your connection.",
+    "error_title": "Something went wrong",
+    "retry": "Try again",
+    "play_audio": "Listen",
+    "logout": "Sign out",
+    "empty": "Nothing here yet.",
+    "not_found": "Page not found.",
+    "go_start": "Go to the start page"
+  },
+  "language": {
+    "title": "Choose your language",
+    "continue": "Continue",
+    "name": {
+      "ml": "മലയാളം",
+      "en": "English",
+      "hi": "हिन्दी",
+      "ta": "தமிழ்"
+    }
+  },
+  "auth": {
+    "login_title": "Sign in",
+    "phone_label": "Mobile number",
+    "phone_hint": "Enter your 10-digit mobile number. We will send you a code by SMS.",
+    "send_code": "Send code",
+    "sending": "Sending…",
+    "verify_title": "Enter the code",
+    "verify_hint": "We sent a 6-digit code to {phone}.",
+    "digit_label": "Digit {n} of 6",
+    "verify": "Verify",
+    "verifying": "Checking…",
+    "resend": "Send a new code",
+    "resent": "A new code has been sent.",
+    "change_number": "Change number"
+  },
+  "consent": {
+    "version": "2026-09-v1",
+    "title": "Before you start",
+    "intro": "Kaithangu connects you with workers from Labour Cooperative Societies. Please read these points.",
+    "point_phone": "We use your mobile number to sign you in and to send you updates about your jobs.",
+    "point_sharing": "When you book a job, the worker and their society see your name, address and job details.",
+    "point_payment": "The price shows the worker's full wage, a welfare contribution for the worker, and a platform fee.",
+    "point_rights": "You can ask your society to correct or delete your details.",
+    "accept": "I agree"
+  },
+  "home": {
+    "customer_title": "Welcome",
+    "customer_body": "Book trusted workers from your local cooperative.",
+    "worker_title": "Welcome, worker",
+    "worker_body": "Your job offers will appear here.",
+    "admin_title": "Administration",
+    "admin_body": "Workers, bookings and reports for your area will appear here.",
+    "org_title": "Institution",
+    "org_body": "Bookings and invoices for your institution will appear here."
+  },
+  "forbidden": {
+    "title": "Not allowed",
+    "body": "This page is not available for your account.",
+    "go_home": "Go to my home page"
+  },
+  "dev_inbox": {
+    "title": "Developer SMS inbox",
+    "hint": "Messages sent by the mock SMS adapter. Refreshes every 3 seconds.",
+    "empty": "No messages yet."
+  },
+  "sms": {
+    "login_otp": "{code} is your Kaithangu sign-in code. It is valid for 5 minutes. Do not share it with anyone."
   }
 }

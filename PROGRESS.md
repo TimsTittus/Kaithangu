@@ -1,5 +1,64 @@
 # PROGRESS
 
+## Phase 4 — Phone OTP auth, sessions, role-based access, tenancy, consent, dev inbox (2026-09-10)
+
+Status: **done locally**. Acceptance Gate passed on this machine (CI not run; all tests and gate checks green).
+
+### Built
+
+- **SMS Adapter (`packages/adapters/src/sms`)**:
+  - `SmsAdapter` interface (`send({ to, templateKey, params, locale })`), `renderSms` using i18n `sms` namespace.
+  - Mock implementation pushing `{ to, text, at }` to Redis list `dev:inbox` (capped 500) and logging with phone masking.
+  - Real stub throwing `NotConfiguredError`.
+  - Exposed via `@kaithangu/adapters/sms`.
+- **Auth & Session Service (`packages/core/src/services/auth.ts`, `packages/core/src/session.ts`)**:
+  - `requestOtp`: validates Indian phone, rate limits via Redis (3 per phone per 10 min, 20 per IP per 10 min), generates 6-digit code, stores peppered SHA-256 hash in Redis `otp:{phone}` (TTL 300 s), and delivers via `SmsAdapter`.
+  - `verifyOtp`: max 5 attempts per code, deletes code on 5th failure or on successful verification, upserts user (default role `customer`, locale from cookie, state from `DEFAULT_STATE`), updates `last_login_at`, and signs 30-day session JWT.
+  - `authenticate`: verifies HS256 JWT, checks `session_version` against DB row to reject tokens revoked by `logoutAll`, returns full `RequestContext` with tenant scope ids (`societyId`, `stateCode`, `institutionId`).
+  - `logoutAll`: increments user `session_version` in DB to invalidate active sessions.
+  - `setLocale`: updates user's profile locale in DB.
+  - Cookie helpers: `SESSION_COOKIE` (`kt_session`), `sessionCookieOptions` (`httpOnly`, `sameSite: 'lax'`, `secure: production`).
+- **REST APIs (`/api/v1`)**:
+  - `POST /api/v1/auth/otp/request`: requests OTP with client IP passed for rate limiting.
+  - `POST /api/v1/auth/otp/verify`: verifies OTP, sets `kt_session` cookie, and returns redirect destination (`/consent` or role home).
+  - `POST /api/v1/auth/logout`: clears session cookie and revokes session.
+  - `GET /api/v1/me`: returns authenticated user profile and scope.
+  - `GET /api/v1/admin/workers` & `GET /api/v1/admin/workers/[id]`: tenant-scoped worker queries.
+- **Server Context Helpers (`apps/web/src/server/auth/context.ts`)**:
+  - `getContext()`, `getSession()`, `getContextFromRequest()`, `getSessionFromRequest()`, `requireRole()`, `signInContext()`, `anonymousLocale()`.
+- **Page Route Protection (`apps/web/src/proxy.ts`)**:
+  - Next.js 16 proxy checking JWT signature and role claims:
+    - `/app/*` -> `customer`
+    - `/w/*` -> `worker`
+    - `/admin/*` -> `lcs_admin`, `state_admin`, `national_admin`
+    - `/org/*` -> `institution_admin`
+    - `/dev/*` -> active only when `DEV_INBOX=true` (404 otherwise).
+  - Unauthenticated visitors redirected to `/login?next=...` (or `/language` on first visit).
+  - Forbidden roles redirected to `/forbidden`.
+- **Tenancy Reference Pattern (`packages/core/src/services/workers.ts`, `packages/db/src/queries/workers.ts`)**:
+  - `listWorkers` and `getWorker` enforcing `ScopeFilter` in SQL queries so out-of-scope records are never loaded or leaked (IDOR protection).
+- **Consent Service & UI (`packages/core/src/services/consent.ts`, `apps/web/src/app/consent`)**:
+  - Checks if user has accepted active terms version; redirects required before booking.
+  - Plain-language consent points, audio button, and submission to `consents` table.
+- **Mobile-First UI (360×640 viewport)**:
+  - `/language`: prominent language selection buttons in 4 native scripts (മലയാളം, English, हिन्दी, தமிழ்).
+  - `/login`: 10-digit mobile input with fixed +91 prefix.
+  - `/login/verify`: 6 separate digit inputs with auto-advance, backspace support, paste handling, and resend countdown.
+  - `/dev/inbox`: real-time message viewer reading from Redis `dev:inbox` with 3 s auto-refresh.
+- **Test Coverage**:
+  - Unit tests: OTP rate limiting, attempt counters, expiry (fake timers), JWT signing/verification/tamper detection, authz role scoping, `isAppError` cross-chunk detection.
+  - Integration tests: IDOR suite (`idor.int.test.ts`) verifying LCS admins cannot access other societies, workers/customers cannot list workers, state admins cannot cross states; auth lifecycle integration suite (`auth.int.test.ts`).
+  - E2E Playwright tests (12 tests on mobile viewport 360×640): full Malayalam signup flow (`/language` -> `/login` -> read OTP from `/dev/inbox` -> `/consent` -> `/app`), wrong code error feedback, visitor redirect, role home routing and `/forbidden` protection across all roles.
+  - Packages/core maintains 100% line coverage.
+
+### Acceptance Gate
+- `bun run typecheck` — 0 errors
+- `bun run lint` — 0 errors, 0 warnings
+- `bun run test` — all 8 projects passed (77 web tests, 592 core tests, etc.)
+- `bun run test:e2e` — 12/12 Playwright tests passed
+- `bun run build` — Next.js 16 production build succeeded
+- `bun run format:check` — all files formatted with Prettier
+
 ## Phase 3 — packages/core domain logic (2026-09-10)
 
 Status: **done locally**. Acceptance Gate passed on this machine (CI not run, per

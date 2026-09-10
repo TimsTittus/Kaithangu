@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { ACTIONS, assertCan, can, type Action, type ResourceScope, type ScopeRule } from './authz';
-import { ROLES, type Role, type UserActor } from './context';
+import {
+  ACTIONS,
+  assertCan,
+  can,
+  requireRole,
+  scopeFilter,
+  type Action,
+  type ResourceScope,
+  type ScopeRule,
+} from './authz';
+import { ROLES, systemContext, type RequestContext, type Role, type UserActor } from './context';
 import { AppError } from './errors';
 
 // The approved Phase 3 matrix, written out independently of POLICY.
@@ -151,5 +160,64 @@ describe('authz: system actor and errors', () => {
       expect(appError.httpStatus).toBe(403);
       expect(appError.details).toEqual({ action: 'worker.verify' });
     }
+  });
+});
+
+describe('scopeFilter', () => {
+  it.each(MATRIX)('$role · $action matches the rule $rule', ({ action, role, rule }) => {
+    const subject = actor(role);
+    if (rule === null) {
+      expect(() => scopeFilter(subject, action)).toThrow(AppError);
+      return;
+    }
+    const expected = {
+      any: { kind: 'all' },
+      state: { kind: 'state', stateCode: STATE },
+      society: { kind: 'society', societyId: SOCIETY },
+      institution: { kind: 'institution', institutionId: INSTITUTION },
+      own_customer: { kind: 'own_customer', userId: USER },
+      own_worker: { kind: 'own_worker', userId: USER },
+    }[rule];
+    expect(scopeFilter(subject, action)).toEqual(expected);
+  });
+
+  it('fails closed when the actor lacks the scope id the rule needs', () => {
+    expect(() => scopeFilter({ userId: USER, role: 'lcs_admin' }, 'worker.read')).toThrow(AppError);
+    expect(() =>
+      scopeFilter({ userId: USER, role: 'state_admin', stateCode: '' }, 'worker.read'),
+    ).toThrow(AppError);
+    expect(() => scopeFilter({ userId: '', role: 'worker' }, 'worker.read')).toThrow(AppError);
+    expect(() => scopeFilter({ userId: USER, role: 'institution_admin' }, 'invoice.read')).toThrow(
+      AppError,
+    );
+  });
+
+  it('gives the system actor everything', () => {
+    expect(scopeFilter(systemContext('test').actor, 'report.read')).toEqual({ kind: 'all' });
+  });
+});
+
+describe('requireRole', () => {
+  const user = (role: Role): RequestContext => ({
+    actor: actor(role),
+    requestId: 'r',
+    locale: 'en',
+  });
+
+  it('returns the context when the role is allowed', () => {
+    const ctx = user('lcs_admin');
+    expect(requireRole(ctx, ['lcs_admin', 'state_admin'])).toBe(ctx);
+  });
+
+  it('throws UNAUTHENTICATED without a context and FORBIDDEN for other roles or the system', () => {
+    expect(() => requireRole(null, ['customer'])).toThrow(
+      expect.objectContaining({ code: 'UNAUTHENTICATED', httpStatus: 401 }) as Error,
+    );
+    expect(() => requireRole(user('customer'), ['lcs_admin'])).toThrow(
+      expect.objectContaining({ code: 'FORBIDDEN', httpStatus: 403 }) as Error,
+    );
+    expect(() => requireRole(systemContext('job'), ['customer'])).toThrow(
+      expect.objectContaining({ code: 'FORBIDDEN' }) as Error,
+    );
   });
 });

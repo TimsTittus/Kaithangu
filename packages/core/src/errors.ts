@@ -16,6 +16,11 @@ export const ERROR_CODES = [
   'INVALID_TRANSITION',
   'OTP_INVALID',
   'OTP_LOCKED',
+  'OTP_EXPIRED',
+  'OTP_ATTEMPTS_EXCEEDED',
+  'RATE_LIMITED',
+  'CONSENT_REQUIRED',
+  'NOT_CONFIGURED',
   'INTERNAL',
 ] as const;
 
@@ -31,6 +36,11 @@ export const DEFAULT_HTTP_STATUS: Readonly<Record<ErrorCode, number>> = {
   INVALID_TRANSITION: 409,
   OTP_INVALID: 400,
   OTP_LOCKED: 423,
+  OTP_EXPIRED: 400,
+  OTP_ATTEMPTS_EXCEEDED: 429,
+  RATE_LIMITED: 429,
+  CONSENT_REQUIRED: 403,
+  NOT_CONFIGURED: 503,
   INTERNAL: 500,
 };
 
@@ -61,5 +71,14 @@ export class AppError extends Error {
 }
 
 export function isAppError(value: unknown): value is AppError {
-  return value instanceof AppError;
+  return (
+    value instanceof AppError ||
+    (typeof value === 'object' &&
+      value !== null &&
+      'name' in value &&
+      value.name === 'AppError' &&
+      'code' in value &&
+      'httpStatus' in value &&
+      'messageKey' in value)
+  );
 }

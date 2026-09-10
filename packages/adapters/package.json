@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./sms": "./src/sms/index.ts",
+    "./sms/types": "./src/sms/types.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -16,6 +18,7 @@
     "eslint": "^9.39.5"
   },
   "dependencies": {
+    "@kaithangu/i18n": "workspace:*",
     "zod": "^4.6.1"
   }
 }

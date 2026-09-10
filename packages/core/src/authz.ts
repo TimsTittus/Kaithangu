@@ -4,7 +4,7 @@
  * institution admins their own institution. The system actor may do anything.
  * Checks fail closed: a missing scope id on the actor or the resource denies.
  */
-import type { Actor, Role } from './context';
+import type { Actor, RequestContext, Role, UserActor } from './context';
 import { isSystemActor } from './context';
 import { AppError } from './errors';
 
@@ -132,4 +132,66 @@ export function assertCan(actor: Actor, action: Action, resource: ResourceScope)
   if (!can(actor, action, resource)) {
     throw new AppError('FORBIDDEN', undefined, undefined, { action });
   }
+}
+
+/**
+ * The rows an actor may see for an action, as a filter that repositories turn
+ * into SQL (the tenancy half of AGENTS.md 4.2). Mirrors `can`: every row that
+ * passes the filter passes `can`, and a missing scope id fails closed.
+ */
+export type ScopeFilter =
+  | { kind: 'all' }
+  | { kind: 'state'; stateCode: string }
+  | { kind: 'society'; societyId: string }
+  | { kind: 'institution'; institutionId: string }
+  | { kind: 'own_customer'; userId: string }
+  | { kind: 'own_worker'; userId: string };
+
+function required(value: string | undefined, action: Action): string {
+  if (value === undefined || value === '') {
+    throw new AppError('FORBIDDEN', undefined, undefined, { action });
+  }
+  return value;
+}
+
+/** Throws AppError('FORBIDDEN') when the actor has no grant for the action. */
+export function scopeFilter(actor: Actor, action: Action): ScopeFilter {
+  if (isSystemActor(actor)) return { kind: 'all' };
+  const rule = POLICY[action][actor.role];
+  switch (rule) {
+    case undefined:
+      throw new AppError('FORBIDDEN', undefined, undefined, { action });
+    case 'any':
+      return { kind: 'all' };
+    case 'state':
+      return { kind: 'state', stateCode: required(actor.stateCode, action) };
+    case 'society':
+      return { kind: 'society', societyId: required(actor.societyId, action) };
+    case 'institution':
+      return { kind: 'institution', institutionId: required(actor.institutionId, action) };
+    case 'own_customer':
+      return { kind: 'own_customer', userId: required(actor.userId, action) };
+    case 'own_worker':
+      return { kind: 'own_worker', userId: required(actor.userId, action) };
+  }
+}
+
+export type UserContext<R extends Role = Role> = RequestContext & {
+  actor: UserActor & { role: R };
+};
+
+/**
+ * Narrow a (possibly missing) context to a signed-in user with one of `roles`.
+ * No context → UNAUTHENTICATED; the system actor or another role → FORBIDDEN.
+ */
+export function requireRole<R extends Role>(
+  ctx: RequestContext | null,
+  roles: readonly R[],
+): UserContext<R> {
+  if (ctx === null) throw new AppError('UNAUTHENTICATED');
+  const { actor } = ctx;
+  if (isSystemActor(actor) || !(roles as readonly Role[]).includes(actor.role)) {
+    throw new AppError('FORBIDDEN', undefined, undefined, { roles: [...roles] });
+  }
+  return ctx as UserContext<R>;
 }
