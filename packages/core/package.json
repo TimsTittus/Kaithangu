@@ -5,7 +5,9 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./session": "./src/session.ts"
+    "./session": "./src/session.ts",
+    "./money": "./src/money.ts",
+    "./trades": "./src/trades.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -15,6 +17,8 @@
   "dependencies": {
     "@kaithangu/adapters": "workspace:*",
     "@kaithangu/i18n": "workspace:*",
+    "date-fns": "^4.4.0",
+    "date-fns-tz": "^3.2.0",
     "jose": "^6.2.12",
     "pino": "^10.3.1",
     "zod": "^4.6.1"

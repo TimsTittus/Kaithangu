@@ -3,8 +3,21 @@
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { AudioButton } from './AudioButton';
+import { AudioLabel } from './AudioLabel';
 import { secondaryButtonClass } from './ui';
+
+// Caches of public/sw.js that can hold a signed-in user's pages or API data.
+const PRIVATE_CACHE_PREFIXES = ['kt-pages-', 'kt-api-'];
+
+async function clearPrivateCaches(): Promise<void> {
+  if (typeof caches === 'undefined') return;
+  const names = await caches.keys();
+  await Promise.all(
+    names
+      .filter((name) => PRIVATE_CACHE_PREFIXES.some((prefix) => name.startsWith(prefix)))
+      .map((name) => caches.delete(name)),
+  );
+}
 
 export function LogoutButton({ label }: { label: string }) {
   const router = useRouter();
@@ -18,6 +31,7 @@ export function LogoutButton({ label }: { label: string }) {
         headers: { 'content-type': 'application/json' },
         body: '{}',
       });
+      await clearPrivateCaches();
     } finally {
       router.push('/login');
       router.refresh();
@@ -36,7 +50,7 @@ export function LogoutButton({ label }: { label: string }) {
         <LogOut aria-hidden className="size-5" />
         {label}
       </button>
-      <AudioButton text={label} />
+      <AudioLabel k="common.logout" text={label} />
     </div>
   );
 }

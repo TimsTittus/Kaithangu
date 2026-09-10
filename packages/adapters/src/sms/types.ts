@@ -5,6 +5,8 @@
  */
 import { formatMessage, type Locale, type MessageParams } from '@kaithangu/i18n';
 
+export { isNotConfiguredError, NotConfiguredError } from '../notConfigured';
+
 export const SMS_TEMPLATE_KEYS = ['login_otp'] as const;
 export type SmsTemplateKey = (typeof SMS_TEMPLATE_KEYS)[number];
 
@@ -18,20 +20,6 @@ export interface SmsMessage {
 
 export interface SmsAdapter {
   send(message: SmsMessage): Promise<void>;
-}
-
-/** Thrown by a real adapter whose provider has not been set up yet. */
-export class NotConfiguredError extends Error {
-  readonly code = 'NOT_CONFIGURED';
-
-  constructor(readonly adapter: string) {
-    super(`${adapter} adapter is not configured`);
-    this.name = 'NotConfiguredError';
-  }
-}
-
-export function isNotConfiguredError(value: unknown): value is NotConfiguredError {
-  return value instanceof NotConfiguredError;
 }
 
 /** The text an SMS template renders to in the message's locale. */

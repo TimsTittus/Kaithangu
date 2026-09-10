@@ -4,10 +4,10 @@ import type { BrowserContext, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 import { sessionToken, type AuthFixture, type FixtureUser } from '../src/test/fixtures';
 
-export function fixture(): AuthFixture {
+export function fixture(): AuthFixture & { pincode: string } {
   const raw = process.env.E2E_FIXTURE;
   if (!raw) throw new Error('E2E_FIXTURE missing: global setup did not run');
-  return JSON.parse(raw) as AuthFixture;
+  return JSON.parse(raw) as AuthFixture & { pincode: string };
 }
 
 /** A fictional 10-digit mobile number starting with 9 (not in the fixture). */

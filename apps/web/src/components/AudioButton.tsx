@@ -11,27 +11,25 @@ const SPEECH_LANG: Record<string, string> = {
   ta: 'ta-IN',
 };
 
+/** Speak `text` with the browser's speech synthesis, if it has one. */
+export function speak(text: string, locale: string): void {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = SPEECH_LANG[locale] ?? 'en-IN';
+  window.speechSynthesis.speak(utterance);
+}
+
 /**
- * Plays `text` aloud (AGENTS.md 7: every primary action has an audio button).
- * Placeholder: uses the browser's speech synthesis when it has a voice for the
- * language; recorded prompts from packages/i18n replace this with the voice phase.
+ * Plays dynamic `text` aloud (e.g. a price). Fixed labels use AudioLabel,
+ * which plays the pre-built mp3 for the key.
  */
 export function AudioButton({ text, locale }: { text: string; locale?: string }) {
   const common = useCommonStrings();
-  const lang = SPEECH_LANG[locale ?? common.locale] ?? 'en-IN';
-
-  function play() {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang;
-    window.speechSynthesis.speak(utterance);
-  }
-
   return (
     <button
       type="button"
-      onClick={play}
+      onClick={() => speak(text, locale ?? common.locale)}
       className={iconButtonClass}
       aria-label={`${common.playAudio}: ${text}`}
       title={common.playAudio}

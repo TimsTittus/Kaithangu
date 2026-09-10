@@ -29,6 +29,7 @@ export function OfflineBanner() {
   return (
     <div
       role="status"
+      data-testid="offline-banner"
       className="flex items-center gap-2 bg-amber-200 px-4 py-3 text-base font-medium text-neutral-950"
     >
       <WifiOff aria-hidden className="size-5 shrink-0" />

@@ -10,7 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lhci": "tsx lhci/run.ts"
   },
   "dependencies": {
     "@kaithangu/adapters": "workspace:*",
@@ -21,6 +22,7 @@
     "ioredis": "^6.0.0",
     "jose": "^6.2.12",
     "lucide-react": "^1.44.0",
+    "maplibre-gl": "^6.9.0",
     "next": "16.3.4",
     "next-intl": "^4.14.3",
     "pino": "^10.3.1",
@@ -31,6 +33,7 @@
   },
   "devDependencies": {
     "@kaithangu/config": "workspace:*",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22.20.2",
@@ -40,6 +43,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
+    "tsx": "^4.23.13",
     "vitest": "^5.0.0"
   }
 }

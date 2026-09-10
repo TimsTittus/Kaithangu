@@ -6,7 +6,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./sms": "./src/sms/index.ts",
-    "./sms/types": "./src/sms/types.ts"
+    "./sms/types": "./src/sms/types.ts",
+    "./speech": "./src/speech/index.ts",
+    "./speech/types": "./src/speech/types.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

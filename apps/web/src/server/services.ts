@@ -3,16 +3,24 @@
  * selected by env. Handlers call these and stay thin (AGENTS.md 4.1).
  */
 import { createSmsAdapter } from '@kaithangu/adapters/sms';
+import { createSpeechAdapter } from '@kaithangu/adapters/speech';
 import {
   createAuthService,
+  createBookingService,
   createConsentService,
+  createSpeechService,
   createWorkerService,
   type AuthService,
+  type BookingService,
   type ConsentService,
+  type SpeechService,
   type WorkerService,
 } from '@kaithangu/core';
 import {
+  createBookingPricingRepo,
+  createBookingRepo,
   createConsentRepo,
+  createPlaceRepo,
   createUserRepo,
   createWorkerRepo,
   loadStateDefaultLocale,
@@ -21,12 +29,15 @@ import { isSupportedLocale, type Locale } from '@kaithangu/i18n';
 import { getEnv } from '@/env';
 import { getDb, getRedis } from '@/lib/datastores';
 import { logger } from '@/lib/logger';
+import { createLoggingJobQueue } from '@/server/jobs';
 import { createRedisOtpStore, createRedisRateLimiter } from '@/server/stores/redis';
 
 const services = globalThis as typeof globalThis & {
   kaithanguAuth?: AuthService;
   kaithanguConsent?: ConsentService;
   kaithanguWorkers?: WorkerService;
+  kaithanguBookings?: BookingService;
+  kaithanguSpeech?: SpeechService;
 };
 
 export function getAuthService(): AuthService {
@@ -54,6 +65,32 @@ export function getConsentService(): ConsentService {
 export function getWorkerService(): WorkerService {
   services.kaithanguWorkers ??= createWorkerService({ workers: createWorkerRepo(getDb()) });
   return services.kaithanguWorkers;
+}
+
+export function getBookingService(): BookingService {
+  if (!services.kaithanguBookings) {
+    const env = getEnv();
+    const db = getDb();
+    services.kaithanguBookings = createBookingService({
+      bookings: createBookingRepo(db),
+      pricing: createBookingPricingRepo(db),
+      places: createPlaceRepo(db),
+      consent: getConsentService(),
+      jobs: createLoggingJobQueue(logger),
+      defaultStateCode: env.DEFAULT_STATE,
+      // Derived job OTPs / worker check codes use the OTP pepper, with a
+      // per-purpose prefix inside the HMAC message (core/booking/codes.ts).
+      codeSecret: env.OTP_PEPPER,
+    });
+  }
+  return services.kaithanguBookings;
+}
+
+export function getSpeechService(): SpeechService {
+  services.kaithanguSpeech ??= createSpeechService({
+    speech: createSpeechAdapter({ env: process.env }),
+  });
+  return services.kaithanguSpeech;
 }
 
 const DEFAULT_LOCALE_TTL_MS = 5 * 60 * 1000;

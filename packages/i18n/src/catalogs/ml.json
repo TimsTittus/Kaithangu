@@ -43,7 +43,12 @@
     "OTP_EXPIRED": "ഈ കോഡിന്റെ കാലാവധി കഴിഞ്ഞു. പുതിയ കോഡ് ആവശ്യപ്പെടുക.",
     "OTP_ATTEMPTS_EXCEEDED": "വളരെയധികം തെറ്റായ കോഡുകൾ. പുതിയ കോഡ് ആവശ്യപ്പെടുക.",
     "CONSENT_REQUIRED": "തുടരുന്നതിന് മുമ്പ് നിബന്ധനകൾ വായിച്ച് അംഗീകരിക്കുക.",
-    "NOT_CONFIGURED": "ഈ സേവനം ഇപ്പോൾ ലഭ്യമല്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക."
+    "NOT_CONFIGURED": "ഈ സേവനം ഇപ്പോൾ ലഭ്യമല്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.",
+    "PINCODE_UNKNOWN": "[ml] We could not find this pincode. Please check it and try again.",
+    "NOT_SERVICEABLE": "[ml] Sorry, booking is not available for this area or service yet.",
+    "PRICE_CHANGED": "[ml] The price has changed. Please check the new price and confirm again.",
+    "PAYLOAD_TOO_LARGE": "[ml] The recording is too long. Please speak for less than 30 seconds.",
+    "UNSUPPORTED_MEDIA": "[ml] This recording format is not supported. Please type instead."
   },
   "pricing": {
     "wage": "തൊഴിലാളിയുടെ കൂലി",
@@ -70,7 +75,10 @@
     "logout": "പുറത്തുകടക്കുക",
     "empty": "ഇവിടെ ഇതുവരെ ഒന്നുമില്ല.",
     "not_found": "പേജ് കണ്ടെത്താനായില്ല.",
-    "go_start": "ആരംഭ പേജിലേക്ക് പോകുക"
+    "go_start": "ആരംഭ പേജിലേക്ക് പോകുക",
+    "back": "[ml] Back",
+    "next": "[ml] Next",
+    "close": "[ml] Close"
   },
   "language": {
     "title": "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക",
@@ -129,5 +137,169 @@
   },
   "sms": {
     "login_otp": "{code} ആണ് നിങ്ങളുടെ കൈത്താങ്ങ് സൈൻ-ഇൻ കോഡ്. ഇത് 5 മിനിറ്റ് സാധുവാണ്. ആരുമായും പങ്കിടരുത്."
+  },
+  "trades": {
+    "chips": {
+      "plumber": {
+        "leak": "[ml] Leaking tap or pipe",
+        "blocked": "[ml] Blocked drain or toilet",
+        "install": "[ml] Fit a new tap or tank",
+        "pump": "[ml] Water pump problem"
+      },
+      "electrician": {
+        "no_power": "[ml] No power in a room",
+        "switch": "[ml] Switch or socket not working",
+        "fan": "[ml] Fan or light fitting",
+        "wiring": "[ml] New wiring point"
+      },
+      "carpenter": {
+        "door": "[ml] Door or window repair",
+        "furniture": "[ml] Furniture repair",
+        "lock": "[ml] Fix or change a lock",
+        "shelf": "[ml] Put up a shelf"
+      },
+      "painter": {
+        "room": "[ml] Paint a room",
+        "touchup": "[ml] Touch-up or patch work",
+        "outside": "[ml] Outside wall painting",
+        "damp": "[ml] Damp or peeling paint"
+      },
+      "domestic_help": {
+        "cleaning": "[ml] House cleaning",
+        "cooking": "[ml] Help with cooking",
+        "laundry": "[ml] Washing and ironing",
+        "dishes": "[ml] Washing dishes"
+      },
+      "caregiver": {
+        "elder": "[ml] Care for an elderly person",
+        "patient": "[ml] Care after a hospital stay",
+        "child": "[ml] Child care",
+        "night": "[ml] Night-time care"
+      },
+      "driver": {
+        "local": "[ml] Local trip",
+        "hospital": "[ml] Drive to hospital",
+        "outstation": "[ml] Out-of-town trip",
+        "daily": "[ml] Daily driver"
+      },
+      "gardener": {
+        "grass": "[ml] Cut the grass",
+        "trim": "[ml] Trim plants and hedges",
+        "planting": "[ml] Planting",
+        "clearing": "[ml] Clear the garden"
+      },
+      "cleaner": {
+        "deep": "[ml] Deep cleaning",
+        "bathroom": "[ml] Bathroom cleaning",
+        "kitchen": "[ml] Kitchen cleaning",
+        "tank": "[ml] Water tank cleaning"
+      },
+      "technician": {
+        "ac": "[ml] AC not cooling",
+        "fridge": "[ml] Fridge repair",
+        "washing_machine": "[ml] Washing machine repair",
+        "tv": "[ml] TV or appliance repair"
+      }
+    }
+  },
+  "booking": {
+    "choose_trade": "[ml] What help do you need?",
+    "emergency": "[ml] Emergency",
+    "emergency_title": "[ml] Emergency: choose the help you need",
+    "emergency_hint": "[ml] The nearest available worker is asked first.",
+    "my_bookings": "[ml] My bookings",
+    "title": "[ml] Book: {trade}",
+    "step": "[ml] Step {n} of {total}",
+    "problem_title": "[ml] What is the problem?",
+    "problem_label": "[ml] Describe the problem",
+    "problem_placeholder": "[ml] For example: the kitchen tap is leaking",
+    "problem_required": "[ml] Please describe the problem or choose one below.",
+    "quick_picks": "[ml] Common problems",
+    "mic_start": "[ml] Speak",
+    "mic_stop": "[ml] Stop",
+    "mic_listening": "[ml] Listening… speak now",
+    "mic_processing": "[ml] Understanding what you said…",
+    "mic_failed": "[ml] Could not understand the recording. Please type instead.",
+    "mic_denied": "[ml] The microphone is not allowed. Please type instead.",
+    "location_title": "[ml] Where is the work?",
+    "use_location": "[ml] Use my location",
+    "locating": "[ml] Finding your location…",
+    "location_failed": "[ml] Could not find your location. Please enter your pincode.",
+    "location_found": "[ml] Location found. Move the pin to your door if needed.",
+    "saved_addresses": "[ml] Saved addresses",
+    "pincode_label": "[ml] Pincode",
+    "pincode_hint": "[ml] 6-digit pincode",
+    "pincode_invalid": "[ml] Please enter a valid 6-digit pincode.",
+    "landmark_label": "[ml] House name, street or landmark",
+    "landmark_required": "[ml] Please enter your house name, street or a landmark.",
+    "location_required": "[ml] Please use your location or enter your pincode.",
+    "map_label": "[ml] Map. Drag the pin to your door.",
+    "map_unavailable": "[ml] The map could not load. Your pincode will be used.",
+    "when_title": "[ml] When do you need the worker?",
+    "when_now": "[ml] Now",
+    "when_now_hint": "[ml] A worker is asked as soon as possible.",
+    "when_emergency": "[ml] Emergency",
+    "when_emergency_hint": "[ml] Fastest help. An emergency charge goes to the worker.",
+    "when_slot": "[ml] Pick a time",
+    "when_slot_hint": "[ml] Choose a day and a 2-hour time.",
+    "slot_day": "[ml] Day",
+    "slot_time": "[ml] Time",
+    "slot_required": "[ml] Please choose a day and a time.",
+    "no_slots": "[ml] No times are available in the next 7 days.",
+    "quote_title": "[ml] Price",
+    "quote_loading": "[ml] Working out the price…",
+    "quote_minutes": "[ml] Price for {minutes} minutes of work",
+    "quote_welfare_note": "[ml] Goes to the worker welfare fund.",
+    "quote_total": "[ml] Total to pay",
+    "quote_total_audio": "[ml] Total to pay: {amount}",
+    "quote_placeholder_note": "[ml] These are sample rates for testing. They are not final.",
+    "quote_retry": "[ml] Get the price again",
+    "confirm": "[ml] Confirm booking",
+    "confirming": "[ml] Booking…",
+    "tracking_title": "[ml] Your booking",
+    "timeline": "[ml] Progress",
+    "live_hint": "[ml] This page updates by itself.",
+    "worker_title": "[ml] Your worker",
+    "verified_by": "[ml] Verified by {society}",
+    "verification_code": "[ml] Worker check code",
+    "verification_hint": "[ml] The worker's phone shows the same code.",
+    "rating": "[ml] Rating {rating} of 5 ({count})",
+    "new_worker": "[ml] New worker",
+    "start_otp": "[ml] Start code",
+    "complete_otp": "[ml] Finish code",
+    "otp_hint": "[ml] Tell the code to the worker only when they are with you.",
+    "cancel": "[ml] Cancel booking",
+    "cancel_confirm": "[ml] Do you want to cancel this booking?",
+    "cancel_yes": "[ml] Yes, cancel",
+    "cancel_no": "[ml] No, keep it",
+    "cancelling": "[ml] Cancelling…",
+    "details": "[ml] Details",
+    "problem": "[ml] Problem",
+    "address": "[ml] Address",
+    "when": "[ml] When",
+    "asap": "[ml] As soon as possible",
+    "total": "[ml] Total",
+    "emergency_badge": "[ml] Emergency",
+    "list_title": "[ml] My bookings",
+    "list_empty": "[ml] You have no bookings yet.",
+    "book_first": "[ml] Book a worker",
+    "home": "[ml] Home"
+  },
+  "status": {
+    "requested": "[ml] Booking received",
+    "matching": "[ml] Finding a worker",
+    "offered": "[ml] Asking a worker",
+    "accepted": "[ml] Worker assigned",
+    "en_route": "[ml] Worker on the way",
+    "in_progress": "[ml] Work in progress",
+    "completed": "[ml] Work completed",
+    "unassigned": "[ml] No worker found yet. Your society will help.",
+    "cancelled": "[ml] Cancelled",
+    "disputed": "[ml] Complaint raised",
+    "resolved": "[ml] Complaint resolved"
+  },
+  "voice": {
+    "welcome": "[ml] Welcome to Kaithangu.",
+    "confirm_booking": "[ml] Press 1 to confirm your booking. Press 2 to go back."
   }
 }

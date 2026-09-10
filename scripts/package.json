@@ -7,12 +7,19 @@
     "smoke:datastores": "tsx --env-file-if-exists=../.env smoke/datastores.ts",
     "smoke:supabase": "tsx --env-file-if-exists=../.env smoke/supabase.ts",
     "sim:quote-example": "tsx --env-file-if-exists=../.env sim/quote-example.ts",
+    "i18n:translate": "tsx --env-file-if-exists=../.env i18n/translate.ts",
+    "i18n:check": "tsx i18n/check.ts",
+    "audio:build": "tsx --env-file-if-exists=../.env audio/build.ts",
+    "icons:build": "tsx icons/build.ts",
+    "bundle:check": "tsx bundle/check.ts",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint . && tsx i18n/check.ts"
   },
   "dependencies": {
+    "@kaithangu/adapters": "workspace:*",
     "@kaithangu/core": "workspace:*",
     "@kaithangu/db": "workspace:*",
+    "@kaithangu/i18n": "workspace:*",
     "amqplib": "^2.0.1",
     "ioredis": "^6.0.0",
     "postgres": "^3.4.9",

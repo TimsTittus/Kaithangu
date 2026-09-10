@@ -43,7 +43,12 @@
     "OTP_EXPIRED": "इस कोड की समय-सीमा समाप्त हो गई है। कृपया नया कोड माँगें।",
     "OTP_ATTEMPTS_EXCEEDED": "बहुत अधिक गलत कोड। कृपया नया कोड माँगें।",
     "CONSENT_REQUIRED": "आगे बढ़ने से पहले कृपया शर्तें पढ़कर स्वीकार करें।",
-    "NOT_CONFIGURED": "यह सेवा अभी उपलब्ध नहीं है। कृपया बाद में फिर से कोशिश करें।"
+    "NOT_CONFIGURED": "यह सेवा अभी उपलब्ध नहीं है। कृपया बाद में फिर से कोशिश करें।",
+    "PINCODE_UNKNOWN": "[hi] We could not find this pincode. Please check it and try again.",
+    "NOT_SERVICEABLE": "[hi] Sorry, booking is not available for this area or service yet.",
+    "PRICE_CHANGED": "[hi] The price has changed. Please check the new price and confirm again.",
+    "PAYLOAD_TOO_LARGE": "[hi] The recording is too long. Please speak for less than 30 seconds.",
+    "UNSUPPORTED_MEDIA": "[hi] This recording format is not supported. Please type instead."
   },
   "pricing": {
     "wage": "कामगार की मज़दूरी",
@@ -70,7 +75,10 @@
     "logout": "साइन आउट करें",
     "empty": "यहाँ अभी कुछ नहीं है।",
     "not_found": "पेज नहीं मिला।",
-    "go_start": "शुरुआती पेज पर जाएँ"
+    "go_start": "शुरुआती पेज पर जाएँ",
+    "back": "[hi] Back",
+    "next": "[hi] Next",
+    "close": "[hi] Close"
   },
   "language": {
     "title": "अपनी भाषा चुनें",
@@ -129,5 +137,169 @@
   },
   "sms": {
     "login_otp": "{code} आपका कैत्तांगु साइन-इन कोड है। यह 5 मिनट तक मान्य है। इसे किसी के साथ साझा न करें।"
+  },
+  "trades": {
+    "chips": {
+      "plumber": {
+        "leak": "[hi] Leaking tap or pipe",
+        "blocked": "[hi] Blocked drain or toilet",
+        "install": "[hi] Fit a new tap or tank",
+        "pump": "[hi] Water pump problem"
+      },
+      "electrician": {
+        "no_power": "[hi] No power in a room",
+        "switch": "[hi] Switch or socket not working",
+        "fan": "[hi] Fan or light fitting",
+        "wiring": "[hi] New wiring point"
+      },
+      "carpenter": {
+        "door": "[hi] Door or window repair",
+        "furniture": "[hi] Furniture repair",
+        "lock": "[hi] Fix or change a lock",
+        "shelf": "[hi] Put up a shelf"
+      },
+      "painter": {
+        "room": "[hi] Paint a room",
+        "touchup": "[hi] Touch-up or patch work",
+        "outside": "[hi] Outside wall painting",
+        "damp": "[hi] Damp or peeling paint"
+      },
+      "domestic_help": {
+        "cleaning": "[hi] House cleaning",
+        "cooking": "[hi] Help with cooking",
+        "laundry": "[hi] Washing and ironing",
+        "dishes": "[hi] Washing dishes"
+      },
+      "caregiver": {
+        "elder": "[hi] Care for an elderly person",
+        "patient": "[hi] Care after a hospital stay",
+        "child": "[hi] Child care",
+        "night": "[hi] Night-time care"
+      },
+      "driver": {
+        "local": "[hi] Local trip",
+        "hospital": "[hi] Drive to hospital",
+        "outstation": "[hi] Out-of-town trip",
+        "daily": "[hi] Daily driver"
+      },
+      "gardener": {
+        "grass": "[hi] Cut the grass",
+        "trim": "[hi] Trim plants and hedges",
+        "planting": "[hi] Planting",
+        "clearing": "[hi] Clear the garden"
+      },
+      "cleaner": {
+        "deep": "[hi] Deep cleaning",
+        "bathroom": "[hi] Bathroom cleaning",
+        "kitchen": "[hi] Kitchen cleaning",
+        "tank": "[hi] Water tank cleaning"
+      },
+      "technician": {
+        "ac": "[hi] AC not cooling",
+        "fridge": "[hi] Fridge repair",
+        "washing_machine": "[hi] Washing machine repair",
+        "tv": "[hi] TV or appliance repair"
+      }
+    }
+  },
+  "booking": {
+    "choose_trade": "[hi] What help do you need?",
+    "emergency": "[hi] Emergency",
+    "emergency_title": "[hi] Emergency: choose the help you need",
+    "emergency_hint": "[hi] The nearest available worker is asked first.",
+    "my_bookings": "[hi] My bookings",
+    "title": "[hi] Book: {trade}",
+    "step": "[hi] Step {n} of {total}",
+    "problem_title": "[hi] What is the problem?",
+    "problem_label": "[hi] Describe the problem",
+    "problem_placeholder": "[hi] For example: the kitchen tap is leaking",
+    "problem_required": "[hi] Please describe the problem or choose one below.",
+    "quick_picks": "[hi] Common problems",
+    "mic_start": "[hi] Speak",
+    "mic_stop": "[hi] Stop",
+    "mic_listening": "[hi] Listening… speak now",
+    "mic_processing": "[hi] Understanding what you said…",
+    "mic_failed": "[hi] Could not understand the recording. Please type instead.",
+    "mic_denied": "[hi] The microphone is not allowed. Please type instead.",
+    "location_title": "[hi] Where is the work?",
+    "use_location": "[hi] Use my location",
+    "locating": "[hi] Finding your location…",
+    "location_failed": "[hi] Could not find your location. Please enter your pincode.",
+    "location_found": "[hi] Location found. Move the pin to your door if needed.",
+    "saved_addresses": "[hi] Saved addresses",
+    "pincode_label": "[hi] Pincode",
+    "pincode_hint": "[hi] 6-digit pincode",
+    "pincode_invalid": "[hi] Please enter a valid 6-digit pincode.",
+    "landmark_label": "[hi] House name, street or landmark",
+    "landmark_required": "[hi] Please enter your house name, street or a landmark.",
+    "location_required": "[hi] Please use your location or enter your pincode.",
+    "map_label": "[hi] Map. Drag the pin to your door.",
+    "map_unavailable": "[hi] The map could not load. Your pincode will be used.",
+    "when_title": "[hi] When do you need the worker?",
+    "when_now": "[hi] Now",
+    "when_now_hint": "[hi] A worker is asked as soon as possible.",
+    "when_emergency": "[hi] Emergency",
+    "when_emergency_hint": "[hi] Fastest help. An emergency charge goes to the worker.",
+    "when_slot": "[hi] Pick a time",
+    "when_slot_hint": "[hi] Choose a day and a 2-hour time.",
+    "slot_day": "[hi] Day",
+    "slot_time": "[hi] Time",
+    "slot_required": "[hi] Please choose a day and a time.",
+    "no_slots": "[hi] No times are available in the next 7 days.",
+    "quote_title": "[hi] Price",
+    "quote_loading": "[hi] Working out the price…",
+    "quote_minutes": "[hi] Price for {minutes} minutes of work",
+    "quote_welfare_note": "[hi] Goes to the worker welfare fund.",
+    "quote_total": "[hi] Total to pay",
+    "quote_total_audio": "[hi] Total to pay: {amount}",
+    "quote_placeholder_note": "[hi] These are sample rates for testing. They are not final.",
+    "quote_retry": "[hi] Get the price again",
+    "confirm": "[hi] Confirm booking",
+    "confirming": "[hi] Booking…",
+    "tracking_title": "[hi] Your booking",
+    "timeline": "[hi] Progress",
+    "live_hint": "[hi] This page updates by itself.",
+    "worker_title": "[hi] Your worker",
+    "verified_by": "[hi] Verified by {society}",
+    "verification_code": "[hi] Worker check code",
+    "verification_hint": "[hi] The worker's phone shows the same code.",
+    "rating": "[hi] Rating {rating} of 5 ({count})",
+    "new_worker": "[hi] New worker",
+    "start_otp": "[hi] Start code",
+    "complete_otp": "[hi] Finish code",
+    "otp_hint": "[hi] Tell the code to the worker only when they are with you.",
+    "cancel": "[hi] Cancel booking",
+    "cancel_confirm": "[hi] Do you want to cancel this booking?",
+    "cancel_yes": "[hi] Yes, cancel",
+    "cancel_no": "[hi] No, keep it",
+    "cancelling": "[hi] Cancelling…",
+    "details": "[hi] Details",
+    "problem": "[hi] Problem",
+    "address": "[hi] Address",
+    "when": "[hi] When",
+    "asap": "[hi] As soon as possible",
+    "total": "[hi] Total",
+    "emergency_badge": "[hi] Emergency",
+    "list_title": "[hi] My bookings",
+    "list_empty": "[hi] You have no bookings yet.",
+    "book_first": "[hi] Book a worker",
+    "home": "[hi] Home"
+  },
+  "status": {
+    "requested": "[hi] Booking received",
+    "matching": "[hi] Finding a worker",
+    "offered": "[hi] Asking a worker",
+    "accepted": "[hi] Worker assigned",
+    "en_route": "[hi] Worker on the way",
+    "in_progress": "[hi] Work in progress",
+    "completed": "[hi] Work completed",
+    "unassigned": "[hi] No worker found yet. Your society will help.",
+    "cancelled": "[hi] Cancelled",
+    "disputed": "[hi] Complaint raised",
+    "resolved": "[hi] Complaint resolved"
+  },
+  "voice": {
+    "welcome": "[hi] Welcome to Kaithangu.",
+    "confirm_booking": "[hi] Press 1 to confirm your booking. Press 2 to go back."
   }
 }

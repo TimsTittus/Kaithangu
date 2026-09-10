@@ -8,18 +8,46 @@ import { randomInt } from 'node:crypto';
 import { currentConsentVersion, signSession, SESSION_COOKIE, type Role } from '@kaithangu/core';
 import { createDb, type Database } from '@kaithangu/db';
 import {
+  addresses,
+  bookingEvents,
+  bookings,
   consents,
   federations,
+  idempotencyKeys,
   institutions,
+  pincodes,
   societies,
   users,
   workers,
   workerSkills,
 } from '@kaithangu/db/schema';
 import { assertTestDatabaseUrl, runMigrations, seedReferenceData } from '@kaithangu/db/testing';
-import { inArray } from 'drizzle-orm';
+import { eq, inArray, like, or } from 'drizzle-orm';
 
 const NOWHERE = { lng: 0, lat: 0 };
+
+/** Fictional pincode for booking tests, in the fictional state "TESTLAND" at (0, 0). */
+export const TEST_PINCODE = '999999';
+const TEST_STATE_NAME = 'TESTLAND';
+
+/** Make sure the test pincode row exists (the real pincode import is not run in tests). */
+export async function ensureTestPincode(db: Database): Promise<string> {
+  const [existing] = await db
+    .select({ id: pincodes.id })
+    .from(pincodes)
+    .where(eq(pincodes.stateName, TEST_STATE_NAME))
+    .limit(1);
+  if (existing === undefined) {
+    await db.insert(pincodes).values({
+      pincode: TEST_PINCODE,
+      officeName: 'Test Office (Demo)',
+      district: 'TEST',
+      stateName: TEST_STATE_NAME,
+      location: NOWHERE,
+    });
+  }
+  return TEST_PINCODE;
+}
 
 /** A random fictional Indian mobile number (+9199…). */
 export function fakePhone(): string {
@@ -166,9 +194,22 @@ export async function createAuthFixture(
   };
 }
 
-/** Delete users (and their consents / worker rows) by id. */
+/** Delete users (and their bookings, addresses, consents, worker rows) by id. */
 export async function deleteUsers(db: Database, userIds: string[]): Promise<void> {
   if (userIds.length === 0) return;
+  const owned = await db
+    .select({ id: bookings.id })
+    .from(bookings)
+    .where(or(inArray(bookings.customerId, userIds), inArray(bookings.workerId, userIds)));
+  const bookingIds = owned.map((row) => row.id);
+  if (bookingIds.length > 0) {
+    await db.delete(bookingEvents).where(inArray(bookingEvents.bookingId, bookingIds));
+    await db.delete(bookings).where(inArray(bookings.id, bookingIds));
+  }
+  await db.delete(addresses).where(inArray(addresses.userId, userIds));
+  for (const userId of userIds) {
+    await db.delete(idempotencyKeys).where(like(idempotencyKeys.key, `booking.create:${userId}:%`));
+  }
   await db.delete(consents).where(inArray(consents.userId, userIds));
   await db.delete(workerSkills).where(inArray(workerSkills.workerId, userIds));
   await db.delete(workers).where(inArray(workers.userId, userIds));

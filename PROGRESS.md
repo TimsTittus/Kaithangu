@@ -1,5 +1,125 @@
 # PROGRESS
 
+## Phase 5 — Customer booking experience in apps/web (/app) (2026-09-10)
+
+Status: **built locally**. typecheck, lint, format:check, unit + integration tests and the
+bundle budget are green on this machine. Per the user, the CI gate was skipped:
+`bun run lhci` was not run, and `bun run test:e2e` ran only the new booking spec locally:
+6/6 passed (ml + en: full booking, cancel, offline banner; slow 3G). Malayalam
+screenshots of every step are in `docs/screens/` (no horizontal overflow at 360 px).
+A first e2e run caught a runtime bug (server pages imported key lists from `'use
+client'` modules); fixed by moving them to plain `keys.ts` modules. Nothing committed.
+
+### Built
+
+- **i18n** (`packages/i18n`): new namespaces `booking`, `status`, `voice`, `trades`
+  (quick-pick chips per trade) and new `common` / `error` keys; English is the source.
+  - `bun run i18n:translate` (`scripts/i18n/translate.ts`) fills keys missing from
+    ml/hi/ta with the speech adapter's `translate` (Sarvam in real mode; mock returns
+    `[ml] <english>`), keeps `{placeholders}` (falls back to English if one is lost),
+    and lists every machine-translated key in `packages/i18n/needs_review.json`.
+    Mock-tagged values count as missing, so a real-mode run replaces them.
+  - `bun run i18n:check` (`scripts/i18n/check.ts`, also part of `bun run lint`) fails
+    when a catalog is missing an English key or has extra keys.
+- **Speech adapter** (`packages/adapters/src/speech`): `transcribe` / `synthesize`
+  (mp3) / `translate`; mock (fixed transcript, silent MPEG-1 Layer III mp3, tagged
+  translation) and real (Sarvam `speech-to-text`, `text-to-speech`, `translate`,
+  zod-validated responses). `NotConfiguredError` moved to `src/notConfigured.ts`
+  (still re-exported from `sms/types`).
+- **Audio labels**: `bun run audio:build` (`scripts/audio/build.ts`) writes
+  `apps/web/public/audio/{locale}/{key}.mp3` for `packages/i18n/audio-keys.json`,
+  plus `{locale}/index.json` (service-worker precache list) and `manifest.json`
+  (content hash; unchanged files skipped). `<AudioLabel k text/>`: 48 px button,
+  plays the file, never autoplays, falls back to speech synthesis.
+- **core** (`packages/core`, 100 % lines):
+  - `services/bookings.ts`: `quote`, `bookingOptions`, `createBooking`
+    (Idempotency-Key per customer, request hash, CONFLICT on reuse with another body,
+    `expectedTotalPaise` → `PRICE_CHANGED`, consent required, enqueue `match`),
+    `getBooking` / `listBookings` (ScopeFilter in SQL; customers see only their own),
+    `cancelBooking` (state machine + compare-and-set + `booking_events`).
+  - `booking/slots.ts`: next 7 days, 2-hour slots 07:00–19:00 in the state timezone,
+    ≥ 60 min ahead. `booking/codes.ts`: derived job OTPs and worker check code.
+  - `services/speech.ts`: STT for signed-in users, ≤ 1 MB, audio/webm or audio/ogg.
+  - New error codes: `PINCODE_UNKNOWN`, `NOT_SERVICEABLE`, `PRICE_CHANGED`,
+    `PAYLOAD_TOO_LARGE`, `UNSUPPORTED_MEDIA`.
+- **db** (`packages/db`): `createBookingRepo` (idempotent create in one transaction:
+  claim key → insert booking → first event → store response → save address),
+  `createPlaceRepo` (+ PostGIS `sql/places.ts` nearest pincode, `ST_DWithin` /
+  `ST_Distance` on geography), `createBookingPricingRepo`.
+  `bun run db:seed:pincodes` imports India Post pincodes for every state in `states`
+  from `data/raw/pincodes.csv` (state name from the i18n catalog; re-run replaces).
+- **API** (thin handlers): `POST /api/v1/quotes`, `GET|POST /api/v1/bookings`,
+  `GET /api/v1/bookings/:id`, `POST /api/v1/bookings/:id/cancel`, `POST /api/v1/stt`
+  (raw audio body, streamed with a 1 MB cap). The match job is logged by the web
+  producer (`src/server/jobs.ts`); the consumer is Phase 6.
+- **Screens**: `/app` (10 trade tiles with icon + label + audio, red Emergency, My
+  bookings), `/app/emergency`, `/app/book/[trade]` wizard (problem with mic + chips →
+  location with GPS / saved address / pincode + landmark and a lazily loaded MapLibre
+  map with a draggable pin → Now / Emergency / slot → quote breakdown with welfare
+  note and audio total → confirm), `/app/bookings/[id]` (timeline, worker card, large
+  OTPs, check code, cancel, 5 s polling), `/app/bookings`.
+- **Offline / PWA**: `public/sw.js` (shell, static assets, fonts and the active
+  locale's audio cache-first; API and pages network-first), `manifest.webmanifest`,
+  placeholder icons from `bun run icons:build`; logout clears cached pages/API data.
+- **Fonts**: `next/font/google` Noto Sans / Malayalam / Devanagari / Tamil, none
+  preloaded; only the active locale's class is applied.
+- **Tests**: core unit (booking service: ownership, validation, idempotency, cancel
+  from every state; slots; codes; speech), adapter tests, web integration
+  (`bookings.int.test.ts`, real handlers + test DB incl. PostGIS), Playwright
+  `e2e/booking.spec.ts` (Pixel 5, 360×640, slow 3G via CDP, ml + en: full booking,
+  cancel, offline banner; ml screenshots → `docs/screens/`), Lighthouse CI
+  (`bun run lhci`, `apps/web/lhci/run.ts` + `lighthouserc.json`), bundle budget
+  (`bun run bundle:check`).
+
+### Bundle budget (gzipped first-load JS)
+
+`/app` 142.2 KB · `/app/book/[trade]` 148.6 KB · `/app/bookings` 141.7 KB ·
+`/app/bookings/[id]` 145.1 KB · `/app/emergency` 141.7 KB · `/w` 138.8 KB (budget 150 KB).
+The framework baseline is ~137 KB, so the wizard has little headroom left.
+
+### Decisions
+
+1. Catalog namespaces `error` and `trade` keep their existing names (the phase lists
+   `errors` / `trades`): renaming would break `errorMessageKey`, SMS/voice keys and
+   Phase 3–4 tests. `trades` holds the per-trade quick-pick chips.
+2. Job OTPs are **derived** (`HMAC-SHA-256(secret, booking id + kind)`, 4 digits), so
+   the tracking page can show them without storing raw OTPs (AGENTS.md 5); the DB keeps
+   only hashes. Phase 6 must generate them with `deriveJobOtp` at accept. The worker
+   check code is derived the same way from booking, worker and `qr_key_version`.
+   Both use `OTP_PEPPER` with a per-purpose prefix.
+3. Default `estimatedMinutes` = the state's `min_billable_minutes` for the trade (no
+   per-trade duration exists in config). Pricing uses the customer's state, else
+   `DEFAULT_STATE`.
+4. A GPS point gets the nearest post office's pincode within 30 km; otherwise the
+   customer must type one. The pincode import drops rows > 50 km from their district's
+   median point.
+5. Idempotency keys are stored as `booking.create:<customer id>:<key>`; a replay of a
+   booking still in `requested` re-enqueues matching (the consumer must be idempotent).
+6. The bundle check reads `.next/diagnostics/route-bundle-stats.json` (Next 16 no
+   longer prints sizes) and gzips each first-load chunk.
+7. Tests use a fictional pincode `999999` in state "TESTLAND" at (0, 0).
+8. New deps (all on the allowed list): maplibre-gl (web), date-fns + date-fns-tz
+   (core), @lhci/cli + tsx (web dev).
+
+### TODO_VERIFY / needs review
+
+- 142 new keys × ml/hi/ta are mock machine translations (`[ml] <english>`), listed in
+  `packages/i18n/needs_review.json`. Run `SPEECH_MODE=real bun run i18n:translate` with
+  `SARVAM_API_KEY`, then have native speakers review; re-run `bun run audio:build`.
+- Audio labels are silent mp3s (mock TTS) until `audio:build` runs in real mode.
+
+### Known gaps
+
+- `bun run lhci` has not been run; scores are unknown.
+- The Sarvam request/response shapes follow the public API docs but were not exercised
+  against the live API (no key on this machine).
+- The Malayalam overflow check ran against mock `[ml] English` strings, not real
+  Malayalam; re-check after real translation.
+- `next/font/google` downloads fonts at build time, so `next build` needs network.
+- Map tiles (OpenFreeMap) are online-only; offline, the pincode path still works.
+- `data/raw/.gitkeep` is untracked (it existed before this phase; `.gitignore` expects it tracked).
+- Pincodes must be imported (`bun run db:seed:pincodes`) before booking works in dev.
+
 ## Phase 4 — Phone OTP auth, sessions, role-based access, tenancy, consent, dev inbox (2026-09-10)
 
 Status: **done locally**. Acceptance Gate passed on this machine (CI not run; all tests and gate checks green).
