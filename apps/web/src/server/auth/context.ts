@@ -68,17 +68,17 @@ export async function getContextFromRequest(
   return (await getSessionFromRequest(request, requestId))?.ctx ?? null;
 }
 
-/** Locale for the request: profile → NEXT_LOCALE cookie → state default. */
+/** Locale for the request: profile → NEXT_LOCALE cookie → 'en' default. */
 export async function getRequestLocale(): Promise<Locale> {
   const session = await getSession();
   if (session) return session.ctx.locale;
   const cookieStore = await cookies();
-  return pickLocale(null, cookieStore.get(LOCALE_COOKIE)?.value, await getDefaultLocale());
+  return pickLocale(null, cookieStore.get(LOCALE_COOKIE)?.value, 'en');
 }
 
 /** Same resolution for a route handler without a signed-in user. */
 export async function anonymousLocale(request: NextRequest): Promise<Locale> {
-  return pickLocale(null, request.cookies.get(LOCALE_COOKIE)?.value, await getDefaultLocale());
+  return Promise.resolve(pickLocale(null, request.cookies.get(LOCALE_COOKIE)?.value, 'en'));
 }
 
 /** Context for sign-in, where there is no user yet: the system acts for the caller. */
