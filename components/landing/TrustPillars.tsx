@@ -7,50 +7,50 @@ export async function TrustPillars() {
   const pillars = [
     {
       icon: PhoneCall,
-      color: 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300',
+      color: 'bg-blue-50 text-[#0b3a75] border border-blue-200',
       title: t('pillar_1_title'),
       desc: t('pillar_1_desc'),
     },
     {
       icon: KeyRound,
-      color: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300',
+      color: 'bg-emerald-50 text-[#138808] border border-emerald-200',
       title: t('pillar_2_title'),
       desc: t('pillar_2_desc'),
     },
     {
       icon: Hash,
-      color: 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300',
+      color: 'bg-purple-50 text-purple-800 border border-purple-200',
       title: t('pillar_3_title'),
       desc: t('pillar_3_desc'),
     },
     {
       icon: Cpu,
-      color: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+      color: 'bg-amber-50 text-amber-800 border border-amber-200',
       title: t('pillar_4_title'),
       desc: t('pillar_4_desc'),
     },
     {
       icon: AlertTriangle,
-      color: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300',
+      color: 'bg-rose-50 text-rose-700 border border-rose-200',
       title: t('pillar_5_title'),
       desc: t('pillar_5_desc'),
     },
   ];
 
   return (
-    <section className="py-12 md:py-20">
+    <section className="py-12 md:py-20 bg-white border-b border-slate-200">
       <div className="mx-auto max-w-5xl px-4">
         {/* Title */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100/90 px-3.5 py-1 text-xs font-bold text-emerald-900 border border-emerald-300/60 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-700/40">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#0b3a75] border border-blue-200 shadow-2xs">
             <ShieldCheck
-              className="size-3.5 text-emerald-700 dark:text-emerald-400"
+              className="size-3.5 text-[#0b3a75]"
               aria-hidden="true"
             />
             <span>{t('pillars_badge')}</span>
           </div>
 
-          <h2 className="mt-4 text-2xl sm:text-4xl font-black text-neutral-950 dark:text-white">
+          <h2 className="mt-4 text-2xl sm:text-4xl font-black text-[#07254d]">
             {t('pillars_title')}
           </h2>
         </div>
@@ -62,15 +62,15 @@ export async function TrustPillars() {
             return (
               <div
                 key={p.title}
-                className="flex flex-col rounded-3xl border border-emerald-900/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#111f18]"
+                className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-xs hover:border-[#0b3a75]/40 hover:shadow-sm transition-all"
               >
-                <div className={`flex size-12 items-center justify-center rounded-2xl ${p.color}`}>
+                <div className={`flex size-12 items-center justify-center rounded-xl ${p.color}`}>
                   <Icon className="size-6" aria-hidden="true" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-neutral-900 dark:text-white">
+                <h3 className="mt-4 text-lg font-bold text-slate-900">
                   {p.title}
                 </h3>
-                <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                <p className="mt-2 text-sm text-slate-600 leading-relaxed">
                   {p.desc}
                 </p>
               </div>

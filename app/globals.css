@@ -1,12 +1,18 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #f6f9f8;
-  --foreground: #141f1a;
+  --background: #ffffff;
+  --foreground: #0f172a;
   --card-bg: #ffffff;
-  --card-border: rgba(5, 150, 105, 0.1);
-  --emerald-hero-dark: linear-gradient(135deg, #07382b 0%, #0c5643 55%, #04241b 100%);
-  --emerald-hero-vibrant: linear-gradient(135deg, #00d09c 0%, #059669 100%);
+  --card-border: rgba(15, 23, 42, 0.08);
+  --govt-navy: #0b3a75;
+  --govt-navy-dark: #07254d;
+  --tiranga-saffron: #ff9933;
+  --tiranga-green: #138808;
+  --ashoka-blue: #000080;
+  --ashoka-gold: #d97706;
+  --emerald-hero-dark: linear-gradient(135deg, #07254d 0%, #0b3a75 55%, #138808 100%);
+  --emerald-hero-vibrant: linear-gradient(135deg, #ff9933 0%, #138808 100%);
 }
 
 @theme inline {

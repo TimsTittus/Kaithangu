@@ -36,7 +36,7 @@ export async function LandingPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#f8faf9] text-neutral-900 dark:bg-[#08120d] dark:text-neutral-100">
+    <div className="flex min-h-screen flex-col bg-white text-slate-900">
       <GovtHeader />
       <main className="flex-1 flex flex-col">
         <HeroSection />

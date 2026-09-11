@@ -179,7 +179,7 @@ export default async function WorkerProfilePage() {
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-neutral-900">Society Worker Helpline</span>
                 <span className="text-xs text-neutral-500">
-                  Toll-free 1800-425-COOP (08:00 - 20:00)
+                  Toll-free 9946 116 910 (08:00 - 20:00)
                 </span>
               </div>
             </div>

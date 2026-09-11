@@ -123,7 +123,7 @@ export default async function CustomerProfilePage() {
                   Society Support & Helpline
                 </span>
                 <span className="text-xs text-neutral-500">
-                  Toll-free 1800-425-COOP (09:00 - 18:00)
+                  Toll-free 9946 116 910 (09:00 - 18:00)
                 </span>
               </div>
             </div>

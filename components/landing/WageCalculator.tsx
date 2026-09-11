@@ -71,35 +71,35 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
     .replace('{corpCutAmount}', `₹${corpCut}`);
 
   return (
-    <section className="py-12 md:py-20">
+    <section className="py-12 md:py-20 bg-white border-b border-slate-200">
       <div className="mx-auto max-w-4xl px-4">
         {/* Title */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100/90 px-3.5 py-1 text-xs font-bold text-emerald-900 border border-emerald-300/60 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-700/40">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#0b3a75] border border-blue-200 shadow-2xs">
             <Calculator
-              className="size-3.5 text-emerald-700 dark:text-emerald-400"
+              className="size-3.5 text-[#0b3a75]"
               aria-hidden="true"
             />
             <span>{labels.badge}</span>
           </div>
 
-          <h2 className="mt-4 text-2xl sm:text-4xl font-black text-neutral-950 dark:text-white">
+          <h2 className="mt-4 text-2xl sm:text-4xl font-black text-[#07254d]">
             {labels.title}
           </h2>
 
-          <p className="mt-3 max-w-xl mx-auto text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 max-w-xl mx-auto text-sm sm:text-base text-slate-600 leading-relaxed">
             {labels.subtitle}
           </p>
         </div>
 
         {/* Interactive Simulator Box */}
-        <div className="mt-10 rounded-3xl border border-emerald-900/15 bg-white p-6 sm:p-8 shadow-xl shadow-emerald-950/5 dark:border-white/10 dark:bg-[#101e18]">
+        <div className="mt-10 rounded-3xl border-2 border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Controls */}
             <div className="flex flex-col gap-6">
               {/* Trade selection */}
               <div>
-                <label className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
                   {labels.selectTrade}
                 </label>
                 <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -111,10 +111,10 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
                         key={t.code}
                         type="button"
                         onClick={() => setSelectedTrade(t.code)}
-                        className={`min-h-12 rounded-2xl border px-3 py-2 text-xs sm:text-sm font-semibold transition-all text-center ${
+                        className={`min-h-12 rounded-xl border px-3 py-2 text-xs sm:text-sm font-bold transition-all text-center ${
                           isSelected
-                            ? 'border-emerald-600 bg-emerald-700 text-white shadow-sm ring-2 ring-emerald-500/30'
-                            : 'border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-emerald-300 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300'
+                            ? 'border-[#0b3a75] bg-[#0b3a75] text-white shadow-xs ring-2 ring-blue-500/20'
+                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white'
                         }`}
                       >
                         {name}
@@ -126,7 +126,7 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
 
               {/* Duration selection */}
               <div>
-                <label className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
                   {labels.selectDuration}
                 </label>
                 <div className="mt-2.5 flex items-center gap-2">
@@ -137,10 +137,10 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
                         key={hrs}
                         type="button"
                         onClick={() => setDuration(hrs)}
-                        className={`flex-1 min-h-11 rounded-2xl border text-sm font-bold transition-all ${
+                        className={`flex-1 min-h-11 rounded-xl border text-sm font-bold transition-all ${
                           isSelected
-                            ? 'border-emerald-600 bg-emerald-100/90 text-emerald-900 ring-2 ring-emerald-500/20 dark:bg-emerald-950 dark:text-emerald-200'
-                            : 'border-neutral-200 bg-neutral-50 text-neutral-700 hover:border-emerald-300 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-300'
+                            ? 'border-[#138808] bg-emerald-50 text-emerald-900 ring-2 ring-emerald-500/20'
+                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-white'
                         }`}
                       >
                         {hrs}h
@@ -151,73 +151,78 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
               </div>
 
               {/* Contrast Callout */}
-              <div className="rounded-2xl border border-red-200 bg-red-50/60 p-4 dark:border-red-900/40 dark:bg-red-950/20">
-                <div className="flex items-start gap-2.5 text-xs sm:text-sm text-red-900 dark:text-red-300 leading-relaxed font-medium">
-                  <Info className="size-4 shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
+              <div className="rounded-xl border border-rose-200 bg-rose-50/70 p-4">
+                <div className="flex items-start gap-2.5 text-xs sm:text-sm text-rose-900 leading-relaxed font-medium">
+                  <Info className="size-4 shrink-0 mt-0.5 text-rose-600" />
                   <span>{contrastText}</span>
                 </div>
               </div>
             </div>
 
-            {/* Results Ledger Breakdown */}
-            <div className="flex flex-col justify-between rounded-2xl border border-emerald-200/90 bg-emerald-50/30 p-5 sm:p-6 dark:border-emerald-800/60 dark:bg-emerald-950/30">
+            {/* Results Ledger Breakdown (Official Government Receipt Style) */}
+            <div className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-[#f8fafc] p-5 sm:p-6 shadow-2xs">
               <div className="flex flex-col gap-4">
+                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-200 pb-2 flex justify-between">
+                  <span>STATUTORY FINANCIAL BREAKDOWN</span>
+                  <span>GOVT NOTIFIED</span>
+                </div>
+
                 {/* 1. Worker Wage (100% directly to worker) */}
-                <div className="flex items-start justify-between border-b border-emerald-950/10 pb-3 dark:border-white/10">
+                <div className="flex items-start justify-between border-b border-slate-200 pb-3">
                   <div className="flex items-start gap-2.5">
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-emerald-700 text-white mt-0.5">
+                    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#138808] text-white mt-0.5">
                       <Wallet className="size-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-neutral-900 dark:text-white">
+                      <div className="text-sm font-bold text-slate-900">
                         {labels.workerReceives}
                       </div>
-                      <div className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+                      <div className="text-xs text-[#138808] font-bold">
                         {labels.workerNote}
                       </div>
                     </div>
                   </div>
-                  <div className="text-lg font-black text-emerald-800 dark:text-emerald-300">
+                  <div className="text-lg font-black text-[#138808]">
                     ₹{wage}
                   </div>
                 </div>
 
                 {/* 2. Welfare Contribution (On Top) */}
-                <div className="flex items-start justify-between border-b border-emerald-950/10 pb-3 dark:border-white/10">
+                <div className="flex items-start justify-between border-b border-slate-200 pb-3">
                   <div className="flex items-start gap-2.5">
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-amber-600 text-white mt-0.5">
+                    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-amber-600 text-white mt-0.5">
                       <HeartHandshake className="size-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-neutral-900 dark:text-white">
+                      <div className="text-sm font-bold text-slate-900">
                         {labels.welfareContribution}
                       </div>
-                      <div className="text-xs text-neutral-500 dark:text-neutral-400">
+                      <div className="text-xs text-slate-500 font-medium">
                         {labels.welfareNote}
                       </div>
                     </div>
                   </div>
-                  <div className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+                  <div className="text-sm font-bold text-slate-800">
                     +₹{welfare}
                   </div>
                 </div>
 
                 {/* 3. Platform Fee */}
-                <div className="flex items-start justify-between border-b border-emerald-950/10 pb-3 dark:border-white/10">
+                <div className="flex items-start justify-between border-b border-slate-200 pb-3">
                   <div className="flex items-start gap-2.5">
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-neutral-600 text-white mt-0.5">
+                    <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#0b3a75] text-white mt-0.5">
                       <ShieldCheck className="size-4" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-neutral-900 dark:text-white">
+                      <div className="text-sm font-bold text-slate-900">
                         {labels.platformFee}
                       </div>
-                      <div className="text-xs text-neutral-500 dark:text-neutral-400">
+                      <div className="text-xs text-slate-500 font-medium">
                         {labels.platformNote}
                       </div>
                     </div>
                   </div>
-                  <div className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
+                  <div className="text-sm font-bold text-slate-800">
                     +₹{platform}
                   </div>
                 </div>
@@ -225,15 +230,15 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
                 {/* 4. Total Payable */}
                 <div className="flex items-center justify-between pt-1">
                   <div>
-                    <div className="text-base font-black text-neutral-900 dark:text-white">
+                    <div className="text-base font-black text-slate-900">
                       {labels.customerTotal}
                     </div>
-                    <div className="text-xs text-emerald-700 dark:text-emerald-400 font-semibold flex items-center gap-1">
+                    <div className="text-xs text-[#138808] font-bold flex items-center gap-1">
                       <Check className="size-3.5" />
                       <span>Zero Hidden Charges</span>
                     </div>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-300">
+                  <div className="text-2xl sm:text-3xl font-black text-[#07254d]">
                     ₹{total}
                   </div>
                 </div>
@@ -242,10 +247,10 @@ export function WageCalculator({ labels, tradeNames }: WageCalcProps) {
               {/* CTA link to language -> login */}
               <Link
                 href="/language?next=%2Flogin"
-                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-emerald-700 px-4 text-base font-bold text-white shadow-md transition-all hover:bg-emerald-800 active:scale-[0.99]"
+                className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#0b3a75] hover:bg-[#07254d] px-4 text-base font-bold text-white shadow-xs transition-all active:scale-[0.99]"
               >
                 <span>{labels.ctaButton}</span>
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-4 text-amber-300" />
               </Link>
             </div>
           </div>

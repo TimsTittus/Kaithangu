@@ -61,19 +61,17 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label="Translate page language"
-        className="inline-flex min-h-10 items-center justify-between gap-2 rounded-xl border border-neutral-300/90 bg-white/90 px-3 py-1.5 text-xs sm:text-sm font-semibold text-neutral-800 shadow-sm transition-all hover:bg-neutral-50 hover:border-emerald-500/50 active:scale-95 disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-800/90 dark:text-neutral-100 dark:hover:bg-neutral-800"
+        className="inline-flex min-h-10 items-center justify-between gap-2 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs sm:text-sm font-bold text-slate-800 shadow-2xs transition-all hover:bg-slate-50 hover:border-[#0b3a75]/40 active:scale-95 disabled:opacity-50"
       >
         <div className="flex items-center gap-1.5">
-          {/* Dual Icon badge: Google Translate / Globe motif */}
-          <div className="flex size-5 items-center justify-center rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+          <div className="flex size-5 items-center justify-center rounded bg-blue-50 text-[#0b3a75] border border-blue-200/60">
             <Languages className="size-3.5" aria-hidden="true" />
           </div>
-          <span className="font-bold tracking-tight">{currentName}</span>
+          <span className="font-extrabold tracking-tight">{currentName}</span>
         </div>
         <ChevronDown
-          className={`size-4 text-neutral-500 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-emerald-600' : ''
-          }`}
+          className={`size-4 text-slate-500 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#0b3a75]' : ''
+            }`}
           aria-hidden="true"
         />
       </button>
@@ -82,11 +80,11 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
       {isOpen && (
         <div
           role="listbox"
-          className="absolute right-0 mt-2 w-48 origin-top-right rounded-2xl border border-neutral-200 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none z-50 dark:border-neutral-700 dark:bg-[#121c17]"
+          className="absolute right-0 mt-1.5 w-48 origin-top-right rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg ring-1 ring-black/5 focus:outline-none z-50"
         >
-          <div className="px-2.5 py-1.5 text-[10px] font-bold tracking-wider uppercase text-neutral-400 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
+          <div className="px-2.5 py-1.5 text-[10px] font-extrabold tracking-wider uppercase text-slate-500 border-b border-slate-100 mb-1 flex items-center justify-between">
             <span>Select Language</span>
-            <Globe className="size-3 text-neutral-400" />
+            <Globe className="size-3 text-slate-400" />
           </div>
 
           <div className="flex flex-col gap-0.5">
@@ -101,16 +99,15 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
                   aria-selected={isSelected}
                   data-testid={`select-language-${locale}`}
                   onClick={() => handleSelect(locale)}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
-                    isSelected
-                      ? 'bg-emerald-50 font-bold text-emerald-900 dark:bg-emerald-950/70 dark:text-emerald-200'
-                      : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800/60'
-                  }`}
+                  className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${isSelected
+                      ? 'bg-blue-50 font-bold text-[#0b3a75] border border-blue-200/50'
+                      : 'text-slate-700 hover:bg-slate-100'
+                    }`}
                 >
                   <span lang={locale}>{name}</span>
                   {isSelected && (
                     <Check
-                      className="size-4 text-emerald-600 dark:text-emerald-400"
+                      className="size-4 text-[#0b3a75]"
                       aria-hidden="true"
                     />
                   )}

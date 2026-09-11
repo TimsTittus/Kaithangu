@@ -9,23 +9,23 @@ export async function TradeShowcase() {
   const tTrade = await getTranslations('trade');
 
   return (
-    <section className="py-12 md:py-20 bg-neutral-100/50 dark:bg-[#0c1612]/50">
+    <section className="py-12 md:py-20 bg-[#f8fafc] border-b border-slate-200">
       <div className="mx-auto max-w-5xl px-4">
         {/* Title */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100/90 px-3.5 py-1 text-xs font-bold text-emerald-900 border border-emerald-300/60 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-700/40">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#0b3a75] border border-blue-200 shadow-2xs">
             <Briefcase
-              className="size-3.5 text-emerald-700 dark:text-emerald-400"
+              className="size-3.5 text-[#0b3a75]"
               aria-hidden="true"
             />
             <span>{tLanding('trades_badge')}</span>
           </div>
 
-          <h2 className="mt-4 text-2xl sm:text-4xl font-black text-neutral-950 dark:text-white">
+          <h2 className="mt-4 text-2xl sm:text-4xl font-black text-[#07254d]">
             {tLanding('trades_title')}
           </h2>
 
-          <p className="mt-3 max-w-xl mx-auto text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 max-w-xl mx-auto text-sm sm:text-base text-slate-600 leading-relaxed">
             {tLanding('trades_subtitle')}
           </p>
         </div>
@@ -41,17 +41,17 @@ export async function TradeShowcase() {
               <Link
                 key={code}
                 href="/language?next=%2Flogin"
-                className="group flex flex-col items-center justify-between rounded-3xl border border-emerald-900/10 bg-white p-4 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-emerald-500/60 hover:shadow-md dark:border-white/10 dark:bg-[#111e18]"
+                className="group flex flex-col items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-xs transition-all hover:-translate-y-0.5 hover:border-[#0b3a75] hover:shadow-md"
               >
-                <div className="flex size-14 items-center justify-center rounded-2xl bg-emerald-100/80 text-emerald-800 transition-colors group-hover:bg-emerald-700 group-hover:text-white dark:bg-emerald-950 dark:text-emerald-300">
+                <div className="flex size-14 items-center justify-center rounded-xl bg-slate-50 text-[#0b3a75] border border-slate-200/80 transition-colors group-hover:bg-[#0b3a75] group-hover:text-white group-hover:border-[#0b3a75]">
                   <Icon className="size-7" />
                 </div>
 
-                <div className="mt-3 font-bold text-sm sm:text-base text-neutral-900 dark:text-white">
+                <div className="mt-3 font-bold text-sm sm:text-base text-slate-900">
                   {name}
                 </div>
 
-                <div className="mt-2 flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300">
+                <div className="mt-2.5 flex items-center gap-1 rounded-md bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[11px] font-bold text-[#138808]">
                   <BadgeCheck className="size-3" />
                   <span>{isCertified ? 'Certified' : 'Verified'}</span>
                 </div>
