@@ -374,7 +374,21 @@
     "bookings": "Bookings",
     "emergency": "Emergency",
     "analytics": "Analytics",
-    "profile": "Profile"
+    "profile": "Profile",
+    "label": "Main navigation"
+  },
+  "profile": {
+    "title": "My profile",
+    "role_customer": "Customer",
+    "phone": "Phone number",
+    "no_name": "Customer",
+    "activity": "My activity",
+    "bookings_count": "Bookings",
+    "completed_count": "Completed",
+    "account": "Account",
+    "language": "Language",
+    "open_bookings": "My bookings",
+    "open_analytics": "Spending"
   },
   "analytics": {
     "title": "Spending Analytics",

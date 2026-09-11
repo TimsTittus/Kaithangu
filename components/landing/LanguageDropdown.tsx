@@ -8,9 +8,15 @@ import { useEffect, useRef, useState, useTransition } from 'react';
 interface LanguageDropdownProps {
   currentLocale: Locale;
   localeNames: Record<Locale, string>;
+  /** Where to return after the language is saved. Defaults to the landing page. */
+  next?: string;
 }
 
-export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdownProps) {
+export function LanguageDropdown({
+  currentLocale,
+  localeNames,
+  next = '/',
+}: LanguageDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -41,7 +47,7 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
 
     const formData = new FormData();
     formData.append('locale', locale);
-    formData.append('next', '/');
+    formData.append('next', next);
 
     startTransition(async () => {
       await chooseLocale(formData);

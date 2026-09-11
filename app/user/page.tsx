@@ -1,13 +1,4 @@
-import {
-  ArrowUpRight,
-  Bell,
-  ClipboardList,
-  Landmark,
-  Mic,
-  MoreHorizontal,
-  Siren,
-  User,
-} from 'lucide-react';
+import { ArrowUpRight, ClipboardList, Landmark, Siren, User } from 'lucide-react';
 import Link from 'next/link';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { AudioLabel } from '@/components/AudioLabel';
@@ -18,12 +9,14 @@ import { TradeGrid } from '@/components/TradeGrid';
 import { formatPaise } from '@/components/money';
 import { pageClass } from '@/components/ui';
 import { trpc } from '@/trpc/server';
+import { UserLanguageDropdown } from './UserLanguageDropdown';
 
 export default async function UserHome() {
-  const [home, booking, common, dashboard, locale] = await Promise.all([
+  const [home, booking, common, nav, dashboard, locale] = await Promise.all([
     getTranslations('home'),
     getTranslations('booking'),
     getTranslations('common'),
+    getTranslations('nav'),
     trpc.user.dashboard(),
     getLocale(),
   ]);
@@ -39,7 +32,7 @@ export default async function UserHome() {
           </div>
           <div className="flex flex-col min-w-0">
             <span className="text-base font-bold leading-tight tracking-tight text-neutral-900 truncate dark:text-white">
-              Kaithangu
+              {common('app_name')}
             </span>
             <span className="text-[11px] font-medium text-emerald-700 truncate dark:text-emerald-400">
               {home('digital_services')}
@@ -48,20 +41,15 @@ export default async function UserHome() {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          {/* Notification bell with indicator dot */}
-          <button
-            type="button"
-            className="relative flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:bg-neutral-50 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900"
-            aria-label="Notifications"
-          >
-            <Bell className="size-5 text-neutral-700 dark:text-neutral-300" />
-            <span className="absolute top-2.5 right-2.5 size-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-neutral-900" />
-          </button>
+          <UserLanguageDropdown next="/user" />
 
-          {/* User Profile Avatar */}
-          <div className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-emerald-50 text-emerald-800 shadow-sm dark:border-neutral-800 dark:bg-emerald-950 dark:text-emerald-200">
-            <User className="size-5" />
-          </div>
+          <Link
+            href="/user/profile"
+            className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-emerald-50 text-emerald-800 shadow-sm transition-all hover:bg-emerald-100 active:scale-95 dark:border-neutral-800 dark:bg-emerald-950 dark:text-emerald-200"
+            aria-label={nav('profile')}
+          >
+            <User aria-hidden className="size-5" />
+          </Link>
         </div>
       </header>
 
@@ -81,16 +69,7 @@ export default async function UserHome() {
             <span className="text-xl shrink-0">👋</span>
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
-          <AudioLabel k="home.user_title" text={title} />
-          <button
-            type="button"
-            className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white text-neutral-600 shadow-sm hover:bg-neutral-50 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300"
-            aria-label="Options"
-          >
-            <MoreHorizontal className="size-5" />
-          </button>
-        </div>
+        <AudioLabel k="home.user_title" text={title} />
       </div>
 
       {/* Total Balance Hero Card */}
@@ -100,9 +79,12 @@ export default async function UserHome() {
         cardLabel={home('coop_card')}
       />
 
-      {/* Quick Actions Row (5 circular action buttons with labels below) */}
-      <section aria-label="Quick Actions" className="grid grid-cols-5 gap-1 w-full min-w-0">
-        {/* Action 1: Book */}
+      {/* Quick actions */}
+      <section
+        aria-label={home('quick_overview')}
+        className="grid w-full min-w-0 grid-cols-3 gap-1"
+      >
+        {/* Book: jumps to the trade grid below. */}
         <a
           href="#trades"
           className="flex flex-col items-center gap-1 text-center min-w-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-600"
@@ -115,7 +97,7 @@ export default async function UserHome() {
           </span>
         </a>
 
-        {/* Action 2: Emergency */}
+        {/* Emergency */}
         <Link
           href="/user/emergency"
           data-testid="emergency"
@@ -129,7 +111,7 @@ export default async function UserHome() {
           </span>
         </Link>
 
-        {/* Action 3: My Bookings */}
+        {/* My bookings */}
         <Link
           href="/user/bookings"
           data-testid="my-bookings"
@@ -140,29 +122,6 @@ export default async function UserHome() {
           </div>
           <span className="w-full truncate text-[11px] font-semibold text-neutral-700 dark:text-neutral-300">
             {home('action_history')}
-          </span>
-        </Link>
-
-        {/* Action 4: Voice */}
-        <div className="flex flex-col items-center gap-1 text-center min-w-0">
-          <div className="flex size-12 items-center justify-center rounded-full border border-emerald-900/10 bg-emerald-50/90 text-emerald-800 shadow-xs hover:scale-105 active:scale-95 transition-all dark:border-white/10 dark:bg-emerald-950/70 dark:text-emerald-200">
-            <Mic className="size-5" />
-          </div>
-          <span className="w-full truncate text-[11px] font-semibold text-neutral-700 dark:text-neutral-300">
-            {home('action_voice')}
-          </span>
-        </div>
-
-        {/* Action 5: More */}
-        <Link
-          href="/language"
-          className="flex flex-col items-center gap-1 text-center min-w-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-600"
-        >
-          <div className="flex size-12 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 text-neutral-700 shadow-xs hover:scale-105 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
-            <MoreHorizontal className="size-5" />
-          </div>
-          <span className="w-full truncate text-[11px] font-semibold text-neutral-700 dark:text-neutral-300">
-            {home('action_more')}
           </span>
         </Link>
       </section>

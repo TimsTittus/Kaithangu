@@ -25,6 +25,7 @@ import {
   createCorporateRepo,
   createPlaceRepo,
   createUserRepo,
+  createWorkerEligibilityRepo,
   createWorkerRepo,
   loadStateDefaultLocale,
   db,
@@ -79,6 +80,7 @@ export function getBookingService(): BookingService {
     const env = getEnv();
     services.kaithanguBookings = createBookingService({
       bookings: createBookingRepo(db),
+      workers: createWorkerEligibilityRepo(db),
       pricing: createBookingPricingRepo(db),
       places: createPlaceRepo(db),
       consent: getConsentService(),

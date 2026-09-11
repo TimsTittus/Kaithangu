@@ -374,7 +374,21 @@
     "bookings": "[ta] Bookings",
     "emergency": "[ta] Emergency",
     "analytics": "[ta] Analytics",
-    "profile": "[ta] Profile"
+    "profile": "[ta] Profile",
+    "label": "முதன்மை வழிசெலுத்தல்"
+  },
+  "profile": {
+    "title": "என் சுயவிவரம்",
+    "role_customer": "வாடிக்கையாளர்",
+    "phone": "தொலைபேசி எண்",
+    "no_name": "வாடிக்கையாளர்",
+    "activity": "என் செயல்பாடு",
+    "bookings_count": "முன்பதிவுகள்",
+    "completed_count": "முடிந்தது",
+    "account": "கணக்கு",
+    "language": "மொழி",
+    "open_bookings": "என் முன்பதிவுகள்",
+    "open_analytics": "செலவு"
   },
   "analytics": {
     "title": "[ta] Spending Analytics",

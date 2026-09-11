@@ -1,13 +1,4 @@
-import {
-  ArrowLeft,
-  ChevronRight,
-  Landmark,
-  LayoutGrid,
-  MoreHorizontal,
-  Plus,
-  Receipt,
-  Siren,
-} from 'lucide-react';
+import { ArrowLeft, ChevronRight, Plus, Siren } from 'lucide-react';
 import Link from 'next/link';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { AudioLabel } from '@/components/AudioLabel';
@@ -21,15 +12,17 @@ import {
 } from '@/components/ui';
 import { getContext } from '@/server/auth/context';
 import { getBookingService } from '@/server/services';
+import { UserLanguageDropdown } from '../UserLanguageDropdown';
 
 export default async function BookingsPage() {
-  const [bookings, locale, t, trade, status, common] = await Promise.all([
+  const [bookings, locale, t, trade, status, common, home] = await Promise.all([
     getBookingService().listBookings(await getContext()),
     getLocale(),
     getTranslations('booking'),
     getTranslations('trade'),
     getTranslations('status'),
     getTranslations('common'),
+    getTranslations('home'),
   ]);
 
   const dateTime = new Intl.DateTimeFormat(`${locale}-IN`, {
@@ -48,7 +41,7 @@ export default async function BookingsPage() {
 
   return (
     <main className={pageClass}>
-      {/* Top App Bar with back button, centered title, and grid menu */}
+      {/* Top app bar: back, title, listen and language */}
       <header className="flex items-center justify-between gap-3 pt-1">
         <Link
           href="/user"
@@ -64,37 +57,11 @@ export default async function BookingsPage() {
 
         <div className="flex items-center gap-1.5">
           <AudioLabel k="booking.list_title" text={title} />
-          <button
-            type="button"
-            className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:bg-neutral-50 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900"
-            aria-label="Menu"
-          >
-            <LayoutGrid className="size-5 text-neutral-700 dark:text-neutral-300" />
-          </button>
+          <UserLanguageDropdown next="/user/bookings" />
         </div>
       </header>
 
-      {/* Hero Account Card (Vibrant Emerald Gradient) */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#00b074] via-[#059669] to-[#10b981] p-5 text-white shadow-xl shadow-emerald-700/20">
-        {/* Subtle decorative watermark landmark/pillars */}
-        <Landmark className="pointer-events-none absolute -right-6 -bottom-6 size-40 text-white/10" />
-
-        <div className="relative z-10 flex flex-col gap-4">
-          <div className="flex items-center justify-between text-xs font-medium text-emerald-100">
-            <span>{t('current_account')}</span>
-            <span className="rounded-full bg-white/20 px-2 py-0.5 font-semibold backdrop-blur-xs">
-              •••• 4589
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <span className="text-xs font-medium text-emerald-100">{t('available_balance')}</span>
-            <span className="text-3xl font-bold tracking-tight">₹24,560.80</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 3-Stat Metrics Row below the card */}
+      {/* Totals, all derived from the booking list itself */}
       <div className="grid grid-cols-3 gap-2 text-center">
         <div className="flex flex-col rounded-2xl border border-emerald-950/10 bg-white p-3 shadow-xs dark:border-white/10 dark:bg-[#101e18]">
           <span className="text-base font-bold text-neutral-900 dark:text-white">
@@ -110,7 +77,7 @@ export default async function BookingsPage() {
             {activeCount}
           </span>
           <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
-            Active
+            {home('active_count')}
           </span>
         </div>
 
@@ -119,13 +86,13 @@ export default async function BookingsPage() {
             {formatPaise(totalExpensesPaise, locale)}
           </span>
           <span className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
-            Spent
+            {home('expenses_count')}
           </span>
         </div>
       </div>
 
       {/* Quick Action Buttons Row */}
-      <div className="flex items-center justify-around gap-2 px-1">
+      <div className="flex items-center justify-center gap-10 px-1">
         <Link
           href="/user"
           className="flex flex-col items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-600"
@@ -149,34 +116,13 @@ export default async function BookingsPage() {
             {t('emergency_badge')}
           </span>
         </Link>
-
-        <div className="flex flex-col items-center gap-1.5">
-          <div className="flex size-12 items-center justify-center rounded-full border border-emerald-900/10 bg-emerald-50 text-emerald-800 shadow-xs hover:scale-105 active:scale-95 transition-all dark:border-white/10 dark:bg-emerald-950 dark:text-emerald-200">
-            <Receipt className="size-5" />
-          </div>
-          <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-            {t('invoices')}
-          </span>
-        </div>
-
-        <div className="flex flex-col items-center gap-1.5">
-          <div className="flex size-12 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 text-neutral-700 shadow-xs hover:scale-105 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300">
-            <MoreHorizontal className="size-5" />
-          </div>
-          <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">More</span>
-        </div>
       </div>
 
       {/* Transaction History Section */}
       <section className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">
-            {t('transaction_history')}
-          </h2>
-          <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-            {t('see_all')} →
-          </span>
-        </div>
+        <h2 className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">
+          {t('transaction_history')}
+        </h2>
 
         {bookings.length === 0 ? (
           <div

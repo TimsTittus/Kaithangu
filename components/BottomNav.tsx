@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 
 export interface BottomNavProps {
   labels: {
+    /** Accessible name for the <nav> landmark itself. */
+    nav: string;
     home: string;
     bookings: string;
     emergency: string;
@@ -44,16 +46,16 @@ export function BottomNav({ labels }: BottomNavProps) {
       isActive: pathname.startsWith('/user/analytics'),
     },
     {
-      href: '/language',
+      href: '/user/profile',
       label: labels.profile,
       icon: User,
-      isActive: pathname.startsWith('/language'),
+      isActive: pathname.startsWith('/user/profile'),
     },
   ];
 
   return (
     <nav
-      aria-label="Mobile Bottom Navigation"
+      aria-label={labels.nav}
       className="fixed bottom-0 left-0 right-0 z-40 mx-auto w-full max-w-md border-t border-emerald-950/10 bg-white/95 px-3 py-2 backdrop-blur-lg dark:border-white/10 dark:bg-[#0c1813]/95"
     >
       <ul className="flex items-center justify-around">

@@ -374,7 +374,21 @@
     "bookings": "[hi] Bookings",
     "emergency": "[hi] Emergency",
     "analytics": "[hi] Analytics",
-    "profile": "[hi] Profile"
+    "profile": "[hi] Profile",
+    "label": "मुख्य नेविगेशन"
+  },
+  "profile": {
+    "title": "मेरी प्रोफ़ाइल",
+    "role_customer": "ग्राहक",
+    "phone": "फ़ोन नंबर",
+    "no_name": "ग्राहक",
+    "activity": "मेरी गतिविधि",
+    "bookings_count": "बुकिंग",
+    "completed_count": "पूरा हुआ",
+    "account": "खाता",
+    "language": "भाषा",
+    "open_bookings": "मेरी बुकिंग",
+    "open_analytics": "ख़र्च"
   },
   "analytics": {
     "title": "[hi] Spending Analytics",

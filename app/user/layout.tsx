@@ -6,6 +6,7 @@ export default async function UserLayout({ children }: LayoutProps<'/user'>) {
   await requireAreaSession(['user'], '/user');
   const t = await getTranslations('nav');
   const labels = {
+    nav: t('label'),
     home: t('home'),
     bookings: t('bookings'),
     emergency: t('emergency'),

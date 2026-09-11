@@ -42,6 +42,7 @@ export { createPlaceRepo } from './queries/places';
 export { loadStateDefaultLocale } from './queries/stateConfig';
 export { createUserRepo } from './queries/users';
 export { createWorkerRepo, workerScopeCondition } from './queries/workers';
+export { createWorkerEligibilityRepo } from './queries/workerEligibility';
 export {
   loadPricingInputs,
   type PricingInputs,

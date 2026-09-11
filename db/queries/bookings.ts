@@ -8,10 +8,12 @@ import type {
   BookingRepo,
   BookingStatus,
   IdempotentBooking,
+  OpenJobRecord,
   ScopeFilter,
   TradeCode,
 } from '@/lib/core';
-import { and, asc, desc, eq, type SQL } from 'drizzle-orm';
+import { OPEN_JOB_STATUSES } from '@/lib/core';
+import { and, asc, desc, eq, inArray, isNull, type SQL } from 'drizzle-orm';
 import { z } from 'zod';
 import type { Database } from '..';
 import {
@@ -236,6 +238,77 @@ export function createBookingRepo(db: Database): BookingRepo {
           toStatus: to,
           meta,
         });
+        return true;
+      });
+    },
+
+    async openJobs({ tradeCodes, stateCode, limit }) {
+      if (tradeCodes.length === 0) return [];
+      const rows = await db
+        .select({
+          id: bookings.id,
+          tradeCode: bookings.tradeCode,
+          status: bookings.status,
+          urgency: bookings.urgency,
+          problemText: bookings.problemText,
+          addressText: bookings.addressText,
+          pincode: bookings.pincode,
+          scheduledFor: bookings.scheduledFor,
+          createdAt: bookings.createdAt,
+          estimatedMinutes: bookings.estimatedMinutes,
+          wagePaise: bookings.wagePaise,
+          totalPaise: bookings.totalPaise,
+        })
+        .from(bookings)
+        .where(
+          and(
+            isNull(bookings.workerId),
+            inArray(bookings.status, OPEN_JOB_STATUSES),
+            inArray(bookings.tradeCode, [...tradeCodes]),
+            eq(bookings.stateCode, stateCode),
+          ),
+        )
+        .orderBy(desc(bookings.createdAt), desc(bookings.id))
+        .limit(limit);
+      return rows.map((row): OpenJobRecord => ({ ...row, tradeCode: row.tradeCode as TradeCode }));
+    },
+
+    claim({ bookingId, workerId, from, path }) {
+      return db.transaction(async (tx) => {
+        // Taking the booking and its first step are one compare-and-set: a
+        // second worker claiming concurrently matches no row and gets false.
+        const [first, ...rest] = path;
+        if (first === undefined) return false;
+        const taken = await tx
+          .update(bookings)
+          .set({ workerId, status: first })
+          .where(
+            and(eq(bookings.id, bookingId), eq(bookings.status, from), isNull(bookings.workerId)),
+          )
+          .returning({ id: bookings.id });
+        if (taken.length === 0) return false;
+        await tx.insert(bookingEvents).values({
+          bookingId,
+          actorRole: 'worker',
+          actorId: workerId,
+          fromStatus: from,
+          toStatus: first,
+          meta: {},
+        });
+
+        let current = first;
+        for (const to of rest) {
+          await tx.update(bookings).set({ status: to }).where(eq(bookings.id, bookingId));
+          await tx.insert(bookingEvents).values({
+            bookingId,
+            actorRole: 'worker',
+            actorId: workerId,
+            fromStatus: current,
+            toStatus: to,
+            meta: {},
+          });
+          current = to;
+        }
         return true;
       });
     },

@@ -374,7 +374,21 @@
     "bookings": "ബുക്കിംഗുകൾ",
     "emergency": "അടിയന്തരം",
     "analytics": "അനലിറ്റിക്സ്",
-    "profile": "പ്രൊഫൈൽ"
+    "profile": "പ്രൊഫൈൽ",
+    "label": "പ്രധാന നാവിഗേഷൻ"
+  },
+  "profile": {
+    "title": "എന്റെ പ്രൊഫൈൽ",
+    "role_customer": "ഉപഭോക്താവ്",
+    "phone": "ഫോൺ നമ്പർ",
+    "no_name": "ഉപഭോക്താവ്",
+    "activity": "എന്റെ പ്രവർത്തനം",
+    "bookings_count": "ബുക്കിംഗുകൾ",
+    "completed_count": "പൂർത്തിയായി",
+    "account": "അക്കൗണ്ട്",
+    "language": "ഭാഷ",
+    "open_bookings": "എന്റെ ബുക്കിംഗുകൾ",
+    "open_analytics": "ചെലവ്"
   },
   "analytics": {
     "title": "ചെലവ് അനലിറ്റിക്സ്",
