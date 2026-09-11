@@ -31,6 +31,13 @@ export function redactDatabaseUrl(databaseUrl: string): string {
 export { createBookingRepo, bookingScopeCondition } from './queries/bookings';
 export { createBookingPricingRepo } from './queries/bookingPricing';
 export { createConsentRepo } from './queries/consents';
+export {
+  createCorporateRepo,
+  type CorporateBookingSummary,
+  type CorporateDashboardData,
+  type CorporateProfileData,
+  type CorporateRepo,
+} from './queries/corporate';
 export { createPlaceRepo } from './queries/places';
 export { loadStateDefaultLocale } from './queries/stateConfig';
 export { createUserRepo } from './queries/users';

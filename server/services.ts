@@ -8,11 +8,13 @@ import {
   createAuthService,
   createBookingService,
   createConsentService,
+  createCorporateService,
   createSpeechService,
   createWorkerService,
   type AuthService,
   type BookingService,
   type ConsentService,
+  type CorporateService,
   type SpeechService,
   type WorkerService,
 } from '@/lib/core';
@@ -20,6 +22,7 @@ import {
   createBookingPricingRepo,
   createBookingRepo,
   createConsentRepo,
+  createCorporateRepo,
   createPlaceRepo,
   createUserRepo,
   createWorkerRepo,
@@ -34,6 +37,7 @@ import { createLoggingJobQueue } from '@/server/jobs';
 const services = globalThis as typeof globalThis & {
   kaithanguAuth?: AuthService;
   kaithanguConsent?: ConsentService;
+  kaithanguCorporate?: CorporateService;
   kaithanguWorkers?: WorkerService;
   kaithanguBookings?: BookingService;
   kaithanguSpeech?: SpeechService;
@@ -55,6 +59,14 @@ export function getAuthService(): AuthService {
 export function getConsentService(): ConsentService {
   services.kaithanguConsent ??= createConsentService({ consents: createConsentRepo(db) });
   return services.kaithanguConsent;
+}
+
+export function getCorporateService(): CorporateService {
+  services.kaithanguCorporate ??= createCorporateService({
+    corporate: createCorporateRepo(db),
+    workers: createWorkerRepo(db),
+  });
+  return services.kaithanguCorporate;
 }
 
 export function getWorkerService(): WorkerService {
