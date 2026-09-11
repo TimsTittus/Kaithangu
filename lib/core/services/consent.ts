@@ -10,7 +10,11 @@ import { requireRole } from '../authz';
 import { ROLES, type RequestContext, type Role } from '../context';
 import { AppError } from '../errors';
 
-export const CONSENT_PURPOSES = ['platform_terms'] as const;
+export const CONSENT_PURPOSES = [
+  'platform_terms',
+  'worker_data_use',
+  'call_recording_retention',
+] as const;
 export type ConsentPurpose = (typeof CONSENT_PURPOSES)[number];
 
 /** The current platform-terms version (identical in every locale; tested in i18n). */

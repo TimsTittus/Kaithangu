@@ -188,6 +188,8 @@ export function createUserRepo(db: Database): UserRepo {
       return loadById(userId, role);
     },
 
+    findPhoneRole,
+
     async upsertOnLogin(input) {
       const existingRole = await findPhoneRole(input.phone);
       if (existingRole !== null && existingRole !== input.role) {

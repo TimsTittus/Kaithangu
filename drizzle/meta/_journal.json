@@ -50,6 +50,13 @@
       "when": 1789116562143,
       "tag": "0006_split_identity",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1789119010897,
+      "tag": "0007_flowery_shiva",
+      "breakpoints": true
     }
   ]
 }

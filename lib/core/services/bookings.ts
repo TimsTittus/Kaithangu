@@ -105,9 +105,18 @@ export interface BookingPricingRepo {
   load(stateCode: string, tradeCode: TradeCode): Promise<BookingPricingInputs | null>;
 }
 
+export interface PincodeGeocode {
+  location: LngLat;
+  officeName: string;
+  district: string;
+  stateName: string;
+}
+
 export interface PlaceRepo {
   /** A location for the pincode (one of its post offices), or null when unknown. */
   pincodeLocation(pincode: string): Promise<LngLat | null>;
+  /** Post office centroid plus locality labels, or null when the pincode is unknown. */
+  geocodePincode(pincode: string): Promise<PincodeGeocode | null>;
   /** Pincode of the nearest post office within maxMeters, or null. */
   nearestPincode(point: LngLat, maxMeters: number): Promise<string | null>;
 }

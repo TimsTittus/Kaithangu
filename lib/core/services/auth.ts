@@ -45,6 +45,8 @@ export interface UserRepo {
   /** Insert into the role's table, or load the existing row for that phone. */
   upsertOnLogin(input: UpsertLoginInput): Promise<{ user: SessionUser; created: boolean }>;
   findSessionUser(userId: string, role: Role): Promise<SessionUser | null>;
+  /** Which identity table owns this phone, if any. */
+  findPhoneRole(phone: string): Promise<Role | null>;
   /** Increment session_version; returns the new value, or null if no such row. */
   bumpSessionVersion(userId: string, role: Role): Promise<number | null>;
   /** Set the profile locale for the signed-in identity. */

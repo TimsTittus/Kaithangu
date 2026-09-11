@@ -15,6 +15,7 @@ export const TRADE_CODES = [
 export type TradeCode = (typeof TRADE_CODES)[number];
 
 const CERTIFIED_REQUIRED: ReadonlySet<TradeCode> = new Set<TradeCode>([
+  'plumber',
   'electrician',
   'technician',
 ]);

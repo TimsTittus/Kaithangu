@@ -13,7 +13,11 @@ const schema = z.object({
   TWILIO_AUTH_TOKEN: z.string().min(1),
   TWILIO_PHONE_NUMBER: z.string().regex(/^\+[1-9]\d{7,14}$/, 'must be E.164, e.g. +91XXXXXXXXXX'),
   /** Verify service SID from https://www.twilio.com/console/verify/services */
-  TWILIO_VERIFY_SERVICE_SID: z.string().regex(/^VA[0-9a-fA-F]{32}$/, 'must be a Verify service SID (VA...)'),
+  TWILIO_VERIFY_SERVICE_SID: z
+    .string()
+    .regex(/^VA[0-9a-fA-F]{32}$/, 'must be a Verify service SID (VA...)'),
+  /** Bearer token Sarvam Indus sends to POST /api/webhook/ai */
+  AI_WEBHOOK_SECRET: z.string().min(32),
 });
 
 export type WebEnv = z.output<typeof schema>;

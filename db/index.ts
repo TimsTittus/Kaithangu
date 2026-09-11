@@ -9,7 +9,7 @@ function connect(url: string, max = 10) {
     max,
     prepare: false,
     ssl: 'require',
-    onnotice: () => {},
+    onnotice: () => { },
   });
 }
 
@@ -43,6 +43,7 @@ export { loadStateDefaultLocale } from './queries/stateConfig';
 export { createUserRepo } from './queries/users';
 export { createWorkerRepo, workerScopeCondition } from './queries/workers';
 export { createWorkerEligibilityRepo } from './queries/workerEligibility';
+export { createWorkerOnboardingRepo } from './queries/workerOnboarding';
 export {
   loadPricingInputs,
   type PricingInputs,

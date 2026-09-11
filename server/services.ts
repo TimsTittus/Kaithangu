@@ -10,12 +10,14 @@ import {
   createConsentService,
   createCorporateService,
   createSpeechService,
+  createWorkerOnboardingService,
   createWorkerService,
   type AuthService,
   type BookingService,
   type ConsentService,
   type CorporateService,
   type SpeechService,
+  type WorkerOnboardingService,
   type WorkerService,
 } from '@/lib/core';
 import {
@@ -26,6 +28,7 @@ import {
   createPlaceRepo,
   createUserRepo,
   createWorkerEligibilityRepo,
+  createWorkerOnboardingRepo,
   createWorkerRepo,
   loadStateDefaultLocale,
   db,
@@ -42,6 +45,7 @@ const services = globalThis as typeof globalThis & {
   kaithanguWorkers?: WorkerService;
   kaithanguBookings?: BookingService;
   kaithanguSpeech?: SpeechService;
+  kaithanguWorkerOnboarding?: WorkerOnboardingService;
 };
 
 export function getAuthService(): AuthService {
@@ -99,6 +103,21 @@ export function getSpeechService(): SpeechService {
     speech: createSpeechAdapter({ env: process.env }),
   });
   return services.kaithanguSpeech;
+}
+
+export function getWorkerOnboardingService(): WorkerOnboardingService {
+  if (!services.kaithanguWorkerOnboarding) {
+    const env = getEnv();
+    services.kaithanguWorkerOnboarding = createWorkerOnboardingService({
+      sms: createSmsAdapter(),
+      users: createUserRepo(db),
+      onboarding: createWorkerOnboardingRepo(db),
+      places: createPlaceRepo(db),
+      consents: createConsentRepo(db),
+      defaultStateCode: env.DEFAULT_STATE,
+    });
+  }
+  return services.kaithanguWorkerOnboarding;
 }
 
 const DEFAULT_LOCALE_TTL_MS = 5 * 60 * 1000;
