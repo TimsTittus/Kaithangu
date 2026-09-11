@@ -5,26 +5,15 @@ import {
   index,
   integer,
   jsonb,
-  numeric,
   pgTable,
   smallint,
   text,
   uuid,
 } from 'drizzle-orm/pg-core';
 import { createdAt, paise, point, tstz } from './columns';
-import {
-  bookingSource,
-  bookingStatus,
-  disputeStatus,
-  offerChannel,
-  offerResponse,
-  ratingChannel,
-  sentiment,
-  urgency,
-} from './enums';
+import { bookingSource, bookingStatus, urgency } from './enums';
 import { institutions } from './institutions';
 import { societies } from './org';
-import { disasterEvents } from './planning';
 import { states, trades } from './region';
 import { users } from './users';
 import { workers } from './workers';
@@ -51,7 +40,6 @@ export const bookings = pgTable(
     problemSummaryEn: text('problem_summary_en'),
     source: bookingSource('source').notNull(),
     urgency: urgency('urgency').notNull().default('normal'),
-    disasterEventId: uuid('disaster_event_id').references(() => disasterEvents.id),
     scheduledFor: tstz('scheduled_for'),
     estimatedMinutes: integer('estimated_minutes').notNull(),
     location: point('location').notNull(),
@@ -104,34 +92,6 @@ export const bookings = pgTable(
   ],
 );
 
-export const bookingOffers = pgTable(
-  'booking_offers',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    bookingId: uuid('booking_id')
-      .notNull()
-      .references(() => bookings.id),
-    workerId: uuid('worker_id')
-      .notNull()
-      .references(() => workers.userId),
-    rank: smallint('rank').notNull(),
-    channel: offerChannel('channel').notNull(),
-    score: numeric('score', { precision: 6, scale: 4 }).notNull(),
-    breakdown: jsonb('breakdown').$type<Json>().notNull(),
-    explanationKey: text('explanation_key').notNull(),
-    explanationParams: jsonb('explanation_params').$type<Json>().notNull().default({}),
-    offeredAt: tstz('offered_at').notNull().defaultNow(),
-    expiresAt: tstz('expires_at').notNull(),
-    respondedAt: tstz('responded_at'),
-    response: offerResponse('response'),
-  },
-  (t) => [
-    index('booking_offers_booking_idx').on(t.bookingId),
-    index('booking_offers_worker_idx').on(t.workerId, t.response),
-    check('booking_offers_rank_positive', sql`${t.rank} >= 1`),
-  ],
-);
-
 export const bookingEvents = pgTable(
   'booking_events',
   {
@@ -155,41 +115,9 @@ export const bookingEvents = pgTable(
   ],
 );
 
-export const ratings = pgTable(
-  'ratings',
-  {
-    bookingId: uuid('booking_id')
-      .primaryKey()
-      .references(() => bookings.id),
-    stars: smallint('stars').notNull(),
-    commentText: text('comment_text'),
-    channel: ratingChannel('channel').notNull(),
-    sentiment: sentiment('sentiment'),
-    flags: text('flags')
-      .array()
-      .notNull()
-      .default(sql`'{}'::text[]`),
-    createdAt: createdAt(),
-  },
-  (t) => [check('ratings_stars_range', sql`${t.stars} BETWEEN 1 AND 5`)],
-);
-
-export const disputes = pgTable(
-  'disputes',
-  {
-    id: uuid('id').primaryKey().defaultRandom(),
-    bookingId: uuid('booking_id')
-      .notNull()
-      .references(() => bookings.id),
-    raisedBy: uuid('raised_by')
-      .notNull()
-      .references(() => users.id),
-    reasonCode: text('reason_code').notNull(),
-    description: text('description'),
-    status: disputeStatus('status').notNull().default('open'),
-    resolutionNote: text('resolution_note'),
-    createdAt: createdAt(),
-    resolvedAt: tstz('resolved_at'),
-  },
-  (t) => [index('disputes_booking_idx').on(t.bookingId), index('disputes_status_idx').on(t.status)],
-);
+export const idempotencyKeys = pgTable('idempotency_keys', {
+  key: text('key').primaryKey(),
+  scope: text('scope').notNull(),
+  response: jsonb('response').$type<Json>(),
+  createdAt: createdAt(),
+});

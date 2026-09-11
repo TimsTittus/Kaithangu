@@ -19,22 +19,6 @@ export const LOGIN_OTP_DIGITS = 6;
 export const LOGIN_OTP_TTL_SECONDS = 600;
 export const LOGIN_OTP_MAX_ATTEMPTS = 5;
 
-export interface OtpRecord {
-  hash: string;
-  /** Attempts made so far, including the one just recorded. */
-  attempts: number;
-}
-
-/** Redis key otp:{phone} in production. */
-export interface OtpStore {
-  /** Store a fresh code hash with zero attempts, replacing any previous code. */
-  save(phone: string, hash: string, ttlSeconds: number): Promise<void>;
-  /** Atomically count one attempt against the live code; null when there is none. */
-  recordAttempt(phone: string): Promise<OtpRecord | null>;
-  /** Delete the code; true only for the call that actually removed it. */
-  consume(phone: string): Promise<boolean>;
-}
-
 /** A user row plus the scope ids needed to build the actor. */
 export interface SessionUser {
   id: string;

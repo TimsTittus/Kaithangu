@@ -20,7 +20,7 @@ import { canTransition, assertTransition, type BookingStatus } from '../booking/
 import { ROLES, type RequestContext, type UserActor } from '../context';
 import { AppError } from '../errors';
 import type { LngLat } from '../geo';
-import { canonicalJson } from '../ledger';
+import { canonicalJson } from '../canonicalJson';
 import {
   quote as computeQuote,
   type PricingLineKey,

@@ -20,19 +20,3 @@ export const TRADE_ROWS = TRADE_CODES.map((code, index) => ({
   icon: TRADE_ICONS[code],
   sortOrder: (index + 1) * 10,
 }));
-
-/**
- * Welfare schemes. Eligibility/benefit rules are NOT known yet: rules = {} and
- * is_placeholder = true (TODO_VERIFY) until verified scheme rules are supplied.
- */
-export const WELFARE_SCHEME_ROWS = [
-  { code: 'pmsby', stateCode: null, nameKey: 'welfare.pmsby', rules: {}, isPlaceholder: true },
-  { code: 'pmjjby', stateCode: null, nameKey: 'welfare.pmjjby', rules: {}, isPlaceholder: true },
-  {
-    code: 'society_welfare_fund',
-    stateCode: 'KL',
-    nameKey: 'welfare.society_welfare_fund',
-    rules: {},
-    isPlaceholder: true,
-  },
-] as const;
