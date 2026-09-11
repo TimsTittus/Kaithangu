@@ -96,6 +96,15 @@ export {
   type ConsentService,
 } from './services/consent';
 export {
+  createCorporateService,
+  type CorporateBookingSummary,
+  type CorporateDashboardData,
+  type CorporateDeps,
+  type CorporateProfileData,
+  type CorporateRepo,
+  type CorporateService,
+} from './services/corporate';
+export {
   createWorkerService,
   MAX_WORKER_PAGE_SIZE,
   WORKER_STATUSES,
