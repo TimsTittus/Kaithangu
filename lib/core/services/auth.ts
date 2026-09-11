@@ -9,7 +9,7 @@
  */
 import { isSupportedLocale, type Locale } from '@/lib/i18n';
 import { isNotConfiguredError, type SmsAdapter } from '@/lib/adapters/sms/types';
-import type { RequestContext, Role, UserActor } from '../context';
+import { ROLES, type RequestContext, type Role, type UserActor } from '../context';
 import { AppError } from '../errors';
 import { normalizeIndianPhone } from '../phone';
 import { signSession, verifySession } from '../session';
@@ -43,9 +43,9 @@ export interface SessionUser {
   role: Role;
   locale: string | null;
   sessionVersion: number;
-  /** users.state_code (customers, state admins). */
+  /** users.state_code (service users). */
   stateCode: string | null;
-  /** Worker: workers.society_id; LCS admin: users.society_id. */
+  /** Worker: workers.society_id; corporate: users.society_id. */
   societyId: string | null;
   societyStateCode: string | null;
   institutionId: string | null;
@@ -57,10 +57,12 @@ export interface UpsertLoginInput {
   locale: Locale | null;
   stateCode: string;
   at: Date;
+  /** When set, stored on insert and updated on later logins. */
+  role?: Role;
 }
 
 export interface UserRepo {
-  /** Insert a customer or update last_login_at of an existing user. */
+  /** Insert a user or update last_login_at of an existing user. */
   upsertOnLogin(input: UpsertLoginInput): Promise<{ user: SessionUser; created: boolean }>;
   findSessionUser(userId: string): Promise<SessionUser | null>;
   /** Increment session_version; returns the new value, or null if no such user. */
@@ -86,6 +88,8 @@ export interface VerifyOtpInput {
   code: string;
   /** Locale chosen before sign-in (NEXT_LOCALE cookie); stored for new users. */
   locale?: Locale | null;
+  /** Chosen on the login screen; stored for new and returning users. */
+  role?: Role | null;
 }
 
 export interface VerifyOtpResult {
@@ -108,20 +112,16 @@ export function buildActor(user: SessionUser): UserActor {
     if (value !== null && value !== '') actor[key] = value;
   };
   switch (user.role) {
-    case 'customer':
-    case 'state_admin':
+    case 'user':
       set('stateCode', user.stateCode);
       break;
     case 'worker':
-    case 'lcs_admin':
       set('societyId', user.societyId);
       set('stateCode', user.societyStateCode);
       break;
-    case 'institution_admin':
-      set('institutionId', user.institutionId);
-      set('stateCode', user.institutionStateCode);
-      break;
-    case 'national_admin':
+    case 'corporate':
+      set('societyId', user.societyId);
+      set('stateCode', user.societyStateCode ?? user.stateCode);
       break;
   }
   return actor;
@@ -184,6 +184,7 @@ export function createAuthService(deps: AuthDeps) {
         locale: input.locale ?? null,
         stateCode: deps.defaultStateCode,
         at,
+        role: input.role ?? undefined,
       });
       const token = await signSession(
         { sub: user.id, role: user.role, sv: user.sessionVersion },
@@ -216,14 +217,7 @@ export function createAuthService(deps: AuthDeps) {
 
     /** Revoke every session of the signed-in user. */
     async logoutAll(ctx: RequestContext | null): Promise<void> {
-      const { actor } = requireRole(ctx, [
-        'customer',
-        'worker',
-        'lcs_admin',
-        'state_admin',
-        'national_admin',
-        'institution_admin',
-      ]);
+      const { actor } = requireRole(ctx, ROLES);
       if ((await deps.users.bumpSessionVersion(actor.userId)) === null) {
         throw new AppError('UNAUTHENTICATED');
       }
@@ -231,14 +225,7 @@ export function createAuthService(deps: AuthDeps) {
 
     /** Set the profile locale for the signed-in user. */
     async setLocale(ctx: RequestContext | null, locale: Locale): Promise<void> {
-      const { actor } = requireRole(ctx, [
-        'customer',
-        'worker',
-        'lcs_admin',
-        'state_admin',
-        'national_admin',
-        'institution_admin',
-      ]);
+      const { actor } = requireRole(ctx, ROLES);
       await deps.users.setLocale(actor.userId, locale);
     },
   };

@@ -1,15 +1,14 @@
 import {
   ArrowLeft,
-  Banknote,
-  CheckCircle2,
+  Building2,
   ChevronRight,
+  FileText,
   Globe,
   HelpCircle,
   Landmark,
-  MapPin,
+  Scale,
   ShieldCheck,
-  User,
-  Wrench,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
@@ -17,87 +16,102 @@ import { LogoutButton } from '@/components/LogoutButton';
 import { pageClass } from '@/components/ui';
 import { getSession } from '@/server/auth/context';
 
-export default async function WorkerProfilePage() {
+export default async function CorporateProfilePage() {
   const common = await getTranslations('common');
   const session = await getSession();
 
-  const phone = session?.user.phone ?? '+919000100000';
-  const name = session?.user.name ?? 'Suresh Kumar (Demo)';
+  const phone = session?.user.phone ?? '+919000000010';
+  const name = session?.user.name ?? 'Welfare Community (Demo)';
 
   return (
     <main className={pageClass}>
       {/* Top Header */}
       <header className="flex items-center justify-between gap-3 pt-1">
         <Link
-          href="/w"
+          href="/corporate"
           className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:bg-neutral-50 active:scale-95 transition-all"
           aria-label={common('back')}
         >
           <ArrowLeft className="size-5 text-neutral-700" />
         </Link>
 
-        <h1 className="text-xl font-bold tracking-tight text-neutral-900">Worker Profile</h1>
+        <h1 className="text-xl font-bold tracking-tight text-neutral-900">Society Profile</h1>
 
         <div className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-emerald-50 text-emerald-800 shadow-sm">
-          <User className="size-5" />
+          <Building2 className="size-5" />
         </div>
       </header>
 
       {/* Profile Hero Card */}
       <div className="flex flex-col items-center rounded-3xl border border-emerald-950/10 bg-white p-6 text-center shadow-xs">
-        <div className="relative mb-3 flex size-20 items-center justify-center rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-3xl font-extrabold text-white shadow-md shadow-emerald-600/20">
+        <div className="relative mb-3 flex size-20 items-center justify-center rounded-full bg-gradient-to-tr from-emerald-700 to-teal-600 text-3xl font-extrabold text-white shadow-md shadow-emerald-700/20">
           {name.charAt(0)}
-          <div className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-emerald-700 text-white ring-2 ring-white">
-            <CheckCircle2 className="size-4" />
+          <div className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-emerald-800 text-white ring-2 ring-white">
+            <ShieldCheck className="size-4" />
           </div>
         </div>
 
         <h2 className="text-xl font-bold text-neutral-900">{name}</h2>
         <span className="mt-0.5 text-xs font-semibold text-emerald-700">
-          Verified Cooperative Worker · Trade Expert
+          Worker Welfare Community
         </span>
         <span className="mt-1 text-sm font-mono text-neutral-600">{phone}</span>
 
         <div className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-50/70 px-3 py-2 text-xs font-medium text-emerald-800">
           <Landmark className="size-4 shrink-0 text-emerald-700" />
-          <span className="truncate">Mattancherry Labour Cooperative Society (LCS-1)</span>
+          <span className="truncate">Mattancherry Labour Contract Co-op Society (K-4829)</span>
         </div>
       </div>
 
-      {/* Real Worker Metrics */}
+      {/* Real Society Operational Metrics */}
       <section className="flex flex-col gap-2.5">
-        <span className="text-sm font-bold text-neutral-800">30-Day Cooperative Performance</span>
+        <span className="text-sm font-bold text-neutral-800">Society Overview & Fund</span>
         <div className="grid grid-cols-3 gap-2.5 text-center">
           <div className="flex flex-col rounded-2xl border border-emerald-950/10 bg-white p-3 shadow-xs">
-            <span className="text-lg font-bold text-emerald-700">₹18,450</span>
-            <span className="text-[11px] font-medium text-neutral-500">Earnings</span>
+            <span className="text-lg font-bold text-neutral-900">100</span>
+            <span className="text-[11px] font-medium text-neutral-500">Workers</span>
           </div>
           <div className="flex flex-col rounded-2xl border border-emerald-950/10 bg-white p-3 shadow-xs">
-            <span className="text-lg font-bold text-neutral-900">24</span>
-            <span className="text-[11px] font-medium text-neutral-500">Jobs Done</span>
+            <span className="text-lg font-bold text-emerald-700">₹1.42L</span>
+            <span className="text-[11px] font-medium text-neutral-500">Welfare Fund</span>
           </div>
           <div className="flex flex-col rounded-2xl border border-emerald-950/10 bg-white p-3 shadow-xs">
-            <span className="text-lg font-bold text-amber-600">★ 4.9</span>
-            <span className="text-[11px] font-medium text-neutral-500">Rating</span>
+            <span className="text-lg font-bold text-teal-700">0.18</span>
+            <span className="text-[11px] font-medium text-neutral-500">Gini Equity</span>
           </div>
         </div>
       </section>
 
-      {/* Skills & Trade Registrations */}
+      {/* Federation Details */}
       <section className="flex flex-col gap-2">
-        <span className="text-sm font-bold text-neutral-800">
-          Registered Trades & Certifications
-        </span>
+        <span className="text-sm font-bold text-neutral-800">Cooperative Affiliation</span>
         <div className="flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white p-4 shadow-xs gap-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-800">
-                <Wrench className="size-5" />
+                <Landmark className="size-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Plumber (Level 3)</span>
+                <span className="text-sm font-bold text-neutral-900">
+                  Kerala Labour Co-op Federation
+                </span>
+                <span className="text-xs text-neutral-500">State Apex Body · NCCT Pilot</span>
+              </div>
+            </div>
+            <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800">
+              Active
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
+            <div className="flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-800">
+                <Scale className="size-5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-bold text-neutral-900">Ministry of Cooperation</span>
                 <span className="text-xs text-neutral-500">
-                  Government Certified · Master Grade
+                  National Council for Cooperative Training
                 </span>
               </div>
             </div>
@@ -105,37 +119,24 @@ export default async function WorkerProfilePage() {
               Verified
             </span>
           </div>
-
-          <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-800">
-                <ShieldCheck className="size-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Electrician (Level 2)</span>
-                <span className="text-xs text-neutral-500">NCCT Skill Certified</span>
-              </div>
-            </div>
-            <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800">
-              Active
-            </span>
-          </div>
         </div>
       </section>
 
-      {/* Account Settings List */}
+      {/* Administrative Settings & Controls */}
       <section className="flex flex-col gap-2">
-        <span className="text-sm font-bold text-neutral-800">Payouts & Preferences</span>
+        <span className="text-sm font-bold text-neutral-800">Welfare & Governance</span>
         <div className="flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-xs divide-y divide-neutral-100">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-3">
               <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-800">
-                <Banknote className="size-5" />
+                <FileText className="size-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Cooperative Bank Payout</span>
+                <span className="text-sm font-bold text-neutral-900">
+                  State Trade Rates (KLD-2026)
+                </span>
                 <span className="text-xs text-neutral-500">
-                  A/C: •••• 4921 · Mattancherry Service Co-op
+                  Wage Floor & Emergency Surcharge Rules
                 </span>
               </div>
             </div>
@@ -145,11 +146,15 @@ export default async function WorkerProfilePage() {
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-3">
               <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-800">
-                <MapPin className="size-5" />
+                <Users className="size-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Service Coverage Area</span>
-                <span className="text-xs text-neutral-500">8.5 km radius · Kochi Metro West</span>
+                <span className="text-sm font-bold text-neutral-900">
+                  Worker Roster & Verification
+                </span>
+                <span className="text-xs text-neutral-500">
+                  100 active · Ernakulam Jurisdiction
+                </span>
               </div>
             </div>
             <ChevronRight className="size-5 text-neutral-400" />
@@ -177,9 +182,11 @@ export default async function WorkerProfilePage() {
                 <HelpCircle className="size-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Society Worker Helpline</span>
+                <span className="text-sm font-bold text-neutral-900">
+                  Welfare Community Support
+                </span>
                 <span className="text-xs text-neutral-500">
-                  Toll-free 9946 116 910 (08:00 - 20:00)
+                  Desk: 0484-2391000 · admin@kaithangu.coop
                 </span>
               </div>
             </div>

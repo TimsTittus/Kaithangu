@@ -7,14 +7,7 @@ import { randomUUID } from 'node:crypto';
 import type { Locale } from '@/lib/i18n';
 
 /** AGENTS.md 2. */
-export const ROLES = [
-  'customer',
-  'worker',
-  'lcs_admin',
-  'state_admin',
-  'national_admin',
-  'institution_admin',
-] as const;
+export const ROLES = ['user', 'worker', 'corporate'] as const;
 
 export type Role = (typeof ROLES)[number];
 

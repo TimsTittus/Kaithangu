@@ -1,13 +1,6 @@
 import { pgEnum } from 'drizzle-orm/pg-core';
 
-export const userRole = pgEnum('user_role', [
-  'customer',
-  'worker',
-  'lcs_admin',
-  'state_admin',
-  'national_admin',
-  'institution_admin',
-]);
+export const userRole = pgEnum('user_role', ['user', 'worker', 'corporate']);
 
 export const federationLevel = pgEnum('federation_level', ['national', 'state']);
 

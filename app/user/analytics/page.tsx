@@ -61,7 +61,7 @@ export default async function AnalyticsPage() {
       {/* Top Header */}
       <header className="flex items-center justify-between gap-3 pt-1">
         <Link
-          href="/app"
+          href="/user"
           className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:bg-neutral-50 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900"
           aria-label={common('back')}
         >
@@ -230,7 +230,7 @@ export default async function AnalyticsPage() {
 
       {/* Back button at bottom */}
       <div className="mt-auto flex items-center gap-3">
-        <Link href="/app" className={secondaryButtonClass}>
+        <Link href="/user" className={secondaryButtonClass}>
           <ArrowLeft aria-hidden className="size-5" />
           {common('back')}
         </Link>

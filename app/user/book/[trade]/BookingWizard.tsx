@@ -198,7 +198,7 @@ export function BookingWizard(props: Props) {
       'idempotency-key': idempotency.current.key,
     });
     if (result.ok) {
-      router.replace(`/app/bookings/${result.data.id}`);
+      router.replace(`/user/bookings/${result.data.id}`);
       return;
     }
     setSubmitting(false);
@@ -563,7 +563,7 @@ export function BookingWizard(props: Props) {
         )}
         <Row audio={<AudioLabel k="common.back" text={s('common.back')} />}>
           {step === 0 ? (
-            <Link href="/app" className={secondaryButtonClass} data-testid="back">
+            <Link href="/user" className={secondaryButtonClass} data-testid="back">
               <ArrowLeft aria-hidden className="size-5" />
               {s('common.back')}
             </Link>

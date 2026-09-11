@@ -315,7 +315,7 @@ export function BookingTracker({ initial, tradeLabel, strings, errors }: Props) 
           </div>
         )}
         <div className="flex items-center gap-3">
-          <Link href="/app" className={view.canCancel ? secondaryButtonClass : primaryButtonClass}>
+          <Link href="/user" className={view.canCancel ? secondaryButtonClass : primaryButtonClass}>
             <Home aria-hidden className="size-5" />
             {s('booking.home')}
           </Link>

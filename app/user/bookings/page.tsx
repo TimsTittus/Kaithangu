@@ -51,7 +51,7 @@ export default async function BookingsPage() {
       {/* Top App Bar with back button, centered title, and grid menu */}
       <header className="flex items-center justify-between gap-3 pt-1">
         <Link
-          href="/app"
+          href="/user"
           className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:bg-neutral-50 active:scale-95 transition-all dark:border-neutral-800 dark:bg-neutral-900"
           aria-label={common('back')}
         >
@@ -127,7 +127,7 @@ export default async function BookingsPage() {
       {/* Quick Action Buttons Row */}
       <div className="flex items-center justify-around gap-2 px-1">
         <Link
-          href="/app"
+          href="/user"
           className="flex flex-col items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-600"
         >
           <div className="flex size-12 items-center justify-center rounded-full border border-emerald-900/10 bg-emerald-50 text-emerald-800 shadow-xs hover:scale-105 active:scale-95 transition-all dark:border-white/10 dark:bg-emerald-950 dark:text-emerald-200">
@@ -139,7 +139,7 @@ export default async function BookingsPage() {
         </Link>
 
         <Link
-          href="/app/emergency"
+          href="/user/emergency"
           className="flex flex-col items-center gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-600"
         >
           <div className="flex size-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md shadow-emerald-800/20 hover:scale-105 active:scale-95 transition-all">
@@ -184,7 +184,7 @@ export default async function BookingsPage() {
             data-testid="bookings-empty"
           >
             <p className={mutedTextClass}>{t('list_empty')}</p>
-            <Link href="/app" className={primaryButtonClass}>
+            <Link href="/user" className={primaryButtonClass}>
               <Plus aria-hidden className="size-5" />
               {t('book_first')}
             </Link>
@@ -200,7 +200,7 @@ export default async function BookingsPage() {
               return (
                 <li key={booking.id}>
                   <Link
-                    href={`/app/bookings/${booking.id}`}
+                    href={`/user/bookings/${booking.id}`}
                     className="flex min-h-16 items-center gap-3.5 rounded-3xl border border-emerald-950/10 bg-white p-3.5 shadow-xs transition-all hover:border-emerald-500/40 hover:shadow-md dark:border-white/10 dark:bg-[#101e18]"
                     data-testid="booking-item"
                   >
@@ -254,7 +254,7 @@ export default async function BookingsPage() {
 
       {/* Bottom Back Button */}
       <div className="mt-auto flex items-center gap-3">
-        <Link href="/app" className={secondaryButtonClass}>
+        <Link href="/user" className={secondaryButtonClass}>
           <ArrowLeft aria-hidden className="size-5" />
           {common('back')}
         </Link>

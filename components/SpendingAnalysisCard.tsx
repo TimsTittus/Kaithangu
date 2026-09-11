@@ -27,7 +27,7 @@ export function SpendingAnalysisCard({ title, monthLabel }: SpendingAnalysisCard
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold tracking-tight">{title}</h2>
         <Link
-          href="/app/analytics"
+          href="/user/analytics"
           className="flex items-center gap-1 text-xs font-medium text-emerald-300 hover:text-emerald-100"
         >
           {monthLabel}

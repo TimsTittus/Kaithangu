@@ -8,7 +8,7 @@ import { createDb } from '..';
 import { loadDbScriptEnv, migrationUrl } from '../env';
 import { redactDatabaseUrl } from '../index';
 
-export const MIGRATIONS_FOLDER = fileURLToPath(new URL('../../../drizzle', import.meta.url));
+export const MIGRATIONS_FOLDER = fileURLToPath(new URL('../../drizzle', import.meta.url));
 
 export async function runMigrations(databaseUrl: string): Promise<void> {
   const { db, client } = createDb(databaseUrl, { max: 1 });

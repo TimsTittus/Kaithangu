@@ -1,4 +1,4 @@
-import { buildActor, pickLocale, SESSION_COOKIE, sessionCookieOptions } from '@/lib/core';
+import { buildActor, pickLocale, ROLES, SESSION_COOKIE, sessionCookieOptions } from '@/lib/core';
 import { isSupportedLocale } from '@/lib/i18n';
 import type { NextRequest } from 'next/server';
 import { z } from 'zod';
@@ -12,6 +12,7 @@ const bodySchema = z.object({
   phone: z.string().min(1).max(32),
   code: z.string().regex(/^\d{6}$/),
   next: z.string().max(2048).optional(),
+  role: z.enum(ROLES).optional(),
 });
 
 export const POST = handle(async (request, requestId) => {
@@ -26,6 +27,7 @@ export const POST = handle(async (request, requestId) => {
       phone: body.phone,
       code: body.code,
       locale: cookieLocale !== undefined && isSupportedLocale(cookieLocale) ? cookieLocale : null,
+      role: body.role,
     },
   );
 
@@ -34,7 +36,8 @@ export const POST = handle(async (request, requestId) => {
     requestId,
     locale: pickLocale(user.locale, cookieLocale, locale),
   }));
-  const destination = safeNext(body.next, ROLE_HOME[user.role], user.role);
+  const home = ROLE_HOME[user.role];
+  const destination = body.role !== undefined ? home : safeNext(body.next, home, user.role);
   const redirectTo = needsConsent
     ? `/consent?${new URLSearchParams({ next: destination }).toString()}`
     : destination;

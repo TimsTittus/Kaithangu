@@ -1,8 +1,8 @@
 /**
- * Authorization policy (AGENTS.md 2, 4.2). Scope hierarchy national ⊃ state ⊃
- * society; workers see their own records, customers their own bookings,
- * institution admins their own institution. The system actor may do anything.
- * Checks fail closed: a missing scope id on the actor or the resource denies.
+ * Authorization policy (AGENTS.md 2, 4.2). Users see their own bookings,
+ * workers their own records, corporates their society. The system actor may do
+ * anything. Checks fail closed: a missing scope id on the actor or the resource
+ * denies.
  */
 import type { Actor, RequestContext, Role, UserActor } from './context';
 import { isSystemActor } from './context';
@@ -53,48 +53,31 @@ export type ScopeRule = 'any' | 'state' | 'society' | 'institution' | 'own_custo
 
 type Grants = Readonly<Partial<Record<Role, ScopeRule>>>;
 
-const ADMINS: Grants = { lcs_admin: 'society', state_admin: 'state', national_admin: 'any' };
+const CORPORATE: Grants = { corporate: 'society' };
 
 export const POLICY: Readonly<Record<Action, Grants>> = {
-  'booking.create': {
-    customer: 'own_customer',
-    lcs_admin: 'society',
-    institution_admin: 'institution',
-  },
-  'booking.read': {
-    customer: 'own_customer',
-    worker: 'own_worker',
-    ...ADMINS,
-    institution_admin: 'institution',
-  },
-  'booking.cancel': { customer: 'own_customer', ...ADMINS, institution_admin: 'institution' },
+  'booking.create': { user: 'own_customer' },
+  'booking.read': { user: 'own_customer', worker: 'own_worker', ...CORPORATE },
+  'booking.cancel': { user: 'own_customer', ...CORPORATE },
   'booking.progress': { worker: 'own_worker' },
-  'booking.assign_manual': ADMINS,
-  'booking.rate': { customer: 'own_customer', institution_admin: 'institution' },
-  'dispute.raise': {
-    customer: 'own_customer',
-    worker: 'own_worker',
-    institution_admin: 'institution',
-  },
-  'dispute.resolve': ADMINS,
+  'booking.assign_manual': CORPORATE,
+  'booking.rate': { user: 'own_customer' },
+  'dispute.raise': { user: 'own_customer', worker: 'own_worker' },
+  'dispute.resolve': CORPORATE,
   'offer.respond': { worker: 'own_worker' },
-  'worker.read': { worker: 'own_worker', ...ADMINS },
-  'worker.update': { worker: 'own_worker', ...ADMINS },
-  'worker.verify': ADMINS,
-  'worker.suspend': ADMINS,
-  'ledger.read': { worker: 'own_worker', ...ADMINS },
-  'report.read': ADMINS,
-  'broadcast.send': ADMINS,
-  'society.read': ADMINS,
-  'society.manage': { state_admin: 'state', national_admin: 'any' },
-  'state_config.manage': { state_admin: 'state', national_admin: 'any' },
-  'institution.read': {
-    state_admin: 'state',
-    national_admin: 'any',
-    institution_admin: 'institution',
-  },
-  'institution.manage': { institution_admin: 'institution' },
-  'invoice.read': { ...ADMINS, institution_admin: 'institution' },
+  'worker.read': { worker: 'own_worker', ...CORPORATE },
+  'worker.update': { worker: 'own_worker', ...CORPORATE },
+  'worker.verify': CORPORATE,
+  'worker.suspend': CORPORATE,
+  'ledger.read': { worker: 'own_worker', ...CORPORATE },
+  'report.read': CORPORATE,
+  'broadcast.send': CORPORATE,
+  'society.read': CORPORATE,
+  'society.manage': CORPORATE,
+  'state_config.manage': {},
+  'institution.read': {},
+  'institution.manage': {},
+  'invoice.read': CORPORATE,
 };
 
 function same(actorValue: string | undefined, resourceValue: string | null | undefined): boolean {

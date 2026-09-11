@@ -1,4 +1,4 @@
-import type { SessionUser, UpsertLoginInput, UserRepo } from '@/lib/core';
+import type { Role, SessionUser, UpsertLoginInput, UserRepo } from '@/lib/core';
 import type { Locale } from '@/lib/i18n';
 import { and, eq, isNotNull, isNull, or, sql } from 'drizzle-orm';
 import { z } from 'zod';
@@ -43,10 +43,10 @@ export function createUserRepo(db: Database): UserRepo {
     return row ?? null;
   }
 
-  async function touch(phone: string, at: Date): Promise<string | undefined> {
+  async function touch(phone: string, at: Date, role?: Role): Promise<string | undefined> {
     const [row] = await db
       .update(users)
-      .set({ lastLoginAt: at })
+      .set(role !== undefined ? { lastLoginAt: at, role } : { lastLoginAt: at })
       .where(eq(users.phone, phone))
       .returning({ id: users.id });
     return row?.id;
@@ -55,18 +55,18 @@ export function createUserRepo(db: Database): UserRepo {
   return {
     findSessionUser,
 
-    async upsertOnLogin({ phone, locale, stateCode, at }: UpsertLoginInput) {
+    async upsertOnLogin({ phone, locale, stateCode, at, role }: UpsertLoginInput) {
       let created = false;
-      let id = await touch(phone, at);
+      let id = await touch(phone, at, role);
       if (id === undefined) {
         const [inserted] = await db
           .insert(users)
-          .values({ phone, role: 'customer', locale, stateCode, lastLoginAt: at })
+          .values({ phone, role: role ?? 'user', locale, stateCode, lastLoginAt: at })
           .onConflictDoNothing({ target: users.phone })
           .returning({ id: users.id });
         created = inserted !== undefined;
         // Lost a race with a concurrent first sign-in: the row exists now.
-        id = inserted?.id ?? (await touch(phone, at));
+        id = inserted?.id ?? (await touch(phone, at, role));
       }
       const user = id === undefined ? null : await findSessionUser(id);
       if (user === null) throw new Error('upsertOnLogin: user row not found after upsert');
