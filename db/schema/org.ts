@@ -1,5 +1,5 @@
-import { boolean, index, pgTable, text, uuid } from 'drizzle-orm/pg-core';
-import { createdAt, point } from './columns';
+import { index, pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { createdAt } from './columns';
 import { states } from './region';
 
 /** Labour Cooperative Societies (LCS). */
@@ -11,14 +11,7 @@ export const societies = pgTable(
       .notNull()
       .references(() => states.code),
     name: text('name').notNull(),
-    district: text('district').notNull(),
-    regNo: text('reg_no'),
-    location: point('location').notNull(),
-    isDemo: boolean('is_demo').notNull().default(false),
     createdAt: createdAt(),
   },
-  (t) => [
-    index('societies_state_idx').on(t.stateCode),
-    index('societies_location_gist').using('gist', t.location),
-  ],
+  (t) => [index('societies_state_idx').on(t.stateCode)],
 );

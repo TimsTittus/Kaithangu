@@ -1,6 +1,6 @@
 /**
  * Session tokens (Phase 4): HS256 JWTs signed with SESSION_SECRET, carrying
- * { sub, role, sv } where sv is users.session_version. The token only proves
+ * { sub, role, sv } where sv is the identity table's session_version. The token only proves
  * who signed in; services re-check sv against the DB (logout-all bumps it) and
  * enforce authorization themselves. Kept free of Node-only APIs so the web
  * proxy can import it through `@/lib/core/session`.

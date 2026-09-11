@@ -1,17 +1,18 @@
-import type { ConsentPurpose, ConsentRecordInput, ConsentRepo } from '@/lib/core';
+import type { ConsentPurpose, ConsentRecordInput, ConsentRepo, Role } from '@/lib/core';
 import { and, eq } from 'drizzle-orm';
 import type { Database } from '..';
 import { consents } from '../schema';
 
 export function createConsentRepo(db: Database): ConsentRepo {
   return {
-    async has(userId: string, purpose: ConsentPurpose, version: string) {
+    async has(actorRole: Role, actorId: string, purpose: ConsentPurpose, version: string) {
       const rows = await db
         .select({ id: consents.id })
         .from(consents)
         .where(
           and(
-            eq(consents.userId, userId),
+            eq(consents.actorRole, actorRole),
+            eq(consents.actorId, actorId),
             eq(consents.purpose, purpose),
             eq(consents.version, version),
           ),
@@ -20,8 +21,8 @@ export function createConsentRepo(db: Database): ConsentRepo {
       return rows.length > 0;
     },
 
-    async record({ userId, purpose, version, channel, evidence }: ConsentRecordInput) {
-      await db.insert(consents).values({ userId, purpose, version, channel, evidence });
+    async record({ actorRole, actorId, purpose, version, evidence }: ConsentRecordInput) {
+      await db.insert(consents).values({ actorRole, actorId, purpose, version, evidence });
     },
   };
 }

@@ -17,7 +17,7 @@ import type { ScopeFilter } from '../authz';
 import { deriveJobOtp, workerCheckCode } from '../booking/codes';
 import { bookableSlots, isBookableSlot } from '../booking/slots';
 import { canTransition, assertTransition, type BookingStatus } from '../booking/stateMachine';
-import { ROLES, type RequestContext, type UserActor } from '../context';
+import { ROLES, type RequestContext, type Role, type UserActor } from '../context';
 import { AppError } from '../errors';
 import type { LngLat } from '../geo';
 import { canonicalJson } from '../canonicalJson';
@@ -113,7 +113,6 @@ export interface PlaceRepo {
 
 export interface SavedAddress {
   id: string;
-  label: string | null;
   addressText: string;
   pincode: string;
   location: LngLat;
@@ -166,7 +165,6 @@ export interface BookingWorkerRecord {
 export interface BookingRecord {
   id: string;
   customerId: string;
-  institutionId: string | null;
   stateCode: string;
   societyId: string | null;
   workerId: string | null;
@@ -202,7 +200,8 @@ export interface BookingTransition {
   bookingId: string;
   from: BookingStatus;
   to: BookingStatus;
-  actorUserId: string;
+  actorRole: Role;
+  actorId: string;
   meta: Record<string, unknown>;
   cancelledReason: string | null;
 }
@@ -354,7 +353,6 @@ function resourceOf(record: BookingRecord): ResourceScope {
   return {
     stateCode: record.stateCode,
     societyId: record.societyId,
-    institutionId: record.institutionId,
     customerId: record.customerId,
     workerId: record.workerId,
   };
@@ -655,7 +653,8 @@ export function createBookingService(deps: BookingDeps) {
         bookingId: record.id,
         from: record.status,
         to: 'cancelled',
-        actorUserId: actor.userId,
+        actorRole: actor.role,
+        actorId: actor.userId,
         meta: reason === undefined ? {} : { reason },
         cancelledReason: reason ?? null,
       });

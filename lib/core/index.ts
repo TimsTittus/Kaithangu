@@ -90,7 +90,6 @@ export {
   CONSENT_PURPOSES,
   createConsentService,
   currentConsentVersion,
-  type ConsentChannel,
   type ConsentPurpose,
   type ConsentRecordInput,
   type ConsentRepo,

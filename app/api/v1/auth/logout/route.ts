@@ -6,7 +6,7 @@ import { getContextFromRequest } from '@/server/auth/context';
 import { handle, jsonData, readJson } from '@/server/http';
 import { getAuthService } from '@/server/services';
 
-// { all: true } signs out every device by bumping users.session_version.
+// { all: true } signs out every device by bumping session_version on the identity row.
 const bodySchema = z.object({ all: z.boolean().default(false) });
 
 export const POST = handle(async (request, requestId) => {

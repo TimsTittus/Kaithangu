@@ -48,8 +48,8 @@ export interface WorkerSummary {
   name: string | null;
   phone: string;
   status: WorkerStatus;
-  societyId: string;
-  stateCode: string;
+  societyId: string | null;
+  stateCode: string | null;
   available: boolean;
   hasSmartphone: boolean;
   ratingCount: number;

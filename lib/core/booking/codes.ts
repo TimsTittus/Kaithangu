@@ -2,9 +2,8 @@
  * Codes shown to the customer on the tracking page (AGENTS.md 6.6).
  *
  * Job OTPs are derived, not stored: HMAC-SHA-256 of the booking id under a
- * server secret. The bookings table keeps only their hashes (otp.ts hashOtp)
- * for the worker's entry; the tracking page re-derives the code for display,
- * so no raw OTP is ever persisted (AGENTS.md 5). The dispatch phase generates
+ * server secret. The tracking page re-derives the code for display, so no
+ * raw OTP is ever persisted (AGENTS.md 5). The dispatch phase generates
  * start/complete OTPs with deriveJobOtp when a worker accepts.
  *
  * The worker check code lets the customer confirm at the door that the person
@@ -33,7 +32,7 @@ export function deriveJobOtp(secret: string, bookingId: string, kind: JobOtpKind
 export interface WorkerCheckInput {
   bookingId: string;
   workerId: string;
-  /** workers.qr_key_version: bumping it changes every code for that worker. */
+  /** worker.qr_key_version: bumping it changes every code for that worker. */
   keyVersion: number;
 }
 

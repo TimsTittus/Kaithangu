@@ -14,7 +14,7 @@ export async function acceptConsent(formData: FormData): Promise<void> {
   if (ctx === null || isSystemActor(ctx.actor)) {
     redirect(loginPath(`/consent?${new URLSearchParams({ next: next ?? '' })}`));
   }
-  await getConsentService().acceptTerms(ctx, 'web');
+  await getConsentService().acceptTerms(ctx);
   const role = ctx.actor.role;
   redirect(safeNext(next, ROLE_HOME[role], role));
 }

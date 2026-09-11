@@ -28,8 +28,6 @@ export const ACTIONS = [
   'society.read',
   'society.manage',
   'state_config.manage',
-  'institution.read',
-  'institution.manage',
   'invoice.read',
 ] as const;
 
@@ -37,19 +35,18 @@ export type Action = (typeof ACTIONS)[number];
 
 /**
  * Scope ids of the record being acted on. For a booking: its state, society,
- * institution, customer and assigned worker. For a worker record: workerId is
- * the worker's user id.
+ * customer and assigned worker. For a worker record: workerId is the worker's
+ * identity id.
  */
 export interface ResourceScope {
   stateCode?: string | null;
   societyId?: string | null;
-  institutionId?: string | null;
   customerId?: string | null;
   workerId?: string | null;
 }
 
 /** How a role's permission is scoped. */
-export type ScopeRule = 'any' | 'state' | 'society' | 'institution' | 'own_customer' | 'own_worker';
+export type ScopeRule = 'any' | 'state' | 'society' | 'own_customer' | 'own_worker';
 
 type Grants = Readonly<Partial<Record<Role, ScopeRule>>>;
 
@@ -75,8 +72,6 @@ export const POLICY: Readonly<Record<Action, Grants>> = {
   'society.read': CORPORATE,
   'society.manage': CORPORATE,
   'state_config.manage': {},
-  'institution.read': {},
-  'institution.manage': {},
   'invoice.read': CORPORATE,
 };
 
@@ -101,8 +96,6 @@ export function can(actor: Actor, action: Action, resource: ResourceScope): bool
       return same(actor.stateCode, resource.stateCode);
     case 'society':
       return same(actor.societyId, resource.societyId);
-    case 'institution':
-      return same(actor.institutionId, resource.institutionId);
     case 'own_customer':
       return same(actor.userId, resource.customerId);
     case 'own_worker':
@@ -126,7 +119,6 @@ export type ScopeFilter =
   | { kind: 'all' }
   | { kind: 'state'; stateCode: string }
   | { kind: 'society'; societyId: string }
-  | { kind: 'institution'; institutionId: string }
   | { kind: 'own_customer'; userId: string }
   | { kind: 'own_worker'; userId: string };
 
@@ -150,8 +142,6 @@ export function scopeFilter(actor: Actor, action: Action): ScopeFilter {
       return { kind: 'state', stateCode: required(actor.stateCode, action) };
     case 'society':
       return { kind: 'society', societyId: required(actor.societyId, action) };
-    case 'institution':
-      return { kind: 'institution', institutionId: required(actor.institutionId, action) };
     case 'own_customer':
       return { kind: 'own_customer', userId: required(actor.userId, action) };
     case 'own_worker':

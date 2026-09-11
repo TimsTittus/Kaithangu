@@ -1,11 +1,11 @@
 /**
  * Phone OTP sign-in and sessions (Phase 4).
  * - requestOtp: normalise the phone and ask Twilio Verify to text a 6-digit code.
- * - verifyOtp: check that code with Twilio, then upsert the user and issue a
- *   session token.
+ * - verifyOtp: check that code with Twilio, then upsert the matching identity
+ *   table (user / worker / corporate) and issue a session token.
  * - authenticate: turn a session cookie into a RequestContext, rejecting tokens
  *   whose session_version no longer matches the DB (logout-all).
- * SMS and the user table are ports so this module stays pure.
+ * SMS and the identity tables are ports so this module stays pure.
  */
 import { isSupportedLocale, type Locale } from '@/lib/i18n';
 import { isNotConfiguredError, type SmsAdapter } from '@/lib/adapters/sms/types';
@@ -19,7 +19,7 @@ export const LOGIN_OTP_DIGITS = 6;
 export const LOGIN_OTP_TTL_SECONDS = 600;
 export const LOGIN_OTP_MAX_ATTEMPTS = 5;
 
-/** A user row plus the scope ids needed to build the actor. */
+/** An identity row plus the scope ids needed to build the actor. */
 export interface SessionUser {
   id: string;
   phone: string;
@@ -27,32 +27,28 @@ export interface SessionUser {
   role: Role;
   locale: string | null;
   sessionVersion: number;
-  /** users.state_code (service users). */
+  /** user.state_code (customers). */
   stateCode: string | null;
-  /** Worker: workers.society_id; corporate: users.society_id. */
+  /** worker.society_id or corporate.society_id. */
   societyId: string | null;
   societyStateCode: string | null;
-  institutionId: string | null;
-  institutionStateCode: string | null;
 }
 
 export interface UpsertLoginInput {
   phone: string;
   locale: Locale | null;
   stateCode: string;
-  at: Date;
-  /** When set, stored on insert and updated on later logins. */
-  role?: Role;
+  role: Role;
 }
 
 export interface UserRepo {
-  /** Insert a user or update last_login_at of an existing user. */
+  /** Insert into the role's table, or load the existing row for that phone. */
   upsertOnLogin(input: UpsertLoginInput): Promise<{ user: SessionUser; created: boolean }>;
-  findSessionUser(userId: string): Promise<SessionUser | null>;
-  /** Increment session_version; returns the new value, or null if no such user. */
-  bumpSessionVersion(userId: string): Promise<number | null>;
-  /** Set the profile locale for a user. */
-  setLocale(userId: string, locale: Locale): Promise<void>;
+  findSessionUser(userId: string, role: Role): Promise<SessionUser | null>;
+  /** Increment session_version; returns the new value, or null if no such row. */
+  bumpSessionVersion(userId: string, role: Role): Promise<number | null>;
+  /** Set the profile locale for the signed-in identity. */
+  setLocale(userId: string, role: Role, locale: Locale): Promise<void>;
 }
 
 export interface AuthDeps {
@@ -72,7 +68,7 @@ export interface VerifyOtpInput {
   code: string;
   /** Locale chosen before sign-in (NEXT_LOCALE cookie); stored for new users. */
   locale?: Locale | null;
-  /** Chosen on the login screen; stored for new and returning users. */
+  /** Chosen on the login screen; selects which identity table to upsert. */
   role?: Role | null;
 }
 
@@ -92,7 +88,7 @@ export interface AuthenticateInput {
 /** Scope ids for the actor, taken from the fields that apply to the role. */
 export function buildActor(user: SessionUser): UserActor {
   const actor: UserActor = { userId: user.id, role: user.role };
-  const set = (key: 'stateCode' | 'societyId' | 'institutionId', value: string | null) => {
+  const set = (key: 'stateCode' | 'societyId', value: string | null) => {
     if (value !== null && value !== '') actor[key] = value;
   };
   switch (user.role) {
@@ -105,7 +101,7 @@ export function buildActor(user: SessionUser): UserActor {
       break;
     case 'corporate':
       set('societyId', user.societyId);
-      set('stateCode', user.societyStateCode ?? user.stateCode);
+      set('stateCode', user.societyStateCode);
       break;
   }
   return actor;
@@ -167,8 +163,7 @@ export function createAuthService(deps: AuthDeps) {
         phone,
         locale: input.locale ?? null,
         stateCode: deps.defaultStateCode,
-        at,
-        role: input.role ?? undefined,
+        role: input.role ?? 'user',
       });
       const token = await signSession(
         { sub: user.id, role: user.role, sv: user.sessionVersion },
@@ -185,7 +180,7 @@ export function createAuthService(deps: AuthDeps) {
       if (input.token === undefined || input.token === '') return null;
       const claims = await verifySession(input.token, deps.sessionSecret, now());
       if (claims === null) return null;
-      const user = await deps.users.findSessionUser(claims.sub);
+      const user = await deps.users.findSessionUser(claims.sub, claims.role);
       if (user === null || user.sessionVersion !== claims.sv || user.role !== claims.role) {
         return null;
       }
@@ -199,18 +194,18 @@ export function createAuthService(deps: AuthDeps) {
       };
     },
 
-    /** Revoke every session of the signed-in user. */
+    /** Revoke every session of the signed-in identity. */
     async logoutAll(ctx: RequestContext | null): Promise<void> {
       const { actor } = requireRole(ctx, ROLES);
-      if ((await deps.users.bumpSessionVersion(actor.userId)) === null) {
+      if ((await deps.users.bumpSessionVersion(actor.userId, actor.role)) === null) {
         throw new AppError('UNAUTHENTICATED');
       }
     },
 
-    /** Set the profile locale for the signed-in user. */
+    /** Set the profile locale for the signed-in identity. */
     async setLocale(ctx: RequestContext | null, locale: Locale): Promise<void> {
       const { actor } = requireRole(ctx, ROLES);
-      await deps.users.setLocale(actor.userId, locale);
+      await deps.users.setLocale(actor.userId, actor.role, locale);
     },
   };
 }
