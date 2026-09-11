@@ -95,7 +95,7 @@ export default async function CorporateHome() {
           <div className="flex items-center justify-between text-xs font-medium text-emerald-100">
             <span>{home('welfare_fund')}</span>
             <span className="rounded-full bg-white/20 px-2 py-0.5 font-bold">
-              {dashboard.societyName ?? home('corporate_society_pending')}
+              {home('corporate_portal')}
             </span>
           </div>
           <div className="flex items-baseline gap-2">

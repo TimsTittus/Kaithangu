@@ -20,14 +20,12 @@ import {
   workerRegistrationStatus,
   workerStatus,
 } from './enums';
-import { societies } from './org';
 import { trades } from './region';
 
 export const worker = pgTable(
   'worker',
   {
     ...identityColumns('worker'),
-    societyId: uuid('society_id').references(() => societies.id),
     status: workerStatus('status').notNull().default('pending'),
     available: boolean('available').notNull().default(false),
     hasSmartphone: boolean('has_smartphone').notNull().default(false),
@@ -52,7 +50,7 @@ export const worker = pgTable(
   },
   (t) => [
     phoneE164Check('worker', t.phone),
-    index('worker_society_status_available_idx').on(t.societyId, t.status, t.available),
+    index('worker_status_available_idx').on(t.status, t.available),
     index('worker_registration_status_idx').on(t.registrationStatus),
     check(
       'worker_rating_consistent',

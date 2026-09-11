@@ -13,7 +13,7 @@ import type {
 } from '@/lib/core';
 import { and, asc, desc, eq, exists, inArray, sql, type SQL } from 'drizzle-orm';
 import type { Database } from '..';
-import { societies, worker, workerSkills } from '../schema';
+import { worker, workerSkills } from '../schema';
 
 /** The SQL condition for a scope. Kinds that never apply to workers match nothing. */
 export function workerScopeCondition(scope: ScopeFilter): SQL | undefined {
@@ -21,9 +21,7 @@ export function workerScopeCondition(scope: ScopeFilter): SQL | undefined {
     case 'all':
       return undefined;
     case 'state':
-      return eq(societies.stateCode, scope.stateCode);
-    case 'society':
-      return eq(worker.societyId, scope.societyId);
+      return sql`false`;
     case 'own_worker':
       return eq(worker.id, scope.userId);
     case 'own_customer':
@@ -38,14 +36,12 @@ function selectWorkers(db: Database) {
       name: worker.name,
       phone: worker.phone,
       status: worker.status,
-      societyId: worker.societyId,
-      stateCode: societies.stateCode,
+      stateCode: sql<string | null>`null`,
       available: worker.available,
       hasSmartphone: worker.hasSmartphone,
       ratingCount: worker.ratingCount,
     })
-    .from(worker)
-    .leftJoin(societies, eq(societies.id, worker.societyId));
+    .from(worker);
 }
 
 type WorkerRow = Omit<WorkerSummary, 'skills'>;
@@ -82,9 +78,6 @@ export function createWorkerRepo(db: Database): WorkerRepo {
     async list(scope: ScopeFilter, filters: WorkerListFilters) {
       const conditions: (SQL | undefined)[] = [workerScopeCondition(scope)];
       if (filters.status !== undefined) conditions.push(eq(worker.status, filters.status));
-      if (filters.societyId !== undefined) {
-        conditions.push(eq(worker.societyId, filters.societyId));
-      }
       if (filters.available !== undefined) {
         conditions.push(eq(worker.available, filters.available));
       }

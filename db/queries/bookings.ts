@@ -21,7 +21,6 @@ import {
   bookingEvents,
   bookings,
   idempotencyKeys,
-  societies,
   worker as workerTable,
 } from '../schema';
 
@@ -38,8 +37,6 @@ export function bookingScopeCondition(scope: ScopeFilter): SQL | undefined {
       return undefined;
     case 'state':
       return eq(bookings.stateCode, scope.stateCode);
-    case 'society':
-      return eq(bookings.societyId, scope.societyId);
     case 'own_customer':
       return eq(bookings.customerId, scope.userId);
     case 'own_worker':
@@ -142,7 +139,6 @@ export function createBookingRepo(db: Database): BookingRepo {
           id: bookings.id,
           customerId: bookings.customerId,
           stateCode: bookings.stateCode,
-          societyId: bookings.societyId,
           workerId: bookings.workerId,
           tradeCode: bookings.tradeCode,
           problemText: bookings.problemText,
@@ -180,13 +176,11 @@ export function createBookingRepo(db: Database): BookingRepo {
           .select({
             id: workerTable.id,
             name: workerTable.name,
-            societyName: societies.name,
             ratingSum: workerTable.ratingSum,
             ratingCount: workerTable.ratingCount,
             qrKeyVersion: workerTable.qrKeyVersion,
           })
           .from(workerTable)
-          .innerJoin(societies, eq(societies.id, workerTable.societyId))
           .where(eq(workerTable.id, row.workerId))
           .limit(1);
         worker = found ?? null;

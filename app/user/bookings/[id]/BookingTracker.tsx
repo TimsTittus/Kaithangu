@@ -181,7 +181,7 @@ export function BookingTracker({ initial, tradeLabel, strings, errors }: Props) 
           <p className="text-base">{tradeLabel}</p>
           <p className="flex items-center gap-2 text-base font-medium text-emerald-800 dark:text-emerald-300">
             <BadgeCheck aria-hidden className="size-5 shrink-0" />
-            {fill(s('booking.verified_by'), { society: view.worker.societyName })}
+            {s('booking.verified_by')}
           </p>
           <p className="flex items-center gap-2 text-base">
             <Star aria-hidden className="size-5 shrink-0" />

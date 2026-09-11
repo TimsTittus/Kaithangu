@@ -15,7 +15,6 @@ export function createWorkerEligibilityRepo(db: Database): WorkerEligibilityRepo
         .select({
           status: worker.status,
           available: worker.available,
-          societyId: worker.societyId,
         })
         .from(worker)
         .where(eq(worker.id, workerId))

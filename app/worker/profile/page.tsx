@@ -60,7 +60,7 @@ export default async function WorkerProfilePage() {
 
         <div className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-50/70 px-3 py-2 text-xs font-medium text-emerald-800">
           <Landmark className="size-4 shrink-0 text-emerald-700" />
-          <span className="truncate">Mattancherry Labour Cooperative Society (LCS-1)</span>
+          <span className="truncate">{name}</span>
         </div>
       </div>
 
@@ -177,7 +177,7 @@ export default async function WorkerProfilePage() {
                 <HelpCircle className="size-5" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-neutral-900">Society Worker Helpline</span>
+                <span className="text-sm font-bold text-neutral-900">Worker Helpline</span>
                 <span className="text-xs text-neutral-500">
                   Toll-free 9946 116 910 (08:00 - 20:00)
                 </span>

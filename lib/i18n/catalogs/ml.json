@@ -18,7 +18,7 @@
   "welfare": {
     "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
     "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
-    "society_welfare_fund": "സൊസൈറ്റി ക്ഷേമനിധി"
+    "society_welfare_fund": "തൊഴിലാളി ക്ഷേമനിധി"
   },
   "festival": {
     "eid_al_fitr": "ചെറിയ പെരുന്നാൾ",
@@ -37,7 +37,7 @@
     "INVALID_PHONE": "ശരിയായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക.",
     "INVALID_TRANSITION": "ഈ ബുക്കിംഗ് ഇപ്പോൾ ആ ഘട്ടത്തിലേക്ക് മാറ്റാൻ കഴിയില്ല.",
     "OTP_INVALID": "കോഡ് തെറ്റാണ്. വീണ്ടും ശ്രമിക്കുക.",
-    "OTP_LOCKED": "തെറ്റായ കോഡുകൾ കൂടുതലായി. നിങ്ങളുടെ സൊസൈറ്റിയെ അറിയിച്ചിട്ടുണ്ട്, അവർ സഹായിക്കും.",
+    "OTP_LOCKED": "തെറ്റായ കോഡുകൾ കൂടുതലായി. പിന്നീട് ശ്രമിക്കുക അല്ലെങ്കിൽ പിന്തുണയുമായി ബന്ധപ്പെടുക.",
     "INTERNAL": "എന്തോ പിശക് സംഭവിച്ചു. കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക.",
     "OTP_EXPIRED": "ഈ കോഡിന്റെ കാലാവധി കഴിഞ്ഞു. പുതിയ കോഡ് ആവശ്യപ്പെടുക.",
     "OTP_ATTEMPTS_EXCEEDED": "വളരെയധികം തെറ്റായ കോഡുകൾ. പുതിയ കോഡ് ആവശ്യപ്പെടുക.",
@@ -108,11 +108,11 @@
   "consent": {
     "version": "2026-09-v1",
     "title": "തുടങ്ങുന്നതിന് മുമ്പ്",
-    "intro": "ലേബർ സഹകരണ സംഘങ്ങളിലെ തൊഴിലാളികളുമായി കൈത്താങ്ങ് നിങ്ങളെ ബന്ധിപ്പിക്കുന്നു. ഈ കാര്യങ്ങൾ വായിക്കുക.",
+    "intro": "കൈത്താങ്ങ് നിങ്ങളെ സ്ഥിരീകരിച്ച തൊഴിലാളികളുമായി ബന്ധിപ്പിക്കുന്നു. ഈ കാര്യങ്ങൾ വായിക്കുക.",
     "point_phone": "സൈൻ ഇൻ ചെയ്യാനും ജോലികളെക്കുറിച്ചുള്ള വിവരങ്ങൾ അയയ്ക്കാനും ഞങ്ങൾ നിങ്ങളുടെ മൊബൈൽ നമ്പർ ഉപയോഗിക്കുന്നു.",
-    "point_sharing": "ഒരു ജോലി ബുക്ക് ചെയ്യുമ്പോൾ, തൊഴിലാളിക്കും അവരുടെ സംഘത്തിനും നിങ്ങളുടെ പേര്, വിലാസം, ജോലി വിവരങ്ങൾ എന്നിവ കാണാം.",
+    "point_sharing": "ഒരു ജോലി ബുക്ക് ചെയ്യുമ്പോൾ, നിയോഗിച്ച തൊഴിലാളിക്ക് നിങ്ങളുടെ പേര്, വിലാസം, ജോലി വിവരങ്ങൾ എന്നിവ കാണാം.",
     "point_payment": "വിലയിൽ തൊഴിലാളിയുടെ മുഴുവൻ കൂലിയും, തൊഴിലാളിക്കുള്ള ക്ഷേമ വിഹിതവും, പ്ലാറ്റ്ഫോം ഫീസും കാണിക്കുന്നു.",
-    "point_rights": "നിങ്ങളുടെ വിവരങ്ങൾ തിരുത്താനോ ഇല്ലാതാക്കാനോ സംഘത്തോട് ആവശ്യപ്പെടാം.",
+    "point_rights": "നിങ്ങളുടെ വിവരങ്ങൾ തിരുത്താനോ ഇല്ലാതാക്കാനോ പിന്തുണയോട് ആവശ്യപ്പെടാം.",
     "accept": "ഞാൻ സമ്മതിക്കുന്നു"
   },
   "home": {
@@ -123,25 +123,25 @@
     "worker_title": "സ്വാഗതം, തൊഴിലാളി",
     "worker_body": "നിങ്ങൾക്കുള്ള ജോലി ഓഫറുകൾ ഇവിടെ കാണാം.",
     "corporate_title": "തൊഴിലാളി ക്ഷേമ സമൂഹം",
-    "corporate_body": "നിങ്ങളുടെ സൊസൈറ്റിയുടെ ക്ഷേമനിധി, എൻറോൾമെന്റുകൾ, തൊഴിലാളി പട്ടിക.",
+    "corporate_body": "ക്ഷേമനിധി, എൻറോൾമെന്റുകൾ, തൊഴിലാളി പട്ടിക.",
     "corporate_portal": "ക്ഷേമ സമൂഹം",
-    "corporate_society_pending": "സൊസൈറ്റി ഇതുവരെ ബന്ധിപ്പിച്ചിട്ടില്ല",
+    "corporate_society_pending": "ക്ഷേമ കമ്മ്യൂണിറ്റി",
     "welfare_fund": "ക്ഷേമനിധി",
     "workers_count": "തൊഴിലാളികൾ",
     "enrolments_count": "എൻറോൾമെന്റ്",
     "schemes_title": "ക്ഷേമ പദ്ധതികൾ",
-    "schemes_empty": "സൊസൈറ്റി ബന്ധിപ്പിച്ചാൽ പദ്ധതികൾ ഇവിടെ കാണാം.",
+    "schemes_empty": "തൊഴിലാളികൾ ചേർന്നാൽ പദ്ധതികൾ ഇവിടെ കാണാം.",
     "corporate_recent_activity": "സമീപകാല പ്രവർത്തനങ്ങൾ",
     "corporate_quick_actions": "ദ്രുത നടപടികൾ",
     "corporate_view_workers": "തൊഴിലാളി പട്ടിക",
     "corporate_view_bookings": "ബുക്കിംഗ് പ്രവർത്തനങ്ങൾ",
     "corporate_worker_status": "നില",
     "corporate_booking_amount": "തുക",
-    "corporate_no_bookings": "നിങ്ങളുടെ സൊസൈറ്റിക്ക് ഇതുവരെ ബുക്കിംഗുകൾ ഇല്ല.",
-    "corporate_no_workers": "നിങ്ങളുടെ സൊസൈറ്റിയിൽ തൊഴിലാളികളെ കണ്ടെത്തിയില്ല.",
-    "corporate_society_not_linked": "നിങ്ങളുടെ സൊസൈറ്റി ഇതുവരെ ബന്ധിപ്പിച്ചിട്ടില്ല. പിന്തുണയുമായി ബന്ധപ്പെടുക.",
-    "corporate_profile_overview": "സൊസൈറ്റി അവലോകനം",
-    "corporate_profile_title": "സൊസൈറ്റി പ്രൊഫൈൽ",
+    "corporate_no_bookings": "ഇതുവരെ ബുക്കിംഗുകൾ ഇല്ല.",
+    "corporate_no_workers": "തൊഴിലാളികളെ കണ്ടെത്തിയില്ല.",
+    "corporate_society_not_linked": "ഈ അക്കൗണ്ടിന് സഹായം വേണമെങ്കിൽ പിന്തുണയുമായി ബന്ധപ്പെടുക.",
+    "corporate_profile_overview": "അവലോകനം",
+    "corporate_profile_title": "പ്രൊഫൈൽ",
     "corporate_coop_affiliation": "സഹകരണ അഫിലിയേഷൻ",
     "corporate_welfare_governance": "ക്ഷേമവും ഭരണവും",
     "corporate_support": "ക്ഷേമ സമൂഹ പിന്തുണ",
@@ -195,7 +195,7 @@
     "job_offer": "[ml] New job offer: {trade}",
     "booking_unassigned": "[ml] Unassigned booking: {trade}",
     "offer_taken": "[ml] The {trade} job was accepted by another worker.",
-    "otp_locked": "[ml] OTP attempts exceeded for a {trade} job. Society assistance required."
+    "otp_locked": "[ml] OTP attempts exceeded for a {trade} job. Support assistance required."
   },
   "trades": {
     "chips": {
@@ -319,7 +319,7 @@
     "timeline": "[ml] Progress",
     "live_hint": "[ml] This page updates by itself.",
     "worker_title": "[ml] Your worker",
-    "verified_by": "[ml] Verified by {society}",
+    "verified_by": "സ്ഥിരീകരിച്ച തൊഴിലാളി",
     "verification_code": "[ml] Worker check code",
     "verification_hint": "[ml] The worker's phone shows the same code.",
     "rating": "[ml] Rating {rating} of 5 ({count})",
@@ -360,7 +360,7 @@
     "en_route": "[ml] Worker on the way",
     "in_progress": "[ml] Work in progress",
     "completed": "[ml] Work completed",
-    "unassigned": "[ml] No worker found yet. Your society will help.",
+    "unassigned": "തൊഴിലാളിയെ ഇതുവരെ കണ്ടെത്തിയില്ല. പിന്തുണ സഹായിക്കും.",
     "cancelled": "[ml] Cancelled",
     "disputed": "[ml] Complaint raised",
     "resolved": "[ml] Complaint resolved"

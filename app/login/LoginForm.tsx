@@ -38,7 +38,7 @@ const ACCOUNT_PROFILES: readonly AccountProfile[] = [
   {
     id: 'corporate',
     badge: 'Corporate',
-    description: 'Welfare fund, enrolments, worker roster & society operations',
+    description: 'Welfare fund, enrolments, worker roster & operations',
     icon: Landmark,
   },
 ];

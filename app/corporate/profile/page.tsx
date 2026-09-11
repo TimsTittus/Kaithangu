@@ -27,8 +27,6 @@ export default async function CorporateProfilePage() {
 
   const phone = session?.user.phone ?? profile?.phone ?? '';
   const name = session?.user.name ?? profile?.name ?? home('corporate_portal');
-  const societyName = profile?.societyName;
-  const isLinked = Boolean(profile?.societyId);
   const workerCount = profile?.workerCount ?? 0;
   const enrolmentCount = profile?.enrolmentCount ?? 0;
   const fundLabel =
@@ -74,13 +72,11 @@ export default async function CorporateProfilePage() {
 
         <div className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-50/70 px-3 py-2 text-xs font-medium text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300">
           <Landmark className="size-4 shrink-0 text-emerald-700 dark:text-emerald-400" />
-          <span className="truncate">
-            {societyName ?? home('corporate_society_pending')}
-          </span>
+          <span className="truncate">{home('corporate_portal')}</span>
         </div>
       </div>
 
-      {/* Real Society Operational Metrics */}
+      {/* Operational Metrics */}
       <section className="flex flex-col gap-2.5">
         <span className="text-sm font-bold text-neutral-800 dark:text-neutral-200">
           {home('corporate_profile_overview')}
@@ -120,22 +116,16 @@ export default async function CorporateProfilePage() {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold text-neutral-900 dark:text-white">
-                  {societyName ?? home('corporate_society_pending')}
+                  {home('corporate_portal')}
                 </span>
                 <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                  {profile?.stateCode ?? 'IN'} · {home('corporate_portal')}
+                  {home('corporate_profile_overview')}
                 </span>
               </div>
             </div>
-            {isLinked ? (
-              <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                Active
-              </span>
-            ) : (
-              <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold text-amber-800 dark:bg-amber-950 dark:text-amber-300">
-                Pending
-              </span>
-            )}
+            <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+              Active
+            </span>
           </div>
 
           <div className="flex items-center justify-between border-t border-neutral-100 pt-3 dark:border-neutral-800">

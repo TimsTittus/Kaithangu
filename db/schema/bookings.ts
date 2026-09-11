@@ -2,7 +2,6 @@ import { sql } from 'drizzle-orm';
 import { bigserial, check, index, integer, jsonb, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { createdAt, paise, point, tstz } from './columns';
 import { bookingStatus, urgency, userRole } from './enums';
-import { societies } from './org';
 import { states, trades } from './region';
 import { user } from './user';
 import { worker } from './worker';
@@ -19,7 +18,6 @@ export const bookings = pgTable(
     stateCode: text('state_code')
       .notNull()
       .references(() => states.code),
-    societyId: uuid('society_id').references(() => societies.id),
     workerId: uuid('worker_id').references(() => worker.id),
     tradeCode: text('trade_code')
       .notNull()
@@ -44,7 +42,7 @@ export const bookings = pgTable(
   },
   (t) => [
     index('bookings_status_idx').on(t.status),
-    index('bookings_society_created_idx').on(t.societyId, t.createdAt),
+    index('bookings_created_idx').on(t.createdAt),
     index('bookings_worker_status_idx').on(t.workerId, t.status),
     index('bookings_customer_idx').on(t.customerId),
     index('bookings_location_gist').using('gist', t.location),

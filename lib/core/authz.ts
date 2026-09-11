@@ -1,6 +1,6 @@
 /**
  * Authorization policy (AGENTS.md 2, 4.2). Users see their own bookings,
- * workers their own records, corporates their society. The system actor may do
+ * workers their own records, corporates the platform. The system actor may do
  * anything. Checks fail closed: a missing scope id on the actor or the resource
  * denies.
  */
@@ -25,8 +25,6 @@ export const ACTIONS = [
   'ledger.read',
   'report.read',
   'broadcast.send',
-  'society.read',
-  'society.manage',
   'state_config.manage',
   'invoice.read',
 ] as const;
@@ -34,23 +32,22 @@ export const ACTIONS = [
 export type Action = (typeof ACTIONS)[number];
 
 /**
- * Scope ids of the record being acted on. For a booking: its state, society,
- * customer and assigned worker. For a worker record: workerId is the worker's
- * identity id.
+ * Scope ids of the record being acted on. For a booking: its state, customer
+ * and assigned worker. For a worker record: workerId is the worker's identity
+ * id.
  */
 export interface ResourceScope {
   stateCode?: string | null;
-  societyId?: string | null;
   customerId?: string | null;
   workerId?: string | null;
 }
 
 /** How a role's permission is scoped. */
-export type ScopeRule = 'any' | 'state' | 'society' | 'own_customer' | 'own_worker';
+export type ScopeRule = 'any' | 'state' | 'own_customer' | 'own_worker';
 
 type Grants = Readonly<Partial<Record<Role, ScopeRule>>>;
 
-const CORPORATE: Grants = { corporate: 'society' };
+const CORPORATE: Grants = { corporate: 'any' };
 
 export const POLICY: Readonly<Record<Action, Grants>> = {
   'booking.create': { user: 'own_customer' },
@@ -69,8 +66,6 @@ export const POLICY: Readonly<Record<Action, Grants>> = {
   'ledger.read': { worker: 'own_worker', ...CORPORATE },
   'report.read': CORPORATE,
   'broadcast.send': CORPORATE,
-  'society.read': CORPORATE,
-  'society.manage': CORPORATE,
   'state_config.manage': {},
   'invoice.read': CORPORATE,
 };
@@ -94,8 +89,6 @@ export function can(actor: Actor, action: Action, resource: ResourceScope): bool
       return true;
     case 'state':
       return same(actor.stateCode, resource.stateCode);
-    case 'society':
-      return same(actor.societyId, resource.societyId);
     case 'own_customer':
       return same(actor.userId, resource.customerId);
     case 'own_worker':
@@ -118,7 +111,6 @@ export function assertCan(actor: Actor, action: Action, resource: ResourceScope)
 export type ScopeFilter =
   | { kind: 'all' }
   | { kind: 'state'; stateCode: string }
-  | { kind: 'society'; societyId: string }
   | { kind: 'own_customer'; userId: string }
   | { kind: 'own_worker'; userId: string };
 
@@ -140,8 +132,6 @@ export function scopeFilter(actor: Actor, action: Action): ScopeFilter {
       return { kind: 'all' };
     case 'state':
       return { kind: 'state', stateCode: required(actor.stateCode, action) };
-    case 'society':
-      return { kind: 'society', societyId: required(actor.societyId, action) };
     case 'own_customer':
       return { kind: 'own_customer', userId: required(actor.userId, action) };
     case 'own_worker':

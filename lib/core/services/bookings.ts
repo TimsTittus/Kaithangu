@@ -166,7 +166,6 @@ export interface BookingEventRecord {
 export interface BookingWorkerRecord {
   id: string;
   name: string | null;
-  societyName: string;
   ratingSum: number;
   ratingCount: number;
   qrKeyVersion: number;
@@ -176,7 +175,6 @@ export interface BookingRecord {
   id: string;
   customerId: string;
   stateCode: string;
-  societyId: string | null;
   workerId: string | null;
   tradeCode: TradeCode;
   problemText: string;
@@ -284,7 +282,6 @@ export interface BookingRepo {
 export interface WorkerEligibility {
   status: WorkerStatus;
   available: boolean;
-  societyId: string | null;
   skills: readonly { tradeCode: TradeCode; certified: boolean }[];
 }
 
@@ -349,7 +346,6 @@ export interface BookingOptions {
 
 export interface BookingWorkerView {
   name: string | null;
-  societyName: string;
   tradeCode: TradeCode;
   /** Mean star rating to one decimal, null before the first rating. */
   rating: number | null;
@@ -469,7 +465,6 @@ export const advanceBookingInputSchema = z.object({
 function resourceOf(record: BookingRecord): ResourceScope {
   return {
     stateCode: record.stateCode,
-    societyId: record.societyId,
     customerId: record.customerId,
     workerId: record.workerId,
   };
@@ -555,7 +550,6 @@ export function createBookingService(deps: BookingDeps) {
       record.worker !== null && WORKER_VISIBLE.has(record.status)
         ? {
             name: record.worker.name,
-            societyName: record.worker.societyName,
             tradeCode: record.tradeCode,
             rating:
               record.worker.ratingCount > 0

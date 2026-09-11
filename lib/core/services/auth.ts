@@ -29,9 +29,6 @@ export interface SessionUser {
   sessionVersion: number;
   /** user.state_code (customers). */
   stateCode: string | null;
-  /** worker.society_id or corporate.society_id. */
-  societyId: string | null;
-  societyStateCode: string | null;
 }
 
 export interface UpsertLoginInput {
@@ -90,21 +87,8 @@ export interface AuthenticateInput {
 /** Scope ids for the actor, taken from the fields that apply to the role. */
 export function buildActor(user: SessionUser): UserActor {
   const actor: UserActor = { userId: user.id, role: user.role };
-  const set = (key: 'stateCode' | 'societyId', value: string | null) => {
-    if (value !== null && value !== '') actor[key] = value;
-  };
-  switch (user.role) {
-    case 'user':
-      set('stateCode', user.stateCode);
-      break;
-    case 'worker':
-      set('societyId', user.societyId);
-      set('stateCode', user.societyStateCode);
-      break;
-    case 'corporate':
-      set('societyId', user.societyId);
-      set('stateCode', user.societyStateCode);
-      break;
+  if (user.role === 'user' && user.stateCode !== null && user.stateCode !== '') {
+    actor.stateCode = user.stateCode;
   }
   return actor;
 }

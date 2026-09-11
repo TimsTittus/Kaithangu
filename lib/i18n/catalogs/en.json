@@ -18,7 +18,7 @@
   "welfare": {
     "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
     "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
-    "society_welfare_fund": "Society welfare fund"
+    "society_welfare_fund": "Worker welfare fund"
   },
   "festival": {
     "eid_al_fitr": "Eid al-Fitr",
@@ -37,7 +37,7 @@
     "INVALID_PHONE": "Please enter a valid 10-digit mobile number.",
     "INVALID_TRANSITION": "This booking cannot be moved to that step now.",
     "OTP_INVALID": "That code is not correct. Please try again.",
-    "OTP_LOCKED": "Too many wrong codes. Your society has been informed and will help you.",
+    "OTP_LOCKED": "Too many wrong codes. Please try again later or contact support.",
     "INTERNAL": "Something went wrong. Please try again later.",
     "OTP_EXPIRED": "This code has expired. Please ask for a new code.",
     "OTP_ATTEMPTS_EXCEEDED": "Too many wrong codes. Please ask for a new code.",
@@ -108,11 +108,11 @@
   "consent": {
     "version": "2026-09-v1",
     "title": "Before you start",
-    "intro": "Kaithangu connects you with workers from Labour Cooperative Societies. Please read these points.",
+    "intro": "Kaithangu connects you with verified workers. Please read these points.",
     "point_phone": "We use your mobile number to sign you in and to send you updates about your jobs.",
-    "point_sharing": "When you book a job, the worker and their society see your name, address and job details.",
+    "point_sharing": "When you book a job, the assigned worker sees your name, address and job details.",
     "point_payment": "The price shows the worker's full wage, a welfare contribution for the worker, and a platform fee.",
-    "point_rights": "You can ask your society to correct or delete your details.",
+    "point_rights": "You can ask support to correct or delete your details.",
     "accept": "I agree"
   },
   "home": {
@@ -123,25 +123,25 @@
     "worker_title": "Welcome, worker",
     "worker_body": "Your job offers will appear here.",
     "corporate_title": "Worker Welfare Community",
-    "corporate_body": "Welfare fund, enrolments and worker roster for your society.",
+    "corporate_body": "Welfare fund, enrolments and worker roster.",
     "corporate_portal": "Welfare Community",
-    "corporate_society_pending": "Society not linked yet",
+    "corporate_society_pending": "Welfare Community",
     "welfare_fund": "Welfare fund",
     "workers_count": "Workers",
     "enrolments_count": "Enrolments",
     "schemes_title": "Welfare schemes",
-    "schemes_empty": "Schemes will appear here once your society is linked.",
+    "schemes_empty": "Schemes will appear here once workers enrol.",
     "corporate_recent_activity": "Recent Activity",
     "corporate_quick_actions": "Quick Actions",
     "corporate_view_workers": "Worker Roster",
     "corporate_view_bookings": "Booking Activity",
     "corporate_worker_status": "Status",
     "corporate_booking_amount": "Amount",
-    "corporate_no_bookings": "No bookings yet for your society.",
-    "corporate_no_workers": "No workers found for your society.",
-    "corporate_society_not_linked": "Your society is not linked yet. Contact support.",
-    "corporate_profile_overview": "Society Overview",
-    "corporate_profile_title": "Society Profile",
+    "corporate_no_bookings": "No bookings yet.",
+    "corporate_no_workers": "No workers found.",
+    "corporate_society_not_linked": "Contact support if you need help with this account.",
+    "corporate_profile_overview": "Overview",
+    "corporate_profile_title": "Profile",
     "corporate_coop_affiliation": "Cooperative Affiliation",
     "corporate_welfare_governance": "Welfare & Governance",
     "corporate_support": "Welfare Community Support",
@@ -195,7 +195,7 @@
     "job_offer": "New job offer: {trade}",
     "booking_unassigned": "Unassigned booking: {trade}",
     "offer_taken": "The {trade} job was accepted by another worker.",
-    "otp_locked": "OTP attempts exceeded for a {trade} job. Society assistance required."
+    "otp_locked": "OTP attempts exceeded for a {trade} job. Support assistance required."
   },
   "trades": {
     "chips": {
@@ -319,7 +319,7 @@
     "timeline": "Progress",
     "live_hint": "This page updates by itself.",
     "worker_title": "Your worker",
-    "verified_by": "Verified by {society}",
+    "verified_by": "Verified worker",
     "verification_code": "Worker check code",
     "verification_hint": "The worker's phone shows the same code.",
     "rating": "Rating {rating} of 5 ({count})",
@@ -360,7 +360,7 @@
     "en_route": "Worker on the way",
     "in_progress": "Work in progress",
     "completed": "Work completed",
-    "unassigned": "No worker found yet. Your society will help.",
+    "unassigned": "No worker found yet. Support will help.",
     "cancelled": "Cancelled",
     "disputed": "Complaint raised",
     "resolved": "Complaint resolved"

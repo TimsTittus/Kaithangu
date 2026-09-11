@@ -1,7 +1,7 @@
 /**
  * Seed reference data from data/seed: states, trades, state_config and
  * state_trade_rates. Idempotent (rows are upserted in one transaction), so it
- * can be re-run after editing the YAML. Demo societies/workers are not seeded here.
+ * can be re-run after editing the YAML. Demo workers are not seeded here.
  * Run: bun run db:seed            (writes to DATABASE_URL)
  *      bun run db:seed -- --dry-run  (prints the exact SQL; no connection is made)
  */

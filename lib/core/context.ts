@@ -14,7 +14,6 @@ export type Role = (typeof ROLES)[number];
 export interface UserActor {
   userId: string;
   role: Role;
-  societyId?: string;
   stateCode?: string;
 }
 

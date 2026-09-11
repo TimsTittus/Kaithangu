@@ -9,7 +9,7 @@ import type { Locale } from '@/lib/i18n';
 import { eq, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import type { Database } from '..';
-import { corporate, societies, user, worker } from '../schema';
+import { corporate, user, worker } from '../schema';
 
 const uuid = z.uuid();
 
@@ -20,8 +20,6 @@ type IdentityRow = {
   locale: string | null;
   sessionVersion: number;
   stateCode: string | null;
-  societyId: string | null;
-  societyStateCode: string | null;
 };
 
 function toSessionUser(row: IdentityRow, role: Role): SessionUser {
@@ -32,9 +30,7 @@ function toSessionUser(row: IdentityRow, role: Role): SessionUser {
     role,
     locale: row.locale,
     sessionVersion: row.sessionVersion,
-    stateCode: role === 'user' ? row.stateCode : row.societyStateCode,
-    societyId: role === 'user' ? null : row.societyId,
-    societyStateCode: role === 'user' ? null : row.societyStateCode,
+    stateCode: row.stateCode,
   };
 }
 
@@ -48,8 +44,6 @@ export function createUserRepo(db: Database): UserRepo {
         locale: user.locale,
         sessionVersion: user.sessionVersion,
         stateCode: user.stateCode,
-        societyId: sql<string | null>`null`,
-        societyStateCode: sql<string | null>`null`,
       })
       .from(user)
       .where(eq(user.id, id))
@@ -66,11 +60,8 @@ export function createUserRepo(db: Database): UserRepo {
         locale: worker.locale,
         sessionVersion: worker.sessionVersion,
         stateCode: sql<string | null>`null`,
-        societyId: worker.societyId,
-        societyStateCode: societies.stateCode,
       })
       .from(worker)
-      .leftJoin(societies, eq(societies.id, worker.societyId))
       .where(eq(worker.id, id))
       .limit(1);
     return row;
@@ -85,11 +76,8 @@ export function createUserRepo(db: Database): UserRepo {
         locale: corporate.locale,
         sessionVersion: corporate.sessionVersion,
         stateCode: sql<string | null>`null`,
-        societyId: corporate.societyId,
-        societyStateCode: societies.stateCode,
       })
       .from(corporate)
-      .leftJoin(societies, eq(societies.id, corporate.societyId))
       .where(eq(corporate.id, id))
       .limit(1);
     return row;

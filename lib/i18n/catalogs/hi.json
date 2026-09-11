@@ -18,7 +18,7 @@
   "welfare": {
     "pmsby": "प्रधानमंत्री सुरक्षा बीमा योजना (PMSBY)",
     "pmjjby": "प्रधानमंत्री जीवन ज्योति बीमा योजना (PMJJBY)",
-    "society_welfare_fund": "सोसाइटी कल्याण निधि"
+    "society_welfare_fund": "कामगार कल्याण निधि"
   },
   "festival": {
     "eid_al_fitr": "Eid al-Fitr",
@@ -37,7 +37,7 @@
     "INVALID_PHONE": "कृपया सही 10 अंकों का मोबाइल नंबर डालें।",
     "INVALID_TRANSITION": "इस बुकिंग को अभी उस चरण में नहीं ले जाया जा सकता।",
     "OTP_INVALID": "यह कोड सही नहीं है। कृपया फिर से कोशिश करें।",
-    "OTP_LOCKED": "बहुत बार गलत कोड डाला गया। आपकी सोसाइटी को सूचित कर दिया गया है, वे आपकी मदद करेंगे।",
+    "OTP_LOCKED": "बहुत बार गलत कोड डाला गया। कृपया बाद में कोशिश करें या सहायता से संपर्क करें।",
     "INTERNAL": "कुछ गड़बड़ हो गई। कृपया थोड़ी देर बाद फिर से कोशिश करें।",
     "OTP_EXPIRED": "इस कोड की समय-सीमा समाप्त हो गई है। कृपया नया कोड माँगें।",
     "OTP_ATTEMPTS_EXCEEDED": "बहुत अधिक गलत कोड। कृपया नया कोड माँगें।",
@@ -108,11 +108,11 @@
   "consent": {
     "version": "2026-09-v1",
     "title": "शुरू करने से पहले",
-    "intro": "कैत्तांगु आपको श्रमिक सहकारी समितियों के कामगारों से जोड़ता है। कृपया ये बातें पढ़ें।",
+    "intro": "कैत्तांगु आपको सत्यापित कामगारों से जोड़ता है। कृपया ये बातें पढ़ें।",
     "point_phone": "हम आपके मोबाइल नंबर का उपयोग साइन इन कराने और आपके कामों की जानकारी भेजने के लिए करते हैं।",
-    "point_sharing": "जब आप कोई काम बुक करते हैं, तो कामगार और उनकी समिति आपका नाम, पता और काम का विवरण देखते हैं।",
+    "point_sharing": "जब आप कोई काम बुक करते हैं, तो नियुक्त कामगार आपका नाम, पता और काम का विवरण देखता है।",
     "point_payment": "कीमत में कामगार की पूरी मज़दूरी, कामगार के लिए कल्याण अंशदान और प्लेटफ़ॉर्म शुल्क दिखाया जाता है।",
-    "point_rights": "आप अपनी समिति से अपने विवरण सुधारने या हटाने के लिए कह सकते हैं।",
+    "point_rights": "आप सहायता से अपने विवरण सुधारने या हटाने के लिए कह सकते हैं।",
     "accept": "मैं सहमत हूँ"
   },
   "home": {
@@ -123,25 +123,25 @@
     "worker_title": "स्वागत है, कामगार",
     "worker_body": "आपके काम के प्रस्ताव यहाँ दिखेंगे।",
     "corporate_title": "श्रमिक कल्याण समुदाय",
-    "corporate_body": "आपकी समिति के कल्याण कोष, नामांकन और कामगार सूची।",
+    "corporate_body": "कल्याण कोष, नामांकन और कामगार सूची।",
     "corporate_portal": "कल्याण समुदाय",
-    "corporate_society_pending": "समिति अभी जुड़ी नहीं है",
+    "corporate_society_pending": "कल्याण समुदाय",
     "welfare_fund": "कल्याण कोष",
     "workers_count": "कामगार",
     "enrolments_count": "नामांकन",
     "schemes_title": "कल्याण योजनाएँ",
-    "schemes_empty": "समिति जुड़ने के बाद योजनाएँ यहाँ दिखेंगी।",
+    "schemes_empty": "कामगार नामांकित होने पर योजनाएँ यहाँ दिखेंगी।",
     "corporate_recent_activity": "हाल की गतिविधियाँ",
     "corporate_quick_actions": "त्वरित क्रियाएँ",
     "corporate_view_workers": "कामगार सूची",
     "corporate_view_bookings": "बुकिंग गतिविधि",
     "corporate_worker_status": "स्थिति",
     "corporate_booking_amount": "राशि",
-    "corporate_no_bookings": "आपकी समिति के लिए अभी कोई बुकिंग नहीं है।",
-    "corporate_no_workers": "आपकी समिति में कोई कामगार नहीं मिला।",
-    "corporate_society_not_linked": "आपकी समिति अभी जुड़ी नहीं है। सहायता से संपर्क करें।",
-    "corporate_profile_overview": "समिति विवरण",
-    "corporate_profile_title": "समिति प्रोफ़ाइल",
+    "corporate_no_bookings": "अभी कोई बुकिंग नहीं है।",
+    "corporate_no_workers": "कोई कामगार नहीं मिला।",
+    "corporate_society_not_linked": "इस खाते में मदद चाहिए तो सहायता से संपर्क करें।",
+    "corporate_profile_overview": "विवरण",
+    "corporate_profile_title": "प्रोफ़ाइल",
     "corporate_coop_affiliation": "सहकारी संबद्धता",
     "corporate_welfare_governance": "कल्याण एवं प्रशासन",
     "corporate_support": "कल्याण समुदाय सहायता",
@@ -195,7 +195,7 @@
     "job_offer": "[hi] New job offer: {trade}",
     "booking_unassigned": "[hi] Unassigned booking: {trade}",
     "offer_taken": "[hi] The {trade} job was accepted by another worker.",
-    "otp_locked": "[hi] OTP attempts exceeded for a {trade} job. Society assistance required."
+    "otp_locked": "[hi] OTP attempts exceeded for a {trade} job. Support assistance required."
   },
   "trades": {
     "chips": {
@@ -319,7 +319,7 @@
     "timeline": "[hi] Progress",
     "live_hint": "[hi] This page updates by itself.",
     "worker_title": "[hi] Your worker",
-    "verified_by": "[hi] Verified by {society}",
+    "verified_by": "सत्यापित कामगार",
     "verification_code": "[hi] Worker check code",
     "verification_hint": "[hi] The worker's phone shows the same code.",
     "rating": "[hi] Rating {rating} of 5 ({count})",
@@ -360,7 +360,7 @@
     "en_route": "[hi] Worker on the way",
     "in_progress": "[hi] Work in progress",
     "completed": "[hi] Work completed",
-    "unassigned": "[hi] No worker found yet. Your society will help.",
+    "unassigned": "अभी कोई कामगार नहीं मिला। सहायता मदद करेगी।",
     "cancelled": "[hi] Cancelled",
     "disputed": "[hi] Complaint raised",
     "resolved": "[hi] Complaint resolved"

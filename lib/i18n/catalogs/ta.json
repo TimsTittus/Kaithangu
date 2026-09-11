@@ -18,7 +18,7 @@
   "welfare": {
     "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
     "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
-    "society_welfare_fund": "சங்க நலநிதி"
+    "society_welfare_fund": "தொழிலாளர் நலநிதி"
   },
   "festival": {
     "eid_al_fitr": "Eid al-Fitr",
@@ -37,7 +37,7 @@
     "INVALID_PHONE": "சரியான 10 இலக்க கைபேசி எண்ணை உள்ளிடவும்.",
     "INVALID_TRANSITION": "இந்த முன்பதிவை இப்போது அந்த நிலைக்கு மாற்ற முடியாது.",
     "OTP_INVALID": "இந்தக் குறியீடு தவறு. மீண்டும் முயற்சிக்கவும்.",
-    "OTP_LOCKED": "பலமுறை தவறான குறியீடு உள்ளிடப்பட்டது. உங்கள் சங்கத்திற்குத் தெரிவிக்கப்பட்டுள்ளது, அவர்கள் உதவுவார்கள்.",
+    "OTP_LOCKED": "பலமுறை தவறான குறியீடு உள்ளிடப்பட்டது. பின்னர் முயற்சிக்கவும் அல்லது ஆதரவைத் தொடர்பு கொள்ளவும்.",
     "INTERNAL": "ஏதோ தவறு நடந்தது. சிறிது நேரம் கழித்து மீண்டும் முயற்சிக்கவும்.",
     "OTP_EXPIRED": "இந்தக் குறியீட்டின் காலம் முடிந்துவிட்டது. புதிய குறியீட்டைக் கேட்கவும்.",
     "OTP_ATTEMPTS_EXCEEDED": "மிக அதிகமான தவறான குறியீடுகள். புதிய குறியீட்டைக் கேட்கவும்.",
@@ -108,11 +108,11 @@
   "consent": {
     "version": "2026-09-v1",
     "title": "தொடங்கும் முன்",
-    "intro": "தொழிலாளர் கூட்டுறவுச் சங்கங்களின் தொழிலாளர்களுடன் கைத்தாங்கு உங்களை இணைக்கிறது. இந்தக் குறிப்புகளைப் படிக்கவும்.",
+    "intro": "கைத்தாங்கு உங்களை சரிபார்க்கப்பட்ட தொழிலாளர்களுடன் இணைக்கிறது. இந்தக் குறிப்புகளைப் படிக்கவும்.",
     "point_phone": "உங்களை உள்நுழைய வைக்கவும் உங்கள் வேலைகள் பற்றிய தகவல்களை அனுப்பவும் உங்கள் மொபைல் எண்ணைப் பயன்படுத்துகிறோம்.",
-    "point_sharing": "நீங்கள் ஒரு வேலையை முன்பதிவு செய்யும்போது, தொழிலாளரும் அவரது சங்கமும் உங்கள் பெயர், முகவரி மற்றும் வேலை விவரங்களைப் பார்ப்பார்கள்.",
+    "point_sharing": "நீங்கள் ஒரு வேலையை முன்பதிவு செய்யும்போது, நியமிக்கப்பட்ட தொழிலாளி உங்கள் பெயர், முகவரி மற்றும் வேலை விவரங்களைப் பார்ப்பார்.",
     "point_payment": "விலையில் தொழிலாளரின் முழு ஊதியம், தொழிலாளருக்கான நலப் பங்களிப்பு மற்றும் தளக் கட்டணம் காட்டப்படும்.",
-    "point_rights": "உங்கள் விவரங்களைத் திருத்தவோ நீக்கவோ உங்கள் சங்கத்திடம் கேட்கலாம்.",
+    "point_rights": "உங்கள் விவரங்களைத் திருத்தவோ நீக்கவோ ஆதரவிடம் கேட்கலாம்.",
     "accept": "நான் ஒப்புக்கொள்கிறேன்"
   },
   "home": {
@@ -123,25 +123,25 @@
     "worker_title": "வரவேற்கிறோம், தொழிலாளரே",
     "worker_body": "உங்களுக்கான வேலை வாய்ப்புகள் இங்கே தோன்றும்.",
     "corporate_title": "தொழிலாளர் நலச் சமூகம்",
-    "corporate_body": "உங்கள் சங்கத்தின் நல நிதி, சேர்க்கைகள் மற்றும் தொழிலாளர் பட்டியல்.",
+    "corporate_body": "நல நிதி, சேர்க்கைகள் மற்றும் தொழிலாளர் பட்டியல்.",
     "corporate_portal": "நலச் சமூகம்",
-    "corporate_society_pending": "சங்கம் இன்னும் இணைக்கப்படவில்லை",
+    "corporate_society_pending": "நல சமூகம்",
     "welfare_fund": "நல நிதி",
     "workers_count": "தொழிலாளர்கள்",
     "enrolments_count": "சேர்க்கைகள்",
     "schemes_title": "நலத் திட்டங்கள்",
-    "schemes_empty": "சங்கம் இணைந்ததும் திட்டங்கள் இங்கே தோன்றும்.",
+    "schemes_empty": "தொழிலாளர்கள் சேர்ந்ததும் திட்டங்கள் இங்கே தோன்றும்.",
     "corporate_recent_activity": "சமீபத்திய செயல்பாடுகள்",
     "corporate_quick_actions": "விரைவுச் செயல்கள்",
     "corporate_view_workers": "தொழிலாளர் பட்டியல்",
     "corporate_view_bookings": "முன்பதிவு செயல்பாடுகள்",
     "corporate_worker_status": "நிலை",
     "corporate_booking_amount": "தொகை",
-    "corporate_no_bookings": "உங்கள் சங்கத்திற்கு இதுவரை முன்பதிவுகள் இல்லை.",
-    "corporate_no_workers": "உங்கள் சங்கத்தில் தொழிலாளர்கள் எவரும் காணப்படவில்லை.",
-    "corporate_society_not_linked": "உங்கள் சங்கம் இன்னும் இணைக்கப்படவில்லை. ஆதரவைத் தொடர்பு கொள்ளவும்.",
-    "corporate_profile_overview": "சங்க மேலோட்டம்",
-    "corporate_profile_title": "சங்க விவரக்குறிப்பு",
+    "corporate_no_bookings": "இதுவரை முன்பதிவுகள் இல்லை.",
+    "corporate_no_workers": "தொழிலாளர்கள் எவரும் காணப்படவில்லை.",
+    "corporate_society_not_linked": "இந்தக் கணக்கிற்கு உதவி தேவைப்பட்டால் ஆதரவைத் தொடர்பு கொள்ளவும்.",
+    "corporate_profile_overview": "மேலோட்டம்",
+    "corporate_profile_title": "விவரக்குறிப்பு",
     "corporate_coop_affiliation": "கூட்டுறவு இணைப்பு",
     "corporate_welfare_governance": "நலன் மற்றும் நிர்வாகம்",
     "corporate_support": "நலச் சமூக ஆதரவு",
@@ -195,7 +195,7 @@
     "job_offer": "[ta] New job offer: {trade}",
     "booking_unassigned": "[ta] Unassigned booking: {trade}",
     "offer_taken": "[ta] The {trade} job was accepted by another worker.",
-    "otp_locked": "[ta] OTP attempts exceeded for a {trade} job. Society assistance required."
+    "otp_locked": "[ta] OTP attempts exceeded for a {trade} job. Support assistance required."
   },
   "trades": {
     "chips": {
@@ -319,7 +319,7 @@
     "timeline": "[ta] Progress",
     "live_hint": "[ta] This page updates by itself.",
     "worker_title": "[ta] Your worker",
-    "verified_by": "[ta] Verified by {society}",
+    "verified_by": "சரிபார்க்கப்பட்ட தொழிலாளி",
     "verification_code": "[ta] Worker check code",
     "verification_hint": "[ta] The worker's phone shows the same code.",
     "rating": "[ta] Rating {rating} of 5 ({count})",
@@ -360,7 +360,7 @@
     "en_route": "[ta] Worker on the way",
     "in_progress": "[ta] Work in progress",
     "completed": "[ta] Work completed",
-    "unassigned": "[ta] No worker found yet. Your society will help.",
+    "unassigned": "தொழிலாளி இன்னும் கிடைக்கவில்லை. ஆதரவு உதவும்.",
     "cancelled": "[ta] Cancelled",
     "disputed": "[ta] Complaint raised",
     "resolved": "[ta] Complaint resolved"

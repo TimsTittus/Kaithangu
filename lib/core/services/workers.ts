@@ -28,7 +28,6 @@ const booleanParam = z.union([
 export const workerListFiltersSchema = z.object({
   status: z.enum(WORKER_STATUSES).optional(),
   tradeCode: z.enum(TRADE_CODES).optional(),
-  societyId: z.uuid().optional(),
   available: booleanParam.optional(),
   limit: z.coerce.number().int().min(1).max(MAX_WORKER_PAGE_SIZE).default(50),
   offset: z.coerce.number().int().min(0).max(100_000).default(0),
@@ -48,7 +47,6 @@ export interface WorkerSummary {
   name: string | null;
   phone: string;
   status: WorkerStatus;
-  societyId: string | null;
   stateCode: string | null;
   available: boolean;
   hasSmartphone: boolean;
@@ -82,7 +80,6 @@ export function createWorkerService({ workers }: { workers: WorkerRepo }) {
       if (worker === null) throw new AppError('NOT_FOUND');
       assertCan(ctx.actor, 'worker.read', {
         stateCode: worker.stateCode,
-        societyId: worker.societyId,
         workerId: worker.id,
       });
       return worker;

@@ -2,7 +2,7 @@
  * getContext(): the RequestContext of the signed-in user for server
  * components, server functions and route handlers, or null. It verifies the
  * kt_session JWT, then loads the identity to check session_version (logout-all)
- * and role, and to fill the actor's society / state scope.
+ * and role, and to fill the actor's state scope.
  * requireRole(ctx, roles) narrows it (re-exported from core).
  */
 import {
