@@ -41,7 +41,7 @@ export async function TradeGrid({ emergency = false }: { emergency?: boolean }) 
       {TRADE_CODES.map((code) => {
         const Icon = TRADE_ICONS[code];
         const label = t(code);
-        const href = emergency ? `/app/book/${code}?urgency=emergency` : `/app/book/${code}`;
+        const href = emergency ? `/user/book/${code}?urgency=emergency` : `/user/book/${code}`;
         return (
           <li
             key={code}

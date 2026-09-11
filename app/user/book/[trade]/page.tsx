@@ -56,7 +56,7 @@ function groupSlots(slots: string[], timeZone: string, locale: string): SlotDay[
   return days;
 }
 
-export default async function BookPage({ params, searchParams }: PageProps<'/app/book/[trade]'>) {
+export default async function BookPage({ params, searchParams }: PageProps<'/user/book/[trade]'>) {
   const [{ trade }, query] = await Promise.all([params, searchParams]);
   if (!isTradeCode(trade)) notFound();
 
@@ -77,7 +77,7 @@ export default async function BookPage({ params, searchParams }: PageProps<'/app
         <p role="alert" className={errorTextClass}>
           {errors[error.messageKey] ?? errors['error.INTERNAL']}
         </p>
-        <Link href="/app" className={secondaryButtonClass}>
+        <Link href="/user" className={secondaryButtonClass}>
           <ArrowLeft aria-hidden className="size-5 shrink-0" />
           {common('back')}
         </Link>

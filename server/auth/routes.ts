@@ -3,19 +3,14 @@
  * proxy.ts (JWT role check only) and the area layouts (full session check).
  * Authorization of data still happens in the services.
  */
-import type { Role } from '@/lib/core';
+import { ROLES, type Role } from '@/lib/core';
 
 export const LOCALE_COOKIE = 'NEXT_LOCALE';
 
-export const ADMIN_ROLES = ['lcs_admin', 'state_admin', 'national_admin'] as const;
-
 export const ROLE_HOME: Readonly<Record<Role, string>> = {
-  customer: '/app',
-  worker: '/w',
-  lcs_admin: '/admin',
-  state_admin: '/admin',
-  national_admin: '/admin',
-  institution_admin: '/org',
+  user: '/user',
+  worker: '/worker',
+  corporate: '/corporate',
 };
 
 export interface ProtectedArea {
@@ -24,10 +19,10 @@ export interface ProtectedArea {
 }
 
 export const PROTECTED_AREAS: readonly ProtectedArea[] = [
-  { prefix: '/app', roles: ['customer'] },
-  { prefix: '/w', roles: ['worker'] },
-  { prefix: '/admin', roles: ADMIN_ROLES },
-  { prefix: '/org', roles: ['institution_admin'] },
+  { prefix: '/user', roles: ['user'] },
+  { prefix: '/worker', roles: ['worker'] },
+  { prefix: '/corporate', roles: ['corporate'] },
+  { prefix: '/app', roles: ROLES },
 ];
 
 /** The protected area a path belongs to (`/app` and `/app/...`, not `/apple`). */

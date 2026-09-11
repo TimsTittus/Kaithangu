@@ -1,11 +1,12 @@
 'use client';
 
-import { Briefcase, Check, Landmark, Send, User } from 'lucide-react';
+import { Briefcase, Landmark, Send, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
 import { messageFor, postJson, type Messages } from '@/components/api';
 import { AudioButton } from '@/components/AudioButton';
 import { errorTextClass, mutedTextClass, primaryButtonClass } from '@/components/ui';
+import type { Role } from '@/lib/core/context';
 
 interface Labels {
   phone: string;
@@ -14,38 +15,30 @@ interface Labels {
   sending: string;
 }
 
-interface DemoAccount {
-  id: 'customer' | 'worker' | 'admin';
-  title: string;
+interface AccountProfile {
+  id: Role;
   badge: string;
-  phone: string;
   description: string;
   icon: typeof User;
 }
 
-const DEMO_ACCOUNTS: readonly DemoAccount[] = [
+const ACCOUNT_PROFILES: readonly AccountProfile[] = [
   {
-    id: 'customer',
-    title: 'User Requesting Services',
-    badge: 'Customer',
-    phone: '9000000001',
+    id: 'user',
+    badge: 'User',
     description: 'Book certified household & emergency cooperative services',
     icon: User,
   },
   {
     id: 'worker',
-    title: 'Gig Worker',
     badge: 'Worker',
-    phone: '9000100000',
     description: 'Accept jobs, view welfare allocations & 30-day payouts',
     icon: Briefcase,
   },
   {
-    id: 'admin',
-    title: 'Corporation & Society',
-    badge: 'Corporation',
-    phone: '9000000010',
-    description: 'Labour Cooperative Society operations, dispatch & reports',
+    id: 'corporate',
+    badge: 'Corporate',
+    description: 'Welfare fund, enrolments, worker roster & society operations',
     icon: Landmark,
   },
 ];
@@ -61,18 +54,23 @@ export function LoginForm({
 }) {
   const router = useRouter();
   const [digits, setDigits] = useState('');
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  function selectProfile(account: DemoAccount) {
-    setSelectedRole(account.id);
-    setDigits(account.phone);
+  const selectedProfile = ACCOUNT_PROFILES.find((profile) => profile.id === selectedRole) ?? null;
+
+  function selectProfile(profile: AccountProfile) {
+    setSelectedRole(profile.id);
     setError(null);
   }
 
   async function submit(event: FormEvent) {
     event.preventDefault();
+    if (selectedRole === null) {
+      setError('Choose an account profile first.');
+      return;
+    }
     if (!/^[6-9]\d{9}$/.test(digits)) {
       setError(messageFor(messages, 'error.INVALID_PHONE'));
       return;
@@ -87,65 +85,56 @@ export function LoginForm({
       setError(messageFor(messages, result.messageKey));
       return;
     }
-    const params = new URLSearchParams({ phone: digits });
+    const params = new URLSearchParams({ phone: digits, role: selectedRole });
     if (next) params.set('next', next);
     router.push(`/login/verify?${params.toString()}`);
   }
 
   return (
-    <form onSubmit={(event) => void submit(event)} className="flex flex-col gap-5" noValidate>
-      {/* 3 Account Profiles Switcher Section */}
-      <section aria-label="Select Account Profile" className="flex flex-col gap-2.5">
+    <form
+      onSubmit={(event) => void submit(event)}
+      className="flex min-h-0 flex-col gap-5"
+      noValidate
+    >
+      <section aria-label="Select Account Profile" className="flex shrink-0 flex-col gap-2">
         <span className="text-sm font-semibold tracking-tight text-neutral-800">
           Choose an Account Profile:
         </span>
-        <div className="grid grid-cols-1 gap-2.5">
-          {DEMO_ACCOUNTS.map((acc) => {
-            const Icon = acc.icon;
-            const isSelected = selectedRole === acc.id || digits === acc.phone;
+        <div className="grid grid-cols-3 gap-2">
+          {ACCOUNT_PROFILES.map((profile) => {
+            const Icon = profile.icon;
+            const isSelected = selectedRole === profile.id;
             return (
               <button
-                key={acc.id}
+                key={profile.id}
                 type="button"
-                onClick={() => selectProfile(acc)}
-                className={`flex items-start gap-3 rounded-2xl border-2 p-3 text-left transition-all ${
+                onClick={() => selectProfile(profile)}
+                className={`flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-2xl border-2 px-1.5 py-2 text-center transition-all ${
                   isSelected
                     ? 'border-emerald-600 bg-emerald-50/70 shadow-sm'
                     : 'border-neutral-200 bg-white hover:border-emerald-300 hover:bg-neutral-50/50'
                 }`}
               >
                 <div
-                  className={`flex size-11 shrink-0 items-center justify-center rounded-2xl shadow-xs ${
+                  className={`flex size-9 items-center justify-center rounded-xl ${
                     isSelected ? 'bg-emerald-600 text-white' : 'bg-emerald-100/70 text-emerald-800'
                   }`}
                 >
-                  <Icon className="size-5" />
+                  <Icon className="size-4" />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <div className="flex items-center justify-between gap-1">
-                    <span className="text-base font-bold text-neutral-900">{acc.title}</span>
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
-                      {acc.badge}
-                    </span>
-                  </div>
-                  <span className="text-xs text-neutral-600">{acc.description}</span>
-                  <span className="mt-0.5 text-xs font-mono font-semibold text-emerald-700">
-                    +91 {acc.phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3')}
-                  </span>
-                </div>
-                {isSelected && (
-                  <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white">
-                    <Check className="size-3 stroke-[3]" />
-                  </div>
-                )}
+                <span className="w-full truncate text-xs font-bold text-neutral-900">
+                  {profile.badge}
+                </span>
               </button>
             );
           })}
         </div>
+        {selectedProfile && (
+          <p className="text-xs leading-snug text-neutral-600">{selectedProfile.description}</p>
+        )}
       </section>
 
-      {/* Phone Number Input */}
-      <div className="flex flex-col gap-2 border-t border-neutral-200 pt-3">
+      <div className="flex shrink-0 flex-col gap-2 border-t border-neutral-200 pt-3">
         <div className="flex items-center justify-between gap-3">
           <label htmlFor="phone" className="text-base font-semibold text-neutral-900">
             {labels.phone}
@@ -165,13 +154,10 @@ export function LoginForm({
             maxLength={10}
             value={digits}
             onChange={(event) => {
-              const val = event.target.value.replace(/\D/g, '').slice(0, 10);
-              setDigits(val);
-              setSelectedRole(null);
+              setDigits(event.target.value.replace(/\D/g, '').slice(0, 10));
             }}
             aria-describedby="phone-hint"
             aria-invalid={error !== null}
-            placeholder="9000000001"
             className="w-full bg-transparent px-3 text-xl tracking-widest text-neutral-900 outline-none"
             data-testid="phone-input"
           />
@@ -187,7 +173,7 @@ export function LoginForm({
         </p>
       )}
 
-      <div className="flex items-center gap-3 pt-1">
+      <div className="flex shrink-0 items-center gap-3 pt-1">
         <button
           type="submit"
           className={primaryButtonClass}

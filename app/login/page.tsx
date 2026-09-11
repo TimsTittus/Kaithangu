@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { pageClass } from '@/components/ui';
 import { getSession } from '@/server/auth/context';
 import { LOCALE_COOKIE, loginPath, ROLE_HOME, safeNext } from '@/server/auth/routes';
 import { LoginForm } from './LoginForm';
@@ -21,8 +20,8 @@ export default async function LoginPage({ searchParams }: PageProps<'/login'>) {
 
   const t = await getTranslations('auth');
   return (
-    <main className={pageClass}>
-      <h1 className="text-2xl font-semibold">{t('login_title')}</h1>
+    <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-5 overflow-y-auto px-4 py-6">
+      <h1 className="shrink-0 text-2xl font-semibold">{t('login_title')}</h1>
       <LoginForm
         next={next}
         labels={{

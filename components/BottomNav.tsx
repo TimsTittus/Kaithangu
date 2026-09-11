@@ -19,29 +19,29 @@ export function BottomNav({ labels }: BottomNavProps) {
 
   const navItems = [
     {
-      href: '/app',
+      href: '/user',
       label: labels.home,
       icon: Home,
-      isActive: pathname === '/app',
+      isActive: pathname === '/user',
     },
     {
-      href: '/app/bookings',
+      href: '/user/bookings',
       label: labels.bookings,
       icon: CalendarDays,
-      isActive: pathname.startsWith('/app/bookings'),
+      isActive: pathname.startsWith('/user/bookings'),
     },
     {
-      href: '/app/emergency',
+      href: '/user/emergency',
       label: labels.emergency,
       icon: Siren,
-      isActive: pathname.startsWith('/app/emergency'),
+      isActive: pathname.startsWith('/user/emergency'),
       isHighlight: true,
     },
     {
-      href: '/app/analytics',
+      href: '/user/analytics',
       label: labels.analytics,
       icon: BarChart3,
-      isActive: pathname.startsWith('/app/analytics'),
+      isActive: pathname.startsWith('/user/analytics'),
     },
     {
       href: '/language',

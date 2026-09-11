@@ -26,14 +26,14 @@ export default async function CustomerProfilePage() {
       {/* Top Header */}
       <header className="flex items-center justify-between gap-3 pt-1">
         <Link
-          href="/app"
+          href="/user"
           className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:bg-neutral-50 active:scale-95 transition-all"
           aria-label={common('back')}
         >
           <ArrowLeft className="size-5 text-neutral-700" />
         </Link>
 
-        <h1 className="text-xl font-bold tracking-tight text-neutral-900">Customer Profile</h1>
+        <h1 className="text-xl font-bold tracking-tight text-neutral-900">User Profile</h1>
 
         <div className="flex size-11 items-center justify-center rounded-2xl border border-neutral-200/80 bg-emerald-50 text-emerald-800 shadow-sm">
           <User className="size-5" />

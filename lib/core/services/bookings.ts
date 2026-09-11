@@ -518,14 +518,14 @@ export function createBookingService(deps: BookingDeps) {
   return {
     /** Price for a job at a place (AGENTS.md 6.2); nothing is stored. */
     async quote(ctx: RequestContext | null, input: unknown): Promise<QuoteView> {
-      const { actor } = requireRole(ctx, ['customer']);
+      const { actor } = requireRole(ctx, ['user']);
       const request = parseInput(quoteInputSchema, input);
       return (await price(actor, request)).view;
     },
 
     /** What the booking wizard offers for a trade: time slots and saved addresses. */
     async bookingOptions(ctx: RequestContext | null, tradeCode: unknown): Promise<BookingOptions> {
-      const { actor } = requireRole(ctx, ['customer']);
+      const { actor } = requireRole(ctx, ['user']);
       const trade = parseInput(z.enum(TRADE_CODES), tradeCode);
       const inputs = await pricingFor(stateOf(actor), trade);
       const { timezone } = inputs.stateConfig;
@@ -546,7 +546,7 @@ export function createBookingService(deps: BookingDeps) {
       input: unknown,
       idempotencyKey: string | null | undefined,
     ): Promise<CreatedBooking> {
-      const { actor } = requireRole(ctx, ['customer']);
+      const { actor } = requireRole(ctx, ['user']);
       assertCan(actor, 'booking.create', { customerId: actor.userId });
       if (typeof idempotencyKey !== 'string' || !IDEMPOTENCY_KEY_PATTERN.test(idempotencyKey)) {
         throw validationError('idempotency-key', 'invalid_format');

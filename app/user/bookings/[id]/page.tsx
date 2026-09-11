@@ -7,7 +7,7 @@ import { getBookingService } from '@/server/services';
 import { BookingTracker } from './BookingTracker';
 import { TRACKER_KEYS } from './keys';
 
-export default async function BookingPage({ params }: PageProps<'/app/bookings/[id]'>) {
+export default async function BookingPage({ params }: PageProps<'/user/bookings/[id]'>) {
   const { id } = await params;
   let view;
   try {

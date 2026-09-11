@@ -21,7 +21,7 @@ export default async function EmergencyPage() {
       <p className={mutedTextClass}>{booking('emergency_hint')}</p>
       <TradeGrid emergency />
       <div className="flex items-center gap-3">
-        <Link href="/app" className={secondaryButtonClass}>
+        <Link href="/user" className={secondaryButtonClass}>
           <ArrowLeft aria-hidden className="size-5 shrink-0" />
           {common('back')}
         </Link>

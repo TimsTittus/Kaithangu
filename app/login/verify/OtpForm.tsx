@@ -1,5 +1,6 @@
 'use client';
 
+import type { Role } from '@/lib/core/context';
 import { Check, RotateCw } from 'lucide-react';
 import Link from 'next/link';
 import { useRef, useState, type ClipboardEvent, type FormEvent, type KeyboardEvent } from 'react';
@@ -32,12 +33,14 @@ interface VerifyResponse {
 export function OtpForm({
   phone,
   next,
+  role,
   labels,
   messages,
 }: {
   /** 10-digit national number. */
   phone: string;
   next: string;
+  role?: Role;
   labels: Labels;
   messages: Messages;
 }) {
@@ -58,6 +61,7 @@ export function OtpForm({
       phone: `+91${phone}`,
       code,
       ...(next ? { next } : {}),
+      ...(role ? { role } : {}),
     });
     if (result.ok) {
       // Full navigation so the new session cookie and locale apply everywhere.
