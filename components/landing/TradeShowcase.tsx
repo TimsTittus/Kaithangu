@@ -1,8 +1,8 @@
-import { TRADE_CODES } from '@kaithangu/core/trades';
+import { TRADE_ICONS } from '@/components/TradeGrid';
+import { isCertifiedRequired, TRADE_CODES } from '@/lib/core/trades';
 import { BadgeCheck, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { TRADE_ICONS } from '../TradeGrid';
 
 export async function TradeShowcase() {
   const tLanding = await getTranslations('landing');
@@ -35,7 +35,7 @@ export async function TradeShowcase() {
           {TRADE_CODES.map((code) => {
             const Icon = TRADE_ICONS[code];
             const name = tTrade(code);
-            const isCertified = code === 'electrician' || code === 'technician';
+            const isCertified = isCertifiedRequired(code);
 
             return (
               <Link

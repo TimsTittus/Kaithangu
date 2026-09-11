@@ -1,4 +1,4 @@
-import type { Locale } from '@kaithangu/i18n';
+import type { Locale } from '@/lib/i18n';
 import { PhoneCall, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { getLocale, getTranslations } from 'next-intl/server';

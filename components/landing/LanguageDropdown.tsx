@@ -1,9 +1,9 @@
 'use client';
 
-import { SUPPORTED_LOCALES, type Locale } from '@kaithangu/i18n';
-import { Check, ChevronDown, Globe, Languages } from 'lucide-react';
-import { useTransition, useEffect, useRef, useState } from 'react';
 import { chooseLocale } from '@/app/language/actions';
+import { SUPPORTED_LOCALES, type Locale } from '@/lib/i18n';
+import { Check, ChevronDown, Globe, Languages } from 'lucide-react';
+import { useEffect, useRef, useState, useTransition } from 'react';
 
 interface LanguageDropdownProps {
   currentLocale: Locale;
@@ -71,8 +71,9 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
           <span className="font-bold tracking-tight">{currentName}</span>
         </div>
         <ChevronDown
-          className={`size-4 text-neutral-500 transition-transform duration-200 ${isOpen ? 'rotate-180 text-emerald-600' : ''
-            }`}
+          className={`size-4 text-neutral-500 transition-transform duration-200 ${
+            isOpen ? 'rotate-180 text-emerald-600' : ''
+          }`}
           aria-hidden="true"
         />
       </button>
@@ -81,7 +82,7 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
       {isOpen && (
         <div
           role="listbox"
-          className="absolute right-0 mt-2 w-48 origin-top-right rounded-2xl border border-neutral-200 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none z-50 animate-in fade-in zoom-in-95 duration-100 dark:border-neutral-700 dark:bg-[#121c17]"
+          className="absolute right-0 mt-2 w-48 origin-top-right rounded-2xl border border-neutral-200 bg-white p-1.5 shadow-xl ring-1 ring-black/5 focus:outline-none z-50 dark:border-neutral-700 dark:bg-[#121c17]"
         >
           <div className="px-2.5 py-1.5 text-[10px] font-bold tracking-wider uppercase text-neutral-400 border-b border-neutral-100 dark:border-neutral-800 mb-1 flex items-center justify-between">
             <span>Select Language</span>
@@ -100,10 +101,11 @@ export function LanguageDropdown({ currentLocale, localeNames }: LanguageDropdow
                   aria-selected={isSelected}
                   data-testid={`select-language-${locale}`}
                   onClick={() => handleSelect(locale)}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors ${isSelected
-                    ? 'bg-emerald-50 font-bold text-emerald-900 dark:bg-emerald-950/70 dark:text-emerald-200'
-                    : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800/60'
-                    }`}
+                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
+                    isSelected
+                      ? 'bg-emerald-50 font-bold text-emerald-900 dark:bg-emerald-950/70 dark:text-emerald-200'
+                      : 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800/60'
+                  }`}
                 >
                   <span lang={locale}>{name}</span>
                   {isSelected && (

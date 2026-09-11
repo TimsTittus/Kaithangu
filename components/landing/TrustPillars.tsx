@@ -57,11 +57,11 @@ export async function TrustPillars() {
 
         {/* Pillars Cards */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pillars.map((p, i) => {
+          {pillars.map((p) => {
             const Icon = p.icon;
             return (
               <div
-                key={i}
+                key={p.title}
                 className="flex flex-col rounded-3xl border border-emerald-900/10 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#111f18]"
               >
                 <div className={`flex size-12 items-center justify-center rounded-2xl ${p.color}`}>

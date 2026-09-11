@@ -29,8 +29,8 @@ export async function HeroSection() {
             aria-hidden="true"
           />
           <span>{t('kerala_pilot')}</span>
-          <span className="hidden xs:inline-block size-1 rounded-full bg-emerald-500" />
-          <span className="hidden xs:inline-block text-emerald-600 dark:text-emerald-400 font-medium">
+          <span className="hidden sm:inline-block size-1 rounded-full bg-emerald-500" />
+          <span className="hidden sm:inline-block text-emerald-600 dark:text-emerald-400 font-medium">
             {t('hero_badge')}
           </span>
         </div>

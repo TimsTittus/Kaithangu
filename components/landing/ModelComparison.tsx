@@ -73,8 +73,8 @@ export async function ModelComparison() {
             </div>
 
             <ul className="mt-6 flex flex-col gap-5 flex-1 justify-between">
-              {comparisonPoints.map((pt, i) => (
-                <li key={i} className="flex flex-col gap-1 text-sm">
+              {comparisonPoints.map((pt) => (
+                <li key={pt.title} className="flex flex-col gap-1 text-sm">
                   <span className="font-semibold text-neutral-800 dark:text-neutral-200 flex items-center gap-1.5">
                     <span className="size-1.5 rounded-full bg-red-500" />
                     {pt.title}
@@ -109,8 +109,8 @@ export async function ModelComparison() {
             </div>
 
             <ul className="mt-6 flex flex-col gap-5 flex-1 justify-between">
-              {comparisonPoints.map((pt, i) => (
-                <li key={i} className="flex flex-col gap-1 text-sm">
+              {comparisonPoints.map((pt) => (
+                <li key={pt.title} className="flex flex-col gap-1 text-sm">
                   <span className="font-semibold text-emerald-900 dark:text-emerald-200 flex items-center gap-1.5">
                     <CheckCircle2 className="size-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     {pt.title}

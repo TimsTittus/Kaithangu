@@ -1,4 +1,4 @@
-import { TRADE_CODES } from '@kaithangu/core/trades';
+import { TRADE_CODES } from '@/lib/core/trades';
 import { getTranslations } from 'next-intl/server';
 import { GovtFooter } from './GovtFooter';
 import { GovtHeader } from './GovtHeader';
