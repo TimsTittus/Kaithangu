@@ -1,7 +1,0 @@
-{
-  "extends": "@kaithangu/config/tsconfig.base.json",
-  "compilerOptions": {
-    "lib": ["ES2023", "DOM"]
-  },
-  "include": ["src", "drizzle.config.ts"]
-}

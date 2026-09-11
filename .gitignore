@@ -1,32 +1,10 @@
-AGENTS.md
-CLAUDE.md
-
-# dependencies / build output
 node_modules
 .next
 dist
-.turbo
 *.tsbuildinfo
 next-env.d.ts
-
-# env
 .env
-
-# test output
-coverage
-playwright-report
-test-results
-
-# local runtime data (STORAGE_DIR, DEV_INBOX defaults)
 storage/
 .dev-inbox/
-
-# data
 data/raw/*
 !data/raw/.gitkeep
-
-# python
-__pycache__
-.venv
-.pytest_cache
-models/
