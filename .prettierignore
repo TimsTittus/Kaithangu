@@ -1,14 +1,9 @@
 node_modules
 .next
 dist
-.turbo
 coverage
 playwright-report
 bun.lock
 next-env.d.ts
-packages/db/drizzle/meta
-apps/ml
+drizzle/meta
 data
-AGENTS.md
-CLAUDE.md
-PROGRESS.md

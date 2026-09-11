@@ -1,0 +1,350 @@
+{
+  "trade": {
+    "plumber": "Plumber",
+    "electrician": "Electrician",
+    "carpenter": "Carpenter",
+    "painter": "Painter",
+    "domestic_help": "Domestic help",
+    "caregiver": "Caregiver",
+    "driver": "Driver",
+    "gardener": "Gardener",
+    "cleaner": "Cleaner",
+    "technician": "Technician"
+  },
+  "state": {
+    "KL": "Kerala",
+    "TN": "Tamil Nadu"
+  },
+  "welfare": {
+    "pmsby": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+    "pmjjby": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+    "society_welfare_fund": "Society welfare fund"
+  },
+  "festival": {
+    "eid_al_fitr": "Eid al-Fitr",
+    "vishu": "Vishu",
+    "eid_al_adha": "Eid al-Adha",
+    "thiruvonam": "Thiruvonam",
+    "chingam_wedding_season": "Chingam Wedding Season",
+    "christmas": "Christmas"
+  },
+  "error": {
+    "VALIDATION_FAILED": "Some details are missing or incorrect. Please check and try again.",
+    "UNAUTHENTICATED": "Please sign in to continue.",
+    "FORBIDDEN": "You do not have permission to do this.",
+    "NOT_FOUND": "We could not find what you were looking for.",
+    "CONFLICT": "This was changed by someone else. Please refresh and try again.",
+    "INVALID_PHONE": "Please enter a valid 10-digit mobile number.",
+    "INVALID_TRANSITION": "This booking cannot be moved to that step now.",
+    "OTP_INVALID": "That code is not correct. Please try again.",
+    "OTP_LOCKED": "Too many wrong codes. Your society has been informed and will help you.",
+    "INTERNAL": "Something went wrong. Please try again later.",
+    "OTP_EXPIRED": "This code has expired. Please ask for a new code.",
+    "OTP_ATTEMPTS_EXCEEDED": "Too many wrong codes. Please ask for a new code.",
+    "CONSENT_REQUIRED": "Please read and accept the terms before you continue.",
+    "NOT_CONFIGURED": "This service is not available right now. Please try again later.",
+    "PINCODE_UNKNOWN": "We could not find this pincode. Please check it and try again.",
+    "NOT_SERVICEABLE": "Sorry, booking is not available for this area or service yet.",
+    "PRICE_CHANGED": "The price has changed. Please check the new price and confirm again.",
+    "PAYLOAD_TOO_LARGE": "The recording is too long. Please speak for less than 30 seconds.",
+    "UNSUPPORTED_MEDIA": "This recording format is not supported. Please type instead.",
+    "OFFER_UNAVAILABLE": "This offer has expired or has already been accepted."
+  },
+  "pricing": {
+    "wage": "Worker's wage",
+    "emergency_surcharge": "Emergency charge (goes to the worker)",
+    "welfare": "Worker welfare contribution",
+    "platform_fee": "Platform fee",
+    "gst": "GST on platform fee"
+  },
+  "matching": {
+    "why": {
+      "proximity": "Nearest available worker ({distanceKm} km away)",
+      "skill": "Skill level {skillLevel} of 3 for this job",
+      "rating": "Well rated by customers ({rating} of 5)",
+      "fairness": "Has had fewer jobs recently, so gets a fair chance"
+    }
+  },
+  "common": {
+    "app_name": "Kaithangu",
+    "loading": "Loading…",
+    "offline": "You are offline. Please check your connection.",
+    "error_title": "Something went wrong",
+    "retry": "Try again",
+    "play_audio": "Listen",
+    "logout": "Sign out",
+    "empty": "Nothing here yet.",
+    "not_found": "Page not found.",
+    "go_start": "Go to the start page",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close"
+  },
+  "language": {
+    "title": "Choose your language",
+    "continue": "Continue",
+    "name": {
+      "ml": "മലയാളം",
+      "en": "English",
+      "hi": "हिन्दी",
+      "ta": "தமிழ்"
+    }
+  },
+  "auth": {
+    "login_title": "Sign in",
+    "phone_label": "Mobile number",
+    "phone_hint": "Enter your 10-digit mobile number. We will send you a code by SMS.",
+    "send_code": "Send code",
+    "sending": "Sending…",
+    "verify_title": "Enter the code",
+    "verify_hint": "We sent a 6-digit code to {phone}.",
+    "digit_label": "Digit {n} of 6",
+    "verify": "Verify",
+    "verifying": "Checking…",
+    "resend": "Send a new code",
+    "resent": "A new code has been sent.",
+    "change_number": "Change number"
+  },
+  "consent": {
+    "version": "2026-09-v1",
+    "title": "Before you start",
+    "intro": "Kaithangu connects you with workers from Labour Cooperative Societies. Please read these points.",
+    "point_phone": "We use your mobile number to sign you in and to send you updates about your jobs.",
+    "point_sharing": "When you book a job, the worker and their society see your name, address and job details.",
+    "point_payment": "The price shows the worker's full wage, a welfare contribution for the worker, and a platform fee.",
+    "point_rights": "You can ask your society to correct or delete your details.",
+    "accept": "I agree"
+  },
+  "home": {
+    "customer_title": "Welcome",
+    "customer_body": "Book trusted workers from your local cooperative.",
+    "worker_title": "Welcome, worker",
+    "worker_body": "Your job offers will appear here.",
+    "admin_title": "Administration",
+    "admin_body": "Workers, bookings and reports for your area will appear here.",
+    "org_title": "Institution",
+    "org_body": "Bookings and invoices for your institution will appear here.",
+    "digital_services": "Digital Cooperative Services",
+    "total_balance": "Total Balance",
+    "currency_inr": "INR",
+    "quick_overview": "Quick Overview",
+    "this_month": "This Month",
+    "services_count": "Services",
+    "expenses_count": "Expenses",
+    "active_count": "Active",
+    "welfare_saved": "Welfare",
+    "spending_analysis": "Spending Analysis",
+    "action_book": "Book",
+    "action_emergency": "Emergency",
+    "action_history": "Bookings",
+    "action_voice": "Voice",
+    "action_more": "More",
+    "greeting_morning": "Good Morning",
+    "greeting_afternoon": "Good Afternoon",
+    "greeting_evening": "Good Evening",
+    "coop_card": "Cooperative Card"
+  },
+  "forbidden": {
+    "title": "Not allowed",
+    "body": "This page is not available for your account.",
+    "go_home": "Go to my home page"
+  },
+  "sms": {
+    "login_otp": "{code} is your Kaithangu sign-in code. It is valid for 5 minutes. Do not share it with anyone.",
+    "job_offer": "New job offer: {trade}. Open the Kaithangu app to accept.",
+    "job_otps": "Your Kaithangu job codes: Start OTP is {startOtp}, Completion OTP is {completeOtp}. Share them with your worker when they arrive and when the work is finished.",
+    "booking_unassigned": "A {trade} booking could not be assigned automatically. Please check the Kaithangu admin portal."
+  },
+  "notification": {
+    "job_offer": "New job offer: {trade}",
+    "booking_unassigned": "Unassigned booking: {trade}",
+    "offer_taken": "The {trade} job was accepted by another worker.",
+    "otp_locked": "OTP attempts exceeded for a {trade} job. Society assistance required."
+  },
+  "trades": {
+    "chips": {
+      "plumber": {
+        "leak": "Leaking tap or pipe",
+        "blocked": "Blocked drain or toilet",
+        "install": "Fit a new tap or tank",
+        "pump": "Water pump problem"
+      },
+      "electrician": {
+        "no_power": "No power in a room",
+        "switch": "Switch or socket not working",
+        "fan": "Fan or light fitting",
+        "wiring": "New wiring point"
+      },
+      "carpenter": {
+        "door": "Door or window repair",
+        "furniture": "Furniture repair",
+        "lock": "Fix or change a lock",
+        "shelf": "Put up a shelf"
+      },
+      "painter": {
+        "room": "Paint a room",
+        "touchup": "Touch-up or patch work",
+        "outside": "Outside wall painting",
+        "damp": "Damp or peeling paint"
+      },
+      "domestic_help": {
+        "cleaning": "House cleaning",
+        "cooking": "Help with cooking",
+        "laundry": "Washing and ironing",
+        "dishes": "Washing dishes"
+      },
+      "caregiver": {
+        "elder": "Care for an elderly person",
+        "patient": "Care after a hospital stay",
+        "child": "Child care",
+        "night": "Night-time care"
+      },
+      "driver": {
+        "local": "Local trip",
+        "hospital": "Drive to hospital",
+        "outstation": "Out-of-town trip",
+        "daily": "Daily driver"
+      },
+      "gardener": {
+        "grass": "Cut the grass",
+        "trim": "Trim plants and hedges",
+        "planting": "Planting",
+        "clearing": "Clear the garden"
+      },
+      "cleaner": {
+        "deep": "Deep cleaning",
+        "bathroom": "Bathroom cleaning",
+        "kitchen": "Kitchen cleaning",
+        "tank": "Water tank cleaning"
+      },
+      "technician": {
+        "ac": "AC not cooling",
+        "fridge": "Fridge repair",
+        "washing_machine": "Washing machine repair",
+        "tv": "TV or appliance repair"
+      }
+    }
+  },
+  "booking": {
+    "choose_trade": "What help do you need?",
+    "emergency": "Emergency",
+    "emergency_title": "Emergency: choose the help you need",
+    "emergency_hint": "The nearest available worker is asked first.",
+    "my_bookings": "My bookings",
+    "title": "Book: {trade}",
+    "step": "Step {n} of {total}",
+    "problem_title": "What is the problem?",
+    "problem_label": "Describe the problem",
+    "problem_placeholder": "For example: the kitchen tap is leaking",
+    "problem_required": "Please describe the problem or choose one below.",
+    "quick_picks": "Common problems",
+    "mic_start": "Speak",
+    "mic_stop": "Stop",
+    "mic_listening": "Listening… speak now",
+    "mic_processing": "Understanding what you said…",
+    "mic_failed": "Could not understand the recording. Please type instead.",
+    "mic_denied": "The microphone is not allowed. Please type instead.",
+    "location_title": "Where is the work?",
+    "use_location": "Use my location",
+    "locating": "Finding your location…",
+    "location_failed": "Could not find your location. Please enter your pincode.",
+    "location_found": "Location found. Move the pin to your door if needed.",
+    "saved_addresses": "Saved addresses",
+    "pincode_label": "Pincode",
+    "pincode_hint": "6-digit pincode",
+    "pincode_invalid": "Please enter a valid 6-digit pincode.",
+    "landmark_label": "House name, street or landmark",
+    "landmark_required": "Please enter your house name, street or a landmark.",
+    "location_required": "Please use your location or enter your pincode.",
+    "map_label": "Map. Drag the pin to your door.",
+    "map_unavailable": "The map could not load. Your pincode will be used.",
+    "when_title": "When do you need the worker?",
+    "when_now": "Now",
+    "when_now_hint": "A worker is asked as soon as possible.",
+    "when_emergency": "Emergency",
+    "when_emergency_hint": "Fastest help. An emergency charge goes to the worker.",
+    "when_slot": "Pick a time",
+    "when_slot_hint": "Choose a day and a 2-hour time.",
+    "slot_day": "Day",
+    "slot_time": "Time",
+    "slot_required": "Please choose a day and a time.",
+    "no_slots": "No times are available in the next 7 days.",
+    "quote_title": "Price",
+    "quote_loading": "Working out the price…",
+    "quote_minutes": "Price for {minutes} minutes of work",
+    "quote_welfare_note": "Goes to the worker welfare fund.",
+    "quote_total": "Total to pay",
+    "quote_total_audio": "Total to pay: {amount}",
+    "quote_placeholder_note": "These are sample rates for testing. They are not final.",
+    "quote_retry": "Get the price again",
+    "confirm": "Confirm booking",
+    "confirming": "Booking…",
+    "tracking_title": "Your booking",
+    "timeline": "Progress",
+    "live_hint": "This page updates by itself.",
+    "worker_title": "Your worker",
+    "verified_by": "Verified by {society}",
+    "verification_code": "Worker check code",
+    "verification_hint": "The worker's phone shows the same code.",
+    "rating": "Rating {rating} of 5 ({count})",
+    "new_worker": "New worker",
+    "start_otp": "Start code",
+    "complete_otp": "Finish code",
+    "otp_hint": "Tell the code to the worker only when they are with you.",
+    "cancel": "Cancel booking",
+    "cancel_confirm": "Do you want to cancel this booking?",
+    "cancel_yes": "Yes, cancel",
+    "cancel_no": "No, keep it",
+    "cancelling": "Cancelling…",
+    "details": "Details",
+    "problem": "Problem",
+    "address": "Address",
+    "when": "When",
+    "asap": "As soon as possible",
+    "total": "Total",
+    "emergency_badge": "Emergency",
+    "list_title": "My bookings",
+    "list_empty": "You have no bookings yet.",
+    "book_first": "Book a worker",
+    "home": "Home",
+    "account_overview": "Account Overview",
+    "current_account": "Cooperative Services Account",
+    "available_balance": "Available Balance",
+    "total_services": "Total Services",
+    "transaction_history": "Transaction History",
+    "see_all": "See All",
+    "add_service": "New Booking",
+    "invoices": "Invoices"
+  },
+  "status": {
+    "requested": "Booking received",
+    "matching": "Finding a worker",
+    "offered": "Asking a worker",
+    "accepted": "Worker assigned",
+    "en_route": "Worker on the way",
+    "in_progress": "Work in progress",
+    "completed": "Work completed",
+    "unassigned": "No worker found yet. Your society will help.",
+    "cancelled": "Cancelled",
+    "disputed": "Complaint raised",
+    "resolved": "Complaint resolved"
+  },
+  "voice": {
+    "welcome": "Welcome to Kaithangu.",
+    "confirm_booking": "Press 1 to confirm your booking. Press 2 to go back."
+  },
+  "nav": {
+    "home": "Home",
+    "bookings": "Bookings",
+    "emergency": "Emergency",
+    "analytics": "Analytics",
+    "profile": "Profile"
+  },
+  "analytics": {
+    "title": "Spending Analytics",
+    "total_expenses": "Total Expenses",
+    "vs_last_month": "vs Last Month",
+    "top_categories": "Top Categories",
+    "see_all": "See All"
+  }
+}
