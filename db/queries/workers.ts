@@ -13,7 +13,7 @@ import type {
 } from '@/lib/core';
 import { and, asc, desc, eq, exists, inArray, sql, type SQL } from 'drizzle-orm';
 import type { Database } from '..';
-import { societies, users, workers, workerSkills } from '../schema';
+import { societies, worker, workerSkills } from '../schema';
 
 /** The SQL condition for a scope. Kinds that never apply to workers match nothing. */
 export function workerScopeCondition(scope: ScopeFilter): SQL | undefined {
@@ -23,10 +23,9 @@ export function workerScopeCondition(scope: ScopeFilter): SQL | undefined {
     case 'state':
       return eq(societies.stateCode, scope.stateCode);
     case 'society':
-      return eq(workers.societyId, scope.societyId);
+      return eq(worker.societyId, scope.societyId);
     case 'own_worker':
-      return eq(workers.userId, scope.userId);
-    case 'institution':
+      return eq(worker.id, scope.userId);
     case 'own_customer':
       return sql`false`;
   }
@@ -35,19 +34,18 @@ export function workerScopeCondition(scope: ScopeFilter): SQL | undefined {
 function selectWorkers(db: Database) {
   return db
     .select({
-      id: workers.userId,
-      name: users.name,
-      phone: users.phone,
-      status: workers.status,
-      societyId: workers.societyId,
+      id: worker.id,
+      name: worker.name,
+      phone: worker.phone,
+      status: worker.status,
+      societyId: worker.societyId,
       stateCode: societies.stateCode,
-      available: workers.available,
-      hasSmartphone: workers.hasSmartphone,
-      ratingCount: workers.ratingCount,
+      available: worker.available,
+      hasSmartphone: worker.hasSmartphone,
+      ratingCount: worker.ratingCount,
     })
-    .from(workers)
-    .innerJoin(users, eq(users.id, workers.userId))
-    .innerJoin(societies, eq(societies.id, workers.societyId));
+    .from(worker)
+    .leftJoin(societies, eq(societies.id, worker.societyId));
 }
 
 type WorkerRow = Omit<WorkerSummary, 'skills'>;
@@ -83,12 +81,12 @@ export function createWorkerRepo(db: Database): WorkerRepo {
   return {
     async list(scope: ScopeFilter, filters: WorkerListFilters) {
       const conditions: (SQL | undefined)[] = [workerScopeCondition(scope)];
-      if (filters.status !== undefined) conditions.push(eq(workers.status, filters.status));
+      if (filters.status !== undefined) conditions.push(eq(worker.status, filters.status));
       if (filters.societyId !== undefined) {
-        conditions.push(eq(workers.societyId, filters.societyId));
+        conditions.push(eq(worker.societyId, filters.societyId));
       }
       if (filters.available !== undefined) {
-        conditions.push(eq(workers.available, filters.available));
+        conditions.push(eq(worker.available, filters.available));
       }
       if (filters.tradeCode !== undefined) {
         conditions.push(
@@ -98,7 +96,7 @@ export function createWorkerRepo(db: Database): WorkerRepo {
               .from(workerSkills)
               .where(
                 and(
-                  eq(workerSkills.workerId, workers.userId),
+                  eq(workerSkills.workerId, worker.id),
                   eq(workerSkills.tradeCode, filters.tradeCode),
                 ),
               ),
@@ -107,7 +105,7 @@ export function createWorkerRepo(db: Database): WorkerRepo {
       }
       const rows = await selectWorkers(db)
         .where(and(...conditions))
-        .orderBy(desc(workers.createdAt), asc(workers.userId))
+        .orderBy(desc(worker.createdAt), asc(worker.id))
         .limit(filters.limit)
         .offset(filters.offset);
       return withSkills(db, rows);
@@ -115,10 +113,10 @@ export function createWorkerRepo(db: Database): WorkerRepo {
 
     async get(workerId: string, scope: ScopeFilter) {
       const rows = await selectWorkers(db)
-        .where(and(eq(workers.userId, workerId), workerScopeCondition(scope)))
+        .where(and(eq(worker.id, workerId), workerScopeCondition(scope)))
         .limit(1);
-      const [worker] = await withSkills(db, rows);
-      return worker ?? null;
+      const [found] = await withSkills(db, rows);
+      return found ?? null;
     },
   };
 }

@@ -19,7 +19,6 @@ export const GET = handle(async (request, requestId) => {
     locale: ctx.locale,
     stateCode: actor.stateCode ?? null,
     societyId: actor.societyId ?? null,
-    institutionId: actor.institutionId ?? null,
     consent: {
       version: currentConsentVersion(),
       platformTerms: await getConsentService().hasAcceptedTerms(ctx),

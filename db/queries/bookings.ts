@@ -20,8 +20,7 @@ import {
   bookings,
   idempotencyKeys,
   societies,
-  users,
-  workers,
+  worker as workerTable,
 } from '../schema';
 
 type Transaction = Parameters<Parameters<Database['transaction']>[0]>[0];
@@ -39,8 +38,6 @@ export function bookingScopeCondition(scope: ScopeFilter): SQL | undefined {
       return eq(bookings.stateCode, scope.stateCode);
     case 'society':
       return eq(bookings.societyId, scope.societyId);
-    case 'institution':
-      return eq(bookings.institutionId, scope.institutionId);
     case 'own_customer':
       return eq(bookings.customerId, scope.userId);
     case 'own_worker':
@@ -98,12 +95,13 @@ export function createBookingRepo(db: Database): BookingRepo {
 
         const [booking] = await tx
           .insert(bookings)
-          .values({ ...draft, source: 'pwa', status: 'requested' })
+          .values({ ...draft, status: 'requested' })
           .returning({ id: bookings.id, status: bookings.status });
         if (booking === undefined) throw new Error('booking insert returned no row');
         await tx.insert(bookingEvents).values({
           bookingId: booking.id,
-          actorUserId: draft.customerId,
+          actorRole: 'user',
+          actorId: draft.customerId,
           fromStatus: null,
           toStatus: 'requested',
           meta: { source: 'pwa' },
@@ -141,7 +139,6 @@ export function createBookingRepo(db: Database): BookingRepo {
         .select({
           id: bookings.id,
           customerId: bookings.customerId,
-          institutionId: bookings.institutionId,
           stateCode: bookings.stateCode,
           societyId: bookings.societyId,
           workerId: bookings.workerId,
@@ -179,17 +176,16 @@ export function createBookingRepo(db: Database): BookingRepo {
       if (row.workerId !== null) {
         const [found] = await db
           .select({
-            id: workers.userId,
-            name: users.name,
+            id: workerTable.id,
+            name: workerTable.name,
             societyName: societies.name,
-            ratingSum: workers.ratingSum,
-            ratingCount: workers.ratingCount,
-            qrKeyVersion: workers.qrKeyVersion,
+            ratingSum: workerTable.ratingSum,
+            ratingCount: workerTable.ratingCount,
+            qrKeyVersion: workerTable.qrKeyVersion,
           })
-          .from(workers)
-          .innerJoin(users, eq(users.id, workers.userId))
-          .innerJoin(societies, eq(societies.id, workers.societyId))
-          .where(eq(workers.userId, row.workerId))
+          .from(workerTable)
+          .innerJoin(societies, eq(societies.id, workerTable.societyId))
+          .where(eq(workerTable.id, row.workerId))
           .limit(1);
         worker = found ?? null;
       }
@@ -222,7 +218,7 @@ export function createBookingRepo(db: Database): BookingRepo {
       return rows.map((row) => ({ ...row, tradeCode: row.tradeCode as TradeCode }));
     },
 
-    transition({ bookingId, from, to, actorUserId, meta, cancelledReason }) {
+    transition({ bookingId, from, to, actorRole, actorId, meta, cancelledReason }) {
       return db.transaction(async (tx) => {
         const patch: { status: BookingStatus; cancelledReason?: string | null } = { status: to };
         if (to === 'cancelled') patch.cancelledReason = cancelledReason;
@@ -234,7 +230,8 @@ export function createBookingRepo(db: Database): BookingRepo {
         if (moved.length === 0) return false;
         await tx.insert(bookingEvents).values({
           bookingId,
-          actorUserId,
+          actorRole,
+          actorId,
           fromStatus: from,
           toStatus: to,
           meta,
@@ -247,7 +244,6 @@ export function createBookingRepo(db: Database): BookingRepo {
       return db
         .select({
           id: addresses.id,
-          label: addresses.label,
           addressText: addresses.addressText,
           pincode: addresses.pincode,
           location: addresses.location,

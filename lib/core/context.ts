@@ -16,7 +16,6 @@ export interface UserActor {
   role: Role;
   societyId?: string;
   stateCode?: string;
-  institutionId?: string;
 }
 
 export interface SystemActor {

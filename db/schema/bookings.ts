@@ -1,22 +1,11 @@
 import { sql } from 'drizzle-orm';
-import {
-  bigserial,
-  check,
-  index,
-  integer,
-  jsonb,
-  pgTable,
-  smallint,
-  text,
-  uuid,
-} from 'drizzle-orm/pg-core';
+import { bigserial, check, index, integer, jsonb, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { createdAt, paise, point, tstz } from './columns';
-import { bookingSource, bookingStatus, urgency } from './enums';
-import { institutions } from './institutions';
+import { bookingStatus, urgency, userRole } from './enums';
 import { societies } from './org';
 import { states, trades } from './region';
-import { users } from './users';
-import { workers } from './workers';
+import { user } from './user';
+import { worker } from './worker';
 
 type Json = Record<string, unknown>;
 
@@ -26,19 +15,16 @@ export const bookings = pgTable(
     id: uuid('id').primaryKey().defaultRandom(),
     customerId: uuid('customer_id')
       .notNull()
-      .references(() => users.id),
-    institutionId: uuid('institution_id').references(() => institutions.id),
+      .references(() => user.id),
     stateCode: text('state_code')
       .notNull()
       .references(() => states.code),
     societyId: uuid('society_id').references(() => societies.id),
-    workerId: uuid('worker_id').references(() => workers.userId),
+    workerId: uuid('worker_id').references(() => worker.id),
     tradeCode: text('trade_code')
       .notNull()
       .references(() => trades.code),
     problemText: text('problem_text').notNull(),
-    problemSummaryEn: text('problem_summary_en'),
-    source: bookingSource('source').notNull(),
     urgency: urgency('urgency').notNull().default('normal'),
     scheduledFor: tstz('scheduled_for'),
     estimatedMinutes: integer('estimated_minutes').notNull(),
@@ -53,20 +39,8 @@ export const bookings = pgTable(
     platformFeePaise: paise('platform_fee_paise').notNull(),
     gstPaise: paise('gst_paise').notNull().default(0),
     totalPaise: paise('total_paise').notNull(),
-    startOtpHash: text('start_otp_hash'),
-    completeOtpHash: text('complete_otp_hash'),
-    // AGENTS.md 6.6: max 5 attempts per OTP, then lock + alert.
-    startOtpAttempts: smallint('start_otp_attempts').notNull().default(0),
-    completeOtpAttempts: smallint('complete_otp_attempts').notNull().default(0),
-    otpLockedAt: tstz('otp_locked_at'),
-    startedAt: tstz('started_at'),
-    completedAt: tstz('completed_at'),
     cancelledReason: text('cancelled_reason'),
     createdAt: createdAt(),
-    updatedAt: tstz('updated_at')
-      .notNull()
-      .defaultNow()
-      .$onUpdate(() => new Date()),
   },
   (t) => [
     index('bookings_status_idx').on(t.status),
@@ -85,10 +59,6 @@ export const bookings = pgTable(
       'bookings_total_is_sum',
       sql`${t.totalPaise} = ${t.wagePaise} + ${t.welfarePaise} + ${t.platformFeePaise} + ${t.gstPaise}`,
     ),
-    check(
-      'bookings_otp_attempts_range',
-      sql`${t.startOtpAttempts} BETWEEN 0 AND 5 AND ${t.completeOtpAttempts} BETWEEN 0 AND 5`,
-    ),
   ],
 );
 
@@ -99,7 +69,8 @@ export const bookingEvents = pgTable(
     bookingId: uuid('booking_id')
       .notNull()
       .references(() => bookings.id),
-    actorUserId: uuid('actor_user_id').references(() => users.id),
+    actorRole: userRole('actor_role'),
+    actorId: uuid('actor_id'),
     actorSystem: text('actor_system'),
     fromStatus: bookingStatus('from_status'),
     toStatus: bookingStatus('to_status').notNull(),
@@ -110,7 +81,7 @@ export const bookingEvents = pgTable(
     index('booking_events_booking_idx').on(t.bookingId, t.at),
     check(
       'booking_events_has_actor',
-      sql`${t.actorUserId} IS NOT NULL OR ${t.actorSystem} IS NOT NULL`,
+      sql`(${t.actorRole} IS NOT NULL AND ${t.actorId} IS NOT NULL) OR ${t.actorSystem} IS NOT NULL`,
     ),
   ],
 );
